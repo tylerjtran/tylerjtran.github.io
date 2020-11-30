@@ -10,4 +10,4 @@ output:
   postcards::jolla
 ---
  
-I'm passionate about using data-informed approaches to creating more livable places. I combine my formal training in environmental sciences and interests in urban planning, demographic change, and data science to create actionable insights with open data. Currently, I work at the Philadelphia District Attorney's Office.
+I'm passionate about using data-informed approaches to create more livable places. I combine my formal training in environmental sciences and interests in urban planning, demographic change, and data science to create actionable insights with open data. Currently, I work at the Philadelphia District Attorney's Office.

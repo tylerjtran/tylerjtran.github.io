@@ -1,5 +1,5 @@
 ---
-title: "Tyler Tran"
+title: "Hi, I'm Tyler"
 image: "Tyler.jpg"
 links:
   - Data Blog: "https://tylerjtran.github.io/data_blog/"

@@ -4,6 +4,7 @@ image: "Tyler.jpg"
 links:
   - Data Blog: "https://tylerjtran.github.io/data_blog/"
   - GitHub: "https://github.com/tylerjtran"
+  - Miniatures: "./miniatures.html"
   - LinkedIn: "https://www.linkedin.com/in/tylerjtran/"
   - Email: "mailto:tylerjtran@gmail.com"
 output:

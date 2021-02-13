@@ -1,0 +1,35 @@
+---
+title: "**Miniatures**"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F)
+```
+
+```{r, include = F}
+# library(magick)
+# 
+# files <- list.files(pattern = "\\.png$")
+# 
+# for (i in 1:length(files)){
+#   img <- image_read(files[i])
+#   img <- image_resize(img, "500x500")
+#   
+#   img_with_border <- image_border(img, "white", "10x10")
+# 
+#   image_write(img_with_border, paste0('border_', files[i]))
+#   print(i)
+# }
+```
+
+
+```{r, out.width="25%", fig.show='hold'}
+
+knitr::include_graphics(c("border_poptarts.png", "border_breakfast.png", "border_donuts.png", "border_fish.png", 
+                          "border_pie.png", "border_supper.png", "border_spaghetti.png", "border_water.png",
+                          "border_ramen.png", "border_hotdogs.png", "border_sushi.png", "border_burger.png",    
+                          "border_cake.png"))
+
+```
+

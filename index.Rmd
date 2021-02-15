@@ -11,4 +11,4 @@ output:
   postcards::jolla
 ---
  
-I'm passionate about using data-informed approaches to create more livable places. I combine my formal training in environmental sciences and interests in urban planning, demographic change, and data science to ask and answer questions and communicate findings. I have experience working in government, non-profits, and academia. Click any of the links below to learn more! 
+I like using data to effect positive change. I'm interested in environmental science, urban planning, demographic change, and anything else that sparks my curiosity. I have experience working in government, non-profits, and academia. Click any of the links below to learn more about me. 

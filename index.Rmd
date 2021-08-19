@@ -2,13 +2,18 @@
 title: "Hi, I'm Tyler"
 image: "Tyler.jpg"
 links:
-  - Data Blog: "https://tylerjtran.github.io/data_blog/"
-  - GitHub: "https://github.com/tylerjtran"
-  - Miniatures: "./miniatures.html"
-  - LinkedIn: "https://www.linkedin.com/in/tylerjtran/"
-  - Email: "mailto:tylerjtran@gmail.com"
+  - label: Data Blog
+    url: "https://tylerjtran.github.io/data_blog/"
+  - label: GitHub
+    url: "https://github.com/tylerjtran"
+  - label: Miniatures
+    url: "./miniatures.html"
+  - label: LinkedIn
+    url: "https://www.linkedin.com/in/tylerjtran/"
+  - label: Email
+    url: "mailto:tylerjtran@gmail.com"
 output:
   postcards::jolla
 ---
  
-I like using data to effect positive change. I'm interested in environmental science, urban planning, demographic change, and anything else that sparks my curiosity. I have experience working in government, non-profits, and academia. Click any of the links below to learn more about me. 
+I like using data to effect positive change. I'm interested in criminal justice reform, ecology, urban planning, demographic change, and anything else that sparks my curiosity. I have experience working in government, non-profits, and academia. Click any of the links below to learn more about me. 

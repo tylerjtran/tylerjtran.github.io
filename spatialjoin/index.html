@@ -814,8 +814,10 @@ function handleCsvFile(file) {
   hideBanner('csv-banner');
   clearResult();
 
-  // Basic pre-validation: wrong extension
-  if (!/\.csv$/i.test(file.name) && file.type !== 'text/csv') {
+  // Basic pre-validation: wrong extension. We trust the filename extension
+  // rather than file.type because browsers report CSV MIME types
+  // inconsistently (text/csv, application/vnd.ms-excel, empty string, etc.)
+  if (!/\.csv$/i.test(file.name)) {
     setStatus('csv-status', '');
     document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> or drag a .csv file here`;
     showBanner('csv-banner', 'error',
@@ -1255,11 +1257,15 @@ function acceptGeo(json, name, statusEl, bannerEl) {
     showBanner(bannerEl, 'info',
       `${skipped.toLocaleString()} non-polygon features were skipped`,
       'This file contains a mix of geometry types. Only polygons are used for the join; points, lines, and others are ignored.');
+  } else if (propKeys.size === 0) {
+    // Polygons loaded, but no attribute data — the join will succeed but
+    // produce no new columns, which is probably not what the user wants.
+    showBanner(bannerEl, 'warn',
+      'These polygons have no attribute data',
+      'The file loaded successfully, but its features don\'t have any properties to append to your CSV. The join will still run — matched rows will be flagged as matched — but no new data columns will be added. If you expected columns like names or IDs, the source file may be missing its attribute data (for shapefiles, this usually means the <code>.dbf</code> is missing or corrupted).');
   } else {
     hideBanner(bannerEl);
   }
-  updateRunState();
-}
   updateRunState();
 }
 

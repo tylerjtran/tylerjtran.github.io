@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 96" width="80" height="96">
+  <!-- Asymmetric map-boundary polygon. Light warm gray. -->
+  <path d="M 12 18 L 62 8 L 72 48 L 20 56 Z"
+        fill="#d9d7d2" />
+
+  <!-- Italic j, drawn as a filled path to match the Spectral aesthetic.
+       The stem has a thick-to-medium taper typical of transitional serifs,
+       a slight italic slant, and a graceful curl at the bottom forming
+       the descender. Control points chosen to read as a serious book-face
+       italic rather than a geometric sans. -->
+  <path d="
+    M 43 30
+    L 40 36
+    C 40 36 38 40 37 44
+    L 30 78
+    C 29 83 27 86 23 87
+    C 19 88 15 87 13 85
+    L 17 81
+    C 18 82 20 82 22 81
+    C 24 80 25 78 26 74
+    L 33 40
+    C 33.5 36.5 33 34 31 34
+    L 28 34
+    L 29 30
+    Z"
+    fill="#111" />
+
+  <!-- Map-point tittle: solid red dot inside the polygon -->
+  <circle cx="40" cy="22" r="5" fill="#b8391f" />
+</svg>

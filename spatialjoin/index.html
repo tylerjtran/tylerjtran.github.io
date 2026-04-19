@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Spatial Join · CSV × GeoJSON</title>
+<title>Spatial Join · Points × Polygons</title>
+<link rel="icon" type="image/svg+xml" href="logo.svg" />
+<link rel="icon" type="image/x-icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="logo_180.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
@@ -332,6 +335,81 @@
     margin-left: 8px;
     vertical-align: middle;
   }
+  /* Checkbox list for properties-to-append. Styled as a bordered grouping
+     to read as a single compound control rather than a loose list. */
+  .props-list {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 4px;
+    max-height: 220px;
+    overflow-y: auto;
+    background: var(--bg);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 0;
+  }
+  .props-list label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    font-size: 13px;
+    color: var(--ink);
+    transition: background 0.1s;
+    user-select: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .props-list label:hover { background: rgba(184, 57, 31, 0.05); }
+  .props-list input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--ink-faint);
+    border-radius: 2px;
+    background: var(--bg-card);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 0.1s;
+  }
+  .props-list input[type="checkbox"]:hover { border-color: var(--ink); }
+  .props-list input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+  .props-list input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 0px;
+    width: 4px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  .props-list-controls {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+  }
+  .props-list-controls a {
+    color: var(--ink-faint);
+    text-decoration: none;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.1s;
+  }
+  .props-list-controls a:hover { color: var(--accent); }
+  .props-list-controls span { color: var(--rule); }
   /* Message banner — a unified component for info / warning / error feedback.
      Sits inline next to the input it relates to. Sized to be noticeable
      without being shouty. */
@@ -452,8 +530,8 @@
     display: none;
     margin-top: 12px;
     padding: 10px 14px;
-    background: rgba(194, 65, 12, 0.06);
-    border-left: 2px solid #c2410c;
+    background: rgba(26, 25, 21, 0.04);
+    border-left: 2px solid var(--ink-faint);
     border-radius: 0 3px 3px 0;
     font-size: 12px;
     line-height: 1.5;
@@ -515,7 +593,7 @@
 <div class="wrap">
   <header>
     <div class="eyebrow">Spatial Join Tool</div>
-    <h1>Join points to <em>polygons</em> in your browser.</h1>
+    <h1>Join <em>points</em> to <em>polygons</em> in your browser.</h1>
     <p class="sub">Upload a CSV with coordinates, pick a set of polygons, and download your CSV with the matched polygon attributes appended. Nothing is uploaded to a server — all processing happens locally in your browser.</p>
   </header>
 
@@ -528,7 +606,7 @@
     <label class="file-drop" id="csv-drop">
       <input type="file" id="csv-file" accept=".csv,text/csv" />
       <div class="file-drop-text" id="csv-drop-text">
-        <strong>Click to upload</strong> or drag a .csv file here
+        <strong>Click to upload</strong> a .csv file
       </div>
     </label>
     <div class="status" id="csv-status"></div>
@@ -587,7 +665,7 @@
       <label class="file-drop" id="geo-drop">
         <input type="file" id="geo-file" accept=".geojson,.json,.zip,application/geo+json,application/json,application/zip" />
         <div class="file-drop-text" id="geo-drop-text">
-          <strong>Click to upload</strong> or drag a .geojson or zipped shapefile here
+          <strong>Click to upload</strong> a .geojson or zipped shapefile
         </div>
       </label>
       <div class="status" id="geo-status"></div>
@@ -604,8 +682,13 @@
 
     <div id="geo-props" style="display: none; margin-top: 20px;">
       <label class="field-label">Properties to append to each row <span class="badge">optional</span></label>
-      <p class="step-hint" style="margin-top: -2px;">Hold ⌘/Ctrl to select multiple. If none selected, all properties will be added.</p>
-      <select id="props-select" multiple size="6" style="height: auto;"></select>
+      <p class="step-hint" style="margin-top: -2px;">If none are checked, all properties will be added.</p>
+      <div id="props-list" class="props-list"></div>
+      <div class="props-list-controls">
+        <a id="props-all">Select all</a>
+        <span>·</span>
+        <a id="props-none">Clear</a>
+      </div>
     </div>
     <div class="banner" id="geo-banner"></div>
   </section>
@@ -673,7 +756,7 @@ const PRESETS = {
     name: 'Philadelphia Neighborhoods',
     url: 'https://raw.githubusercontent.com/tylerjtran/spatial-join-tool/refs/heads/main/philadelphia_neighborhoods.geojson',
     description: 'Philadelphia neighborhood boundaries. Note that neighborhood definitions are informal and may not match how residents define their own neighborhoods.',
-    source: 'Azavea / OpenDataPhilly',
+    source: 'Office of the Philadelphia City Controller',
   },
   'philly-council': {
     name: 'Philadelphia Council Districts',
@@ -819,7 +902,7 @@ function handleCsvFile(file) {
   // inconsistently (text/csv, application/vnd.ms-excel, empty string, etc.)
   if (!/\.csv$/i.test(file.name)) {
     setStatus('csv-status', '');
-    document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> or drag a .csv file here`;
+    document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> a .csv file`;
     showBanner('csv-banner', 'error',
       'That doesn\'t look like a CSV file',
       `Expected a <code>.csv</code> file but got <code>${file.name}</code>. Export your data as CSV (most spreadsheet apps support "Save as CSV") and try again.`);
@@ -830,7 +913,7 @@ function handleCsvFile(file) {
   const MB = 1024 * 1024;
   if (file.size > 100 * MB) {
     setStatus('csv-status', '');
-    document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> or drag a .csv file here`;
+    document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> a .csv file`;
     showBanner('csv-banner', 'error',
       'This file is too large for browser processing',
       `The file is ${(file.size / MB).toFixed(0)} MB. Since everything runs in your browser, files above ~100 MB can cause the tab to become unresponsive. Consider splitting the CSV into smaller chunks, or using a desktop GIS tool for a file this size.`);
@@ -850,7 +933,7 @@ function handleCsvFile(file) {
       // Severe: no columns detected at all
       if (!results.meta.fields || results.meta.fields.length === 0) {
         setStatus('csv-status', '');
-        document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> or drag a .csv file here`;
+        document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> a .csv file`;
         showBanner('csv-banner', 'error',
           'Couldn\'t read columns from this file',
           'The CSV appears to have no header row. Make sure the first row contains column names like <code>latitude</code>, <code>longitude</code>, etc.');
@@ -901,7 +984,7 @@ function handleCsvFile(file) {
     },
     error: (err) => {
       setStatus('csv-status', '');
-      document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> or drag a .csv file here`;
+      document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> a .csv file`;
       showBanner('csv-banner', 'error',
         'Could not read this CSV',
         `Reason: ${err.message || 'unknown'}. The file may be corrupted or use an unusual encoding.`);
@@ -911,7 +994,15 @@ function handleCsvFile(file) {
 
 document.getElementById('lat-col').addEventListener('change', () => { clearResult(); updateRunState(); });
 document.getElementById('lng-col').addEventListener('change', () => { clearResult(); updateRunState(); });
-document.getElementById('props-select').addEventListener('change', clearResult);
+
+document.getElementById('props-all').addEventListener('click', () => {
+  document.querySelectorAll('#props-list input[type="checkbox"]').forEach(cb => cb.checked = true);
+  clearResult();
+});
+document.getElementById('props-none').addEventListener('click', () => {
+  document.querySelectorAll('#props-list input[type="checkbox"]').forEach(cb => cb.checked = false);
+  clearResult();
+});
 
 // ---------- GeoJSON handling ----------
 wireDrop('geo-drop', 'geo-file', handleGeoFile);
@@ -940,7 +1031,7 @@ function handleGeoFile(file) {
       } catch (err) {
         setStatus('geo-status', '');
         document.getElementById('geo-drop-text').innerHTML =
-          `<strong>Click to upload</strong> or drag a .geojson or zipped shapefile here`;
+          `<strong>Click to upload</strong> a .geojson or zipped shapefile`;
         diagnoseShpError(err, 'geo-banner');
       }
     };
@@ -963,7 +1054,7 @@ function handleGeoFile(file) {
         // Looks like HTML or XML
         setStatus('geo-status', '');
         document.getElementById('geo-drop-text').innerHTML =
-          `<strong>Click to upload</strong> or drag a .geojson or zipped shapefile here`;
+          `<strong>Click to upload</strong> a .geojson or zipped shapefile`;
         showBanner('geo-banner', 'error',
           'This doesn\'t look like GeoJSON',
           'The file appears to contain HTML or XML. If this came from a download link, the server may have returned an error page instead of the data. Try downloading the file again from the original source.');
@@ -979,7 +1070,7 @@ function handleGeoFile(file) {
       } catch (err) {
         setStatus('geo-status', '');
         document.getElementById('geo-drop-text').innerHTML =
-          `<strong>Click to upload</strong> or drag a .geojson or zipped shapefile here`;
+          `<strong>Click to upload</strong> a .geojson or zipped shapefile`;
         showBanner('geo-banner', 'error',
           'This file isn\'t valid GeoJSON',
           `The file couldn\'t be parsed as JSON. Technical detail: <code>${escapeHtml(err.message)}</code>`);
@@ -1075,7 +1166,7 @@ function clearLoadedGeo() {
   state.geoName = null;
   state.geoSourceType = null;
   document.getElementById('geo-props').style.display = 'none';
-  document.getElementById('props-select').innerHTML = '';
+  document.getElementById('props-list').innerHTML = '';
   // Clear any "✓ Loaded" status messages from the previous selection
   setStatus('preset-status', '');
   setStatus('geo-status', '');
@@ -1242,9 +1333,23 @@ function acceptGeo(json, name, statusEl, bannerEl) {
     if (f.properties) Object.keys(f.properties).forEach(k => propKeys.add(k));
   });
 
-  const propsSel = document.getElementById('props-select');
-  propsSel.innerHTML = '';
-  [...propKeys].sort().forEach(k => propsSel.add(new Option(k, k)));
+  const propsList = document.getElementById('props-list');
+  propsList.innerHTML = '';
+  [...propKeys].sort().forEach(k => {
+    const label = document.createElement('label');
+    label.title = k;
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.value = k;
+    cb.addEventListener('change', clearResult);
+    const span = document.createElement('span');
+    span.textContent = k;
+    span.style.overflow = 'hidden';
+    span.style.textOverflow = 'ellipsis';
+    label.appendChild(cb);
+    label.appendChild(span);
+    propsList.appendChild(label);
+  });
   document.getElementById('geo-props').style.display = 'block';
 
   const skipped = fc.features.length - polyFeatures.length;
@@ -1341,7 +1446,8 @@ document.getElementById('run-btn').addEventListener('click', runJoin);
 function runJoin() {
   const latCol = document.getElementById('lat-col').value;
   const lngCol = document.getElementById('lng-col').value;
-  const selectedProps = [...document.getElementById('props-select').selectedOptions].map(o => o.value);
+  const selectedProps = [...document.querySelectorAll('#props-list input[type="checkbox"]:checked')]
+    .map(cb => cb.value);
 
   // Determine property set
   const allPropKeys = new Set();
@@ -1645,7 +1751,7 @@ function renderPoints(joinResult) {
       radius: 4,
       color: '#ffffff',
       weight: 1.2,
-      fillColor: '#c2410c',
+      fillColor: '#b08900',
       fillOpacity: 0.85,
     });
     marker.bindTooltip(
@@ -1665,7 +1771,7 @@ function renderPoints(joinResult) {
     legendHtml += `<div class="legend-row"><span class="legend-swatch" style="background:#2d6a4f"></span>Matched (${joinResult.matched.toLocaleString()})</div>`;
   }
   if (joinResult.unmatched > 0) {
-    legendHtml += `<div class="legend-row"><span class="legend-swatch" style="background:#c2410c"></span>Unmatched (${joinResult.unmatched.toLocaleString()})</div>`;
+    legendHtml += `<div class="legend-row"><span class="legend-swatch" style="background:#b08900"></span>Unmatched (${joinResult.unmatched.toLocaleString()})</div>`;
   }
   legendHtml += `<div class="legend-row"><span class="legend-swatch poly"></span>Polygons</div>`;
   legend.innerHTML = legendHtml;

@@ -4,10 +4,10 @@ image: "Tyler.jpg"
 links:
   - label: Data Blog
     url: "https://tylerjtran.github.io/data_blog/"
+  - label: Spatial Join Tool
+    url: "./spatialjoin/index.html"
   - label: GitHub
     url: "https://github.com/tylerjtran"
-  - label: Miniatures
-    url: "./miniatures.html"
   - label: LinkedIn
     url: "https://www.linkedin.com/in/tylerjtran/"
   - label: Email
@@ -16,7 +16,7 @@ output:
   postcards::jolla
 ---
  
-I like using data to effect positive change. I specialize in creating data products that make information more open and accessible, helping people and businesses make clearer decisions. I have experience working in government, non-profits, and academia. Click any of the links below to learn more about me. 
+I like using data to effect positive change. I specialize in creating data products that make information more open and accessible, helping people and businesses make clearer decisions. Click any of the links below to learn more about me. 
 
 
 <!-- Google tag (gtag.js) -->

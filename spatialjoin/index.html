@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Spatial Join · CSV × GeoJSON</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@7.1.0/turf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/shpjs@6.1.0/dist/shp.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --bg-card: #fbf9f4;
+    --ink: #1a1915;
+    --ink-soft: #5a5750;
+    --ink-faint: #8a867c;
+    --rule: #d9d3c4;
+    --accent: #b8391f;
+    --accent-soft: #f4d4c9;
+    --ok: #2d6a4f;
+    --ok-soft: #d4e4d4;
+    --warn: #a04e00;
+    --warn-soft: #f5dcc0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter Tight', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(184,57,31,0.04), transparent 40%),
+      radial-gradient(circle at 85% 85%, rgba(45,106,79,0.04), transparent 40%);
+  }
+  .wrap {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 56px 32px 80px;
+  }
+  header {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 28px;
+    margin-bottom: 40px;
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: 'Spectral', Georgia, serif;
+    font-weight: 500;
+    font-size: 44px;
+    line-height: 1.05;
+    margin: 0 0 12px;
+    letter-spacing: -0.02em;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+  .sub {
+    color: var(--ink-soft);
+    font-size: 16px;
+    max-width: 62ch;
+  }
+  .step {
+    background: var(--bg-card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .step-title {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+  .step-hint {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+  .tabs {
+    display: flex;
+    gap: 2px;
+    background: var(--rule);
+    border-radius: 4px;
+    padding: 2px;
+    margin-bottom: 16px;
+    width: fit-content;
+  }
+  .tab {
+    border: none;
+    background: transparent;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.15s;
+  }
+  .tab.active {
+    background: var(--bg-card);
+    color: var(--ink);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  }
+  .tab:hover:not(.active) { color: var(--ink); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .file-drop {
+    display: block;
+    width: 100%;
+    border: 1.5px dashed var(--rule);
+    border-radius: 4px;
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: var(--bg);
+  }
+  .file-drop:hover, .file-drop.drag {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .file-drop input { display: none; }
+  .file-drop-text {
+    color: var(--ink-soft);
+    font-size: 14px;
+  }
+  .file-drop-text strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  select, input[type="text"] {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+    background: var(--bg);
+    color: var(--ink);
+    transition: border-color 0.15s;
+  }
+  select:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  /* Single-value selects: remove native arrow and draw a custom one with
+     comfortable right-side padding. Multi-selects keep the native chrome. */
+  select:not([multiple]) {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-right: 40px;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%235a5750' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='1,1.5 6,6.5 11,1.5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 11px 7px;
+  }
+  .row {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .row > * { flex: 1; }
+  .row button { flex: 0 0 auto; }
+  button.primary {
+    background: var(--ink);
+    color: var(--bg-card);
+    border: none;
+    padding: 12px 28px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  button.primary:hover:not(:disabled) {
+    background: var(--accent);
+  }
+  button.primary:disabled {
+    background: var(--ink-faint);
+    cursor: not-allowed;
+  }
+  button.secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--rule);
+    padding: 10px 18px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  button.secondary:hover {
+    border-color: var(--ink);
+  }
+  .status {
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .status.ok { color: var(--ok); }
+  .status.err { color: var(--accent); }
+  .run-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .result {
+    margin-top: 24px;
+    padding: 20px 24px;
+    background: var(--ok-soft);
+    border: 1px solid var(--ok);
+    border-radius: 4px;
+    display: none;
+  }
+  .result.show { display: block; }
+  .result.error {
+    background: var(--accent-soft);
+    border-color: var(--accent);
+  }
+  .result.warn {
+    background: var(--warn-soft);
+    border-color: var(--warn);
+  }
+  .result h3 {
+    font-family: 'Spectral', Georgia, serif;
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 8px;
+  }
+  .result p {
+    margin: 0 0 12px;
+    color: var(--ink);
+    font-size: 14px;
+  }
+  .stats {
+    display: flex;
+    gap: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .stats span strong {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14px;
+  }
+  label.field-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .columns-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) {
+    .columns-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 32px; }
+    .wrap { padding: 32px 20px 60px; }
+    .step { padding: 20px; }
+  }
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.8;
+  }
+  footer a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  footer a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  /* Message banner — a unified component for info / warning / error feedback.
+     Sits inline next to the input it relates to. Sized to be noticeable
+     without being shouty. */
+  .banner {
+    display: none;
+    margin-top: 14px;
+    padding: 12px 14px 12px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.5;
+    border-left: 3px solid;
+    background: var(--bg);
+    color: var(--ink);
+  }
+  .banner.show { display: block; }
+  .banner .banner-title {
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .banner .banner-msg { color: var(--ink-soft); }
+  .banner .banner-msg code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: rgba(26, 25, 21, 0.06);
+    padding: 1px 5px;
+    border-radius: 2px;
+    color: var(--ink);
+  }
+  .banner .banner-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .banner .banner-actions button {
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid;
+    transition: all 0.15s;
+  }
+  .banner.info {
+    border-left-color: #2b6cb0;
+    background: rgba(43, 108, 176, 0.05);
+  }
+  .banner.info .banner-actions button {
+    border-color: #2b6cb0;
+    background: transparent;
+    color: #2b6cb0;
+  }
+  .banner.info .banner-actions button:hover { background: rgba(43, 108, 176, 0.1); }
+  .banner.warn {
+    border-left-color: var(--warn);
+    background: rgba(160, 78, 0, 0.05);
+  }
+  .banner.warn .banner-actions button {
+    border-color: var(--warn);
+    background: transparent;
+    color: var(--warn);
+  }
+  .banner.warn .banner-actions button:hover { background: rgba(160, 78, 0, 0.1); }
+  .banner.error {
+    border-left-color: var(--accent);
+    background: rgba(184, 57, 31, 0.06);
+  }
+  .banner.error .banner-actions button {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--bg-card);
+  }
+  .banner.error .banner-actions button:hover { background: var(--ink); border-color: var(--ink); }
+  .preset-info {
+    display: none;
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: var(--bg);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 3px 3px 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .preset-info.show { display: block; }
+  .preset-info .source {
+    display: block;
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  #map-preview {
+    width: 100%;
+    height: 360px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--bg);
+  }
+  /* Leaflet style overrides to match the aesthetic */
+  .leaflet-container {
+    font-family: 'Inter Tight', sans-serif;
+    background: var(--bg);
+  }
+  .map-caption {
+    display: none;
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+  .map-caption.show { display: block; }
+  .unmatched-note {
+    display: none;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(194, 65, 12, 0.06);
+    border-left: 2px solid #c2410c;
+    border-radius: 0 3px 3px 0;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+  .unmatched-note.show { display: block; }
+  .unmatched-note strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .unmatched-note code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: rgba(26, 25, 21, 0.06);
+    padding: 1px 5px;
+    border-radius: 2px;
+    color: var(--ink);
+  }
+  .map-wrapper {
+    position: relative;
+    margin-top: 20px;
+  }
+  .map-legend {
+    position: absolute;
+    bottom: 12px;
+    left: 12px;
+    background: rgba(251, 249, 244, 0.95);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    padding: 8px 12px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 12px;
+    z-index: 500;
+    display: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .map-legend.show { display: block; }
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 3px 0;
+  }
+  .legend-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid #fff;
+    box-shadow: 0 0 0 0.5px rgba(0,0,0,0.25);
+  }
+  .legend-swatch.poly {
+    border-radius: 2px;
+    background: transparent;
+    border: 1.5px solid #b8391f;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Spatial Join Tool</div>
+    <h1>Join points to <em>polygons</em> in your browser.</h1>
+    <p class="sub">Upload a CSV with coordinates, pick a set of polygons, and download your CSV with the matched polygon attributes appended. Nothing is uploaded to a server — all processing happens locally in your browser.</p>
+  </header>
+
+  <!-- STEP 1: CSV -->
+  <section class="step">
+    <div class="step-num">01 · Input</div>
+    <h2 class="step-title">Your CSV with point coordinates</h2>
+    <p class="step-hint">Rows should contain latitude and longitude (in decimal degrees). You'll map the columns after upload.</p>
+
+    <label class="file-drop" id="csv-drop">
+      <input type="file" id="csv-file" accept=".csv,text/csv" />
+      <div class="file-drop-text" id="csv-drop-text">
+        <strong>Click to upload</strong> or drag a .csv file here
+      </div>
+    </label>
+    <div class="status" id="csv-status"></div>
+    <div class="banner" id="csv-banner"></div>
+
+    <div id="csv-columns" style="display: none; margin-top: 20px;">
+      <div class="columns-grid">
+        <div>
+          <label class="field-label" for="lat-col">Latitude column</label>
+          <select id="lat-col"></select>
+        </div>
+        <div>
+          <label class="field-label" for="lng-col">Longitude column</label>
+          <select id="lng-col"></select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2: GeoJSON -->
+  <section class="step">
+    <div class="step-num">02 · Geography</div>
+    <h2 class="step-title">Polygons to join against</h2>
+    <p class="step-hint">Pick a preset boundary, upload your own GeoJSON or zipped shapefile, or fetch one from a URL.</p>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-tab="preset">Preset</button>
+      <button class="tab" data-tab="upload">Upload</button>
+      <button class="tab" data-tab="url">URL</button>
+    </div>
+
+    <div class="panel active" id="panel-preset">
+      <label class="field-label" for="preset-select">Boundary</label>
+      <select id="preset-select">
+        <option value="">— Select a boundary —</option>
+        <optgroup label="Philadelphia">
+          <option value="philly-zips">ZIP Codes (ZCTA)</option>
+          <option value="philly-neighborhoods">Neighborhoods</option>
+          <option value="philly-council">City Council Districts</option>
+          <option value="philly-police">Police Districts</option>
+        </optgroup>
+        <optgroup label="Pennsylvania">
+          <option value="pa-counties">Counties</option>
+          <option value="pa-senate">State Senate Districts</option>
+          <option value="pa-house">State House Districts</option>
+        </optgroup>
+        <optgroup label="United States">
+          <option value="us-states">States</option>
+        </optgroup>
+      </select>
+      <div class="preset-info" id="preset-info"></div>
+      <div class="status" id="preset-status"></div>
+    </div>
+
+    <div class="panel" id="panel-upload">
+      <label class="file-drop" id="geo-drop">
+        <input type="file" id="geo-file" accept=".geojson,.json,.zip,application/geo+json,application/json,application/zip" />
+        <div class="file-drop-text" id="geo-drop-text">
+          <strong>Click to upload</strong> or drag a .geojson or zipped shapefile here
+        </div>
+      </label>
+      <div class="status" id="geo-status"></div>
+    </div>
+
+    <div class="panel" id="panel-url">
+      <label class="field-label" for="geo-url">GeoJSON or zipped shapefile URL</label>
+      <div class="row">
+        <input type="text" id="geo-url" placeholder="https://example.com/boundaries.geojson" />
+        <button class="secondary" id="url-load">Fetch</button>
+      </div>
+      <div class="status" id="url-status"></div>
+    </div>
+
+    <div id="geo-props" style="display: none; margin-top: 20px;">
+      <label class="field-label">Properties to append to each row <span class="badge">optional</span></label>
+      <p class="step-hint" style="margin-top: -2px;">Hold ⌘/Ctrl to select multiple. If none selected, all properties will be added.</p>
+      <select id="props-select" multiple size="6" style="height: auto;"></select>
+    </div>
+    <div class="banner" id="geo-banner"></div>
+  </section>
+
+  <!-- STEP 3: Run -->
+  <section class="step">
+    <div class="step-num">03 · Output</div>
+    <h2 class="step-title">Run the join</h2>
+    <p class="step-hint">Each point will be tested against every polygon. Points that fall inside a polygon get that polygon's attributes; unmatched points keep blank values.</p>
+
+    <div class="run-row">
+      <button class="primary" id="run-btn" disabled>Run spatial join</button>
+      <span class="status" id="run-status"></span>
+    </div>
+
+    <div class="banner" id="run-banner"></div>
+
+    <div class="result" id="result">
+      <h3 id="result-title">Done</h3>
+      <div class="stats" id="result-stats"></div>
+      <p id="result-msg"></p>
+      <div class="map-wrapper" id="map-wrapper" style="display: none;">
+        <div id="map-preview"></div>
+        <div class="map-legend" id="map-legend"></div>
+      </div>
+      <div class="map-caption" id="map-caption"></div>
+      <div class="unmatched-note" id="unmatched-note">
+        <strong>Note:</strong> All points are plotted on the map, but the default view is framed on your polygons. If any unmatched points have coordinates far outside that area, zoom out or pan to find them.
+      </div>
+      <button class="primary" id="download-btn" style="margin-top: 20px;">Download CSV</button>
+    </div>
+  </section>
+
+  <footer>
+    Built with PapaParse + Turf.js with help from <a href="https://tyler-tran.com" target="_blank" rel="noopener">Tyler Tran</a> · runs in your browser · we never see your data
+  </footer>
+</div>
+
+<script>
+// ---------- State ----------
+const state = {
+  csvRows: null,
+  csvFields: null,
+  csvName: null,
+  geo: null,
+  geoName: null,
+  geoSourceType: null,       // 'GeoJSON' or 'shapefile' — drives display language
+  output: null,
+  map: null,
+  mapLayer: null,
+  pointsLayer: null,
+  polyBoundsLatLng: null,   // LatLngBounds of the polygon layer, for outlier detection
+  latestJoin: null,          // { matched: [...], unmatched: [...], farOutliers: N, labelKey: ... }
+};
+
+// ---------- Preset catalog ----------
+const PRESETS = {
+  'philly-zips': {
+    name: 'Philadelphia ZIP Codes',
+    url: 'https://raw.githubusercontent.com/tylerjtran/spatial-join-tool/refs/heads/main/philadelphia_zip_codes.geojson',
+    description: 'ZIP Code Tabulation Areas (ZCTAs) covering Philadelphia. ZCTAs are Census approximations of USPS ZIP code delivery areas and may not align perfectly with actual ZIP boundaries.',
+    source: 'U.S. Census Bureau',
+  },
+  'philly-neighborhoods': {
+    name: 'Philadelphia Neighborhoods',
+    url: 'https://raw.githubusercontent.com/tylerjtran/spatial-join-tool/refs/heads/main/philadelphia_neighborhoods.geojson',
+    description: 'Philadelphia neighborhood boundaries. Note that neighborhood definitions are informal and may not match how residents define their own neighborhoods.',
+    source: 'Azavea / OpenDataPhilly',
+  },
+  'philly-council': {
+    name: 'Philadelphia Council Districts',
+    url: 'https://raw.githubusercontent.com/tylerjtran/spatial-join-tool/refs/heads/main/philadelphia_council_districts.geojson',
+    description: 'The ten Philadelphia City Council district boundaries.',
+    source: 'City of Philadelphia',
+  },
+  'philly-police': {
+    name: 'Philadelphia Police Districts',
+    url: 'https://raw.githubusercontent.com/tylerjtran/spatial-join-tool/refs/heads/main/philadelphia_police_districts.geojson',
+    description: 'Philadelphia Police Department district boundaries.',
+    source: 'City of Philadelphia',
+  },
+  'pa-counties': {
+    name: 'Pennsylvania Counties',
+    url: 'https://raw.githubusercontent.com/tylerjtran/spatial-join-tool/refs/heads/main/pa_counties.geojson',
+    description: 'The 67 counties of Pennsylvania.',
+    source: 'U.S. Census Bureau',
+  },
+  'pa-senate': {
+    name: 'Pennsylvania State Senate Districts',
+    url: 'https://raw.githubusercontent.com/tylerjtran/spatial-join-tool/refs/heads/main/pa_state_senate.geojson',
+    description: 'The 50 Pennsylvania State Senate districts as drawn after the 2020 redistricting cycle.',
+    source: 'U.S. Census Bureau',
+  },
+  'pa-house': {
+    name: 'Pennsylvania State House Districts',
+    url: 'https://raw.githubusercontent.com/tylerjtran/spatial-join-tool/refs/heads/main/pa_state_house.geojson',
+    description: 'The 203 Pennsylvania State House of Representatives districts as drawn after the 2020 redistricting cycle.',
+    source: 'U.S. Census Bureau',
+  },
+  'us-states': {
+    name: 'US States',
+    url: 'https://raw.githubusercontent.com/tylerjtran/spatial-join-tool/refs/heads/main/states.geojson',
+    description: 'US states and territories.',
+    source: 'U.S. Census Bureau',
+  },
+};
+
+// ---------- Helpers ----------
+function setStatus(el, msg, cls) {
+  const node = document.getElementById(el);
+  node.textContent = msg;
+  node.className = 'status' + (cls ? ' ' + cls : '');
+}
+
+function updateRunState() {
+  const ready = state.csvRows && state.geo &&
+    document.getElementById('lat-col').value &&
+    document.getElementById('lng-col').value;
+  document.getElementById('run-btn').disabled = !ready;
+}
+
+function guessColumn(fields, patterns) {
+  for (const p of patterns) {
+    const match = fields.find(f => p.test(f));
+    if (match) return match;
+  }
+  return fields[0];
+}
+
+// Unified banner display. Level is one of 'info' | 'warn' | 'error'.
+// actions is an optional array of { label, onClick } for inline buttons.
+function showBanner(el, level, title, message, actions) {
+  const node = typeof el === 'string' ? document.getElementById(el) : el;
+  if (!node) return;
+  node.className = 'banner show ' + level;
+  const titleHtml = title ? `<div class="banner-title">${title}</div>` : '';
+  const msgHtml = message ? `<div class="banner-msg">${message}</div>` : '';
+  node.innerHTML = titleHtml + msgHtml;
+  if (actions && actions.length > 0) {
+    const actionsDiv = document.createElement('div');
+    actionsDiv.className = 'banner-actions';
+    actions.forEach(a => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = a.label;
+      btn.addEventListener('click', a.onClick);
+      actionsDiv.appendChild(btn);
+    });
+    node.appendChild(actionsDiv);
+  }
+}
+
+function hideBanner(el) {
+  const node = typeof el === 'string' ? document.getElementById(el) : el;
+  if (!node) return;
+  node.className = 'banner';
+  node.innerHTML = '';
+}
+
+// ---------- Tabs ----------
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+    // Switching tabs means the user is picking a new source — clear the
+    // previously loaded boundary until they load again.
+    clearLoadedGeo();
+  });
+});
+
+// ---------- Drag & drop helpers ----------
+function wireDrop(dropId, inputId, handler) {
+  const drop = document.getElementById(dropId);
+  const input = document.getElementById(inputId);
+  // Note: drop is a <label> wrapping the <input>, so clicking it natively
+  // triggers the file picker. Don't add a manual click handler or the dialog
+  // opens twice and the user has to select the file twice.
+  input.addEventListener('change', e => {
+    if (e.target.files[0]) {
+      handler(e.target.files[0]);
+      // Reset so selecting the same file again fires 'change' (browsers
+      // suppress the event if the input's value hasn't changed)
+      e.target.value = '';
+    }
+  });
+  ['dragenter', 'dragover'].forEach(ev =>
+    drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('drag'); })
+  );
+  ['dragleave', 'drop'].forEach(ev =>
+    drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('drag'); })
+  );
+  drop.addEventListener('drop', e => {
+    if (e.dataTransfer.files[0]) handler(e.dataTransfer.files[0]);
+  });
+}
+
+// ---------- CSV handling ----------
+wireDrop('csv-drop', 'csv-file', handleCsvFile);
+
+function handleCsvFile(file) {
+  state.csvName = file.name;
+  document.getElementById('csv-drop-text').innerHTML = `<strong>${file.name}</strong> — parsing…`;
+  setStatus('csv-status', 'Parsing…');
+  hideBanner('csv-banner');
+  clearResult();
+
+  // Basic pre-validation: wrong extension
+  if (!/\.csv$/i.test(file.name) && file.type !== 'text/csv') {
+    setStatus('csv-status', '');
+    document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> or drag a .csv file here`;
+    showBanner('csv-banner', 'error',
+      'That doesn\'t look like a CSV file',
+      `Expected a <code>.csv</code> file but got <code>${file.name}</code>. Export your data as CSV (most spreadsheet apps support "Save as CSV") and try again.`);
+    return;
+  }
+
+  // Very large file warning — the browser can handle a lot, but not everything
+  const MB = 1024 * 1024;
+  if (file.size > 100 * MB) {
+    setStatus('csv-status', '');
+    document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> or drag a .csv file here`;
+    showBanner('csv-banner', 'error',
+      'This file is too large for browser processing',
+      `The file is ${(file.size / MB).toFixed(0)} MB. Since everything runs in your browser, files above ~100 MB can cause the tab to become unresponsive. Consider splitting the CSV into smaller chunks, or using a desktop GIS tool for a file this size.`);
+    return;
+  } else if (file.size > 25 * MB) {
+    // Warn but proceed
+    showBanner('csv-banner', 'info',
+      `Large file (${(file.size / MB).toFixed(0)} MB) — this may take a while`,
+      'Parsing and joining will run in the browser, which can take 30 seconds or more for files this size. Hang tight.');
+  }
+
+  Papa.parse(file, {
+    header: true,
+    skipEmptyLines: true,
+    dynamicTyping: false,
+    complete: (results) => {
+      // Severe: no columns detected at all
+      if (!results.meta.fields || results.meta.fields.length === 0) {
+        setStatus('csv-status', '');
+        document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> or drag a .csv file here`;
+        showBanner('csv-banner', 'error',
+          'Couldn\'t read columns from this file',
+          'The CSV appears to have no header row. Make sure the first row contains column names like <code>latitude</code>, <code>longitude</code>, etc.');
+        return;
+      }
+
+      // Severe: no data rows
+      if (!results.data || results.data.length === 0) {
+        setStatus('csv-status', '');
+        showBanner('csv-banner', 'error',
+          'No data rows in this CSV',
+          'The file has headers but no rows of data below them.');
+        return;
+      }
+
+      state.csvRows = results.data;
+      state.csvFields = results.meta.fields;
+
+      const latSel = document.getElementById('lat-col');
+      const lngSel = document.getElementById('lng-col');
+      latSel.innerHTML = '';
+      lngSel.innerHTML = '';
+      state.csvFields.forEach(f => {
+        latSel.add(new Option(f, f));
+        lngSel.add(new Option(f, f));
+      });
+
+      latSel.value = guessColumn(state.csvFields, [/^lat/i, /latitude/i, /_lat$/i, /\by$/i]);
+      lngSel.value = guessColumn(state.csvFields, [/^lon/i, /^lng/i, /longitude/i, /_lon/i, /_lng/i, /\bx$/i]);
+
+      document.getElementById('csv-columns').style.display = 'block';
+      document.getElementById('csv-drop-text').innerHTML =
+        `<strong>${file.name}</strong> — ${state.csvRows.length.toLocaleString()} rows, ${state.csvFields.length} columns`;
+      setStatus('csv-status', '✓ Ready', 'ok');
+      updateRunState();
+
+      // Non-fatal warnings
+      const severeErrors = results.errors.filter(e => e.type !== 'Delimiter');
+      if (severeErrors.length > 0) {
+        const sample = severeErrors.slice(0, 3).map(e =>
+          `Row ${e.row != null ? e.row + 2 : '?'}: ${e.message}`
+        ).join('<br>');
+        const more = severeErrors.length > 3 ? `<br>…and ${severeErrors.length - 3} more.` : '';
+        showBanner('csv-banner', 'warn',
+          `${severeErrors.length.toLocaleString()} row${severeErrors.length === 1 ? '' : 's'} had parsing issues`,
+          `You can still proceed — problem rows will likely produce invalid coordinates and be flagged in the result.<br><br>${sample}${more}`);
+      }
+    },
+    error: (err) => {
+      setStatus('csv-status', '');
+      document.getElementById('csv-drop-text').innerHTML = `<strong>Click to upload</strong> or drag a .csv file here`;
+      showBanner('csv-banner', 'error',
+        'Could not read this CSV',
+        `Reason: ${err.message || 'unknown'}. The file may be corrupted or use an unusual encoding.`);
+    }
+  });
+}
+
+document.getElementById('lat-col').addEventListener('change', () => { clearResult(); updateRunState(); });
+document.getElementById('lng-col').addEventListener('change', () => { clearResult(); updateRunState(); });
+document.getElementById('props-select').addEventListener('change', clearResult);
+
+// ---------- GeoJSON handling ----------
+wireDrop('geo-drop', 'geo-file', handleGeoFile);
+
+function handleGeoFile(file) {
+  document.getElementById('geo-drop-text').innerHTML = `<strong>${file.name}</strong> — parsing…`;
+  setStatus('geo-status', 'Parsing…');
+  hideBanner('geo-banner');
+
+  const isZip = /\.zip$/i.test(file.name) || file.type === 'application/zip';
+  if (isZip) {
+    // Zipped shapefile: read as ArrayBuffer and hand off to shpjs
+    state.geoSourceType = 'shapefile';
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      try {
+        const geojson = await shp(e.target.result);
+        const fc = Array.isArray(geojson)
+          ? { type: 'FeatureCollection', features: geojson.flatMap(g => g.features || []) }
+          : geojson;
+        acceptGeo(fc, file.name, 'geo-status', 'geo-banner');
+        if (state.geo) {
+          document.getElementById('geo-drop-text').innerHTML =
+            `<strong>${file.name}</strong> — ${state.geo.features.length.toLocaleString()} features`;
+        }
+      } catch (err) {
+        setStatus('geo-status', '');
+        document.getElementById('geo-drop-text').innerHTML =
+          `<strong>Click to upload</strong> or drag a .geojson or zipped shapefile here`;
+        diagnoseShpError(err, 'geo-banner');
+      }
+    };
+    reader.onerror = () => {
+      setStatus('geo-status', '');
+      showBanner('geo-banner', 'error',
+        'Could not read this file',
+        'The browser couldn\'t read the file from disk. Try uploading again.');
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    // GeoJSON: read as text and JSON.parse
+    state.geoSourceType = 'GeoJSON';
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const text = e.target.result;
+      // Sniff for common "not-JSON" cases
+      const trimmed = (text || '').trim().slice(0, 200);
+      if (/^\s*</.test(trimmed)) {
+        // Looks like HTML or XML
+        setStatus('geo-status', '');
+        document.getElementById('geo-drop-text').innerHTML =
+          `<strong>Click to upload</strong> or drag a .geojson or zipped shapefile here`;
+        showBanner('geo-banner', 'error',
+          'This doesn\'t look like GeoJSON',
+          'The file appears to contain HTML or XML. If this came from a download link, the server may have returned an error page instead of the data. Try downloading the file again from the original source.');
+        return;
+      }
+      try {
+        const json = JSON.parse(text);
+        acceptGeo(json, file.name, 'geo-status', 'geo-banner');
+        if (state.geo) {
+          document.getElementById('geo-drop-text').innerHTML =
+            `<strong>${file.name}</strong> — ${state.geo.features.length.toLocaleString()} features`;
+        }
+      } catch (err) {
+        setStatus('geo-status', '');
+        document.getElementById('geo-drop-text').innerHTML =
+          `<strong>Click to upload</strong> or drag a .geojson or zipped shapefile here`;
+        showBanner('geo-banner', 'error',
+          'This file isn\'t valid GeoJSON',
+          `The file couldn\'t be parsed as JSON. Technical detail: <code>${escapeHtml(err.message)}</code>`);
+      }
+    };
+    reader.onerror = () => {
+      setStatus('geo-status', '');
+      showBanner('geo-banner', 'error',
+        'Could not read this file',
+        'The browser couldn\'t read the file from disk. Try uploading again.');
+    };
+    reader.readAsText(file);
+  }
+}
+
+// Translate shpjs errors into something a human can act on. The library's
+// error messages are inconsistent across versions; we pattern-match on the
+// common ones.
+function diagnoseShpError(err, bannerEl) {
+  const msg = String(err && err.message || err || '').toLowerCase();
+  if (/\bshx\b|\.shx/.test(msg)) {
+    showBanner(bannerEl, 'error',
+      'Shapefile is missing the .shx index file',
+      'A shapefile requires at least <code>.shp</code>, <code>.shx</code>, and <code>.dbf</code> files bundled in a single <code>.zip</code>. Re-zip with all components and try again.');
+  } else if (/\bdbf\b|\.dbf/.test(msg)) {
+    showBanner(bannerEl, 'error',
+      'Shapefile is missing the .dbf attributes file',
+      'Without <code>.dbf</code>, the shapefile has no attribute data. Re-zip with all components (<code>.shp</code>, <code>.shx</code>, <code>.dbf</code>, and ideally <code>.prj</code>) and try again.');
+  } else if (/not a zip|invalid zip/.test(msg)) {
+    showBanner(bannerEl, 'error',
+      'That doesn\'t appear to be a valid .zip file',
+      'Make sure you\'ve zipped the shapefile components — don\'t just rename a <code>.shp</code> to <code>.zip</code>.');
+  } else {
+    showBanner(bannerEl, 'error',
+      'Could not read this shapefile',
+      `Reason: <code>${escapeHtml(err.message || String(err))}</code>. Make sure the <code>.zip</code> contains <code>.shp</code>, <code>.shx</code>, and <code>.dbf</code> files at a minimum.`);
+  }
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+document.getElementById('preset-select').addEventListener('change', async (e) => {
+  const key = e.target.value;
+  const infoEl = document.getElementById('preset-info');
+
+  // User cleared the selection — wipe info and any loaded state
+  if (!key || !PRESETS[key]) {
+    infoEl.classList.remove('show');
+    infoEl.innerHTML = '';
+    clearLoadedGeo();
+    return;
+  }
+
+  const preset = PRESETS[key];
+
+  // Show the description panel immediately
+  let html = '';
+  if (preset.description) html += preset.description;
+  if (preset.source) html += `<span class="source">Source · ${preset.source}</span>`;
+  infoEl.innerHTML = html;
+  infoEl.classList.toggle('show', html.length > 0);
+
+  // Clear the previously loaded boundary, then auto-fetch the new one
+  clearLoadedGeo();
+  state.geoSourceType = 'GeoJSON';
+  hideBanner('geo-banner');
+  setStatus('preset-status', 'Fetching ' + preset.name + '…');
+  try {
+    const res = await fetch(preset.url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const contentType = res.headers.get('content-type') || '';
+    const text = await res.text();
+    // Sniff for HTML error pages disguised as responses
+    if (/^\s*</.test(text.trim().slice(0, 50))) {
+      throw new Error('Server returned HTML instead of GeoJSON');
+    }
+    const json = JSON.parse(text);
+    acceptGeo(json, preset.name, 'preset-status', 'geo-banner');
+  } catch (err) {
+    setStatus('preset-status', '');
+    showBanner('geo-banner', 'error',
+      `Couldn\'t load "${preset.name}"`,
+      `The preset file failed to load. Reason: <code>${escapeHtml(err.message || String(err))}</code>. This is usually temporary — try again in a moment, or switch to the Upload tab to use a local file.`);
+  }
+});
+
+// Clears any previously loaded GeoJSON + its properties panel. Called when
+// the user starts picking a new boundary (changes dropdown, switches tabs).
+function clearLoadedGeo() {
+  state.geo = null;
+  state.geoName = null;
+  state.geoSourceType = null;
+  document.getElementById('geo-props').style.display = 'none';
+  document.getElementById('props-select').innerHTML = '';
+  // Clear any "✓ Loaded" status messages from the previous selection
+  setStatus('preset-status', '');
+  setStatus('geo-status', '');
+  setStatus('url-status', '');
+  hideBanner('geo-banner');
+  clearResult();
+  updateRunState();
+}
+
+// Hides the step 3 result box and clears the map. Called whenever the inputs
+// that fed the join change — at that point, the previous result is stale.
+function clearResult() {
+  state.output = null;
+  state.latestJoin = null;
+  document.getElementById('result').classList.remove('show', 'warn', 'error');
+  document.getElementById('map-wrapper').style.display = 'none';
+  document.getElementById('unmatched-note').classList.remove('show');
+  document.getElementById('map-legend').classList.remove('show');
+  document.getElementById('map-caption').classList.remove('show');
+  hideBanner('run-banner');
+  setStatus('run-status', '');
+  // Remove map layers so they don't flash back on the next run
+  if (state.map) {
+    if (state.mapLayer) { state.map.removeLayer(state.mapLayer); state.mapLayer = null; }
+    if (state.pointsLayer) { state.map.removeLayer(state.pointsLayer); state.pointsLayer = null; }
+  }
+}
+
+document.getElementById('url-load').addEventListener('click', async () => {
+  const url = document.getElementById('geo-url').value.trim();
+  hideBanner('geo-banner');
+  if (!url) {
+    showBanner('geo-banner', 'error', 'No URL provided', 'Paste a URL to a GeoJSON or zipped shapefile above, then click Fetch.');
+    return;
+  }
+  // Basic URL sanity check
+  if (!/^https?:\/\//i.test(url)) {
+    showBanner('geo-banner', 'error',
+      'URL must start with http:// or https://',
+      `Got: <code>${escapeHtml(url.slice(0, 80))}</code>`);
+    return;
+  }
+  setStatus('url-status', 'Fetching…');
+  const isZip = /\.zip(\?|$)/i.test(url);
+  try {
+    if (isZip) {
+      // Shapefile zip: let shpjs handle the fetch + unzip + parse
+      state.geoSourceType = 'shapefile';
+      const geojson = await shp(url);
+      const fc = Array.isArray(geojson)
+        ? { type: 'FeatureCollection', features: geojson.flatMap(g => g.features || []) }
+        : geojson;
+      acceptGeo(fc, url.split('/').pop() || 'remote', 'url-status', 'geo-banner');
+    } else {
+      state.geoSourceType = 'GeoJSON';
+      let res;
+      try {
+        res = await fetch(url);
+      } catch (netErr) {
+        // Most likely CORS, DNS failure, or offline
+        setStatus('url-status', '');
+        showBanner('geo-banner', 'error',
+          'Couldn\'t reach that URL',
+          `The browser couldn\'t fetch <code>${escapeHtml(url)}</code>. Most commonly this is caused by:<br>
+          • The server blocks cross-origin requests (CORS) — try downloading the file and using the <strong>Upload</strong> tab instead<br>
+          • The URL is wrong or the server is down<br>
+          • You\'re offline`);
+        return;
+      }
+      if (!res.ok) {
+        setStatus('url-status', '');
+        const reasonMap = {
+          404: 'The file wasn\'t found at that URL (HTTP 404). Double-check the link.',
+          403: 'The server rejected the request (HTTP 403). You may not have permission to access this file.',
+          500: 'The server returned an error (HTTP 500). Try again later.',
+          503: 'The server is temporarily unavailable (HTTP 503). Try again in a few minutes.',
+        };
+        showBanner('geo-banner', 'error',
+          'Server returned an error',
+          reasonMap[res.status] || `The server responded with HTTP ${res.status}.`);
+        return;
+      }
+      const text = await res.text();
+      if (/^\s*</.test(text.trim().slice(0, 50))) {
+        setStatus('url-status', '');
+        showBanner('geo-banner', 'error',
+          'That URL returned HTML, not GeoJSON',
+          'The server sent back an HTML page — typically a login screen, error page, or preview interface. Make sure the URL points directly to a raw GeoJSON file (e.g., GitHub "Raw" view, not the file page).');
+        return;
+      }
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch (parseErr) {
+        setStatus('url-status', '');
+        showBanner('geo-banner', 'error',
+          'The fetched content isn\'t valid JSON',
+          `Fetched the file, but it couldn\'t be parsed. Technical detail: <code>${escapeHtml(parseErr.message)}</code>`);
+        return;
+      }
+      acceptGeo(json, url.split('/').pop() || 'remote', 'url-status', 'geo-banner');
+    }
+  } catch (err) {
+    setStatus('url-status', '');
+    if (isZip) {
+      diagnoseShpError(err, 'geo-banner');
+    } else {
+      showBanner('geo-banner', 'error',
+        'Fetch failed',
+        `Reason: <code>${escapeHtml(err.message || String(err))}</code>`);
+    }
+  }
+});
+
+function acceptGeo(json, name, statusEl, bannerEl) {
+  bannerEl = bannerEl || 'geo-banner';
+
+  // Normalize: accept FeatureCollection, Feature, or bare geometry
+  let fc;
+  if (json && json.type === 'FeatureCollection') {
+    fc = json;
+  } else if (json && json.type === 'Feature') {
+    fc = { type: 'FeatureCollection', features: [json] };
+  } else if (json && json.type && json.coordinates) {
+    fc = { type: 'FeatureCollection', features: [{ type: 'Feature', properties: {}, geometry: json }] };
+  } else {
+    setStatus(statusEl, '');
+    showBanner(bannerEl, 'error',
+      'Not a valid GeoJSON',
+      'Expected a <code>FeatureCollection</code>, <code>Feature</code>, or bare geometry object. This file has a different structure.');
+    return;
+  }
+
+  if (!Array.isArray(fc.features) || fc.features.length === 0) {
+    setStatus(statusEl, '');
+    showBanner(bannerEl, 'error',
+      'This GeoJSON has no features',
+      'The FeatureCollection is empty — there\'s nothing to join against.');
+    return;
+  }
+
+  // Filter to polygon-like features only
+  const polyFeatures = fc.features.filter(f =>
+    f.geometry && (f.geometry.type === 'Polygon' || f.geometry.type === 'MultiPolygon')
+  );
+
+  if (polyFeatures.length === 0) {
+    setStatus(statusEl, '');
+    // Tell the user what geometry types ARE present — helpful for debugging
+    const types = [...new Set(fc.features.map(f => f.geometry && f.geometry.type).filter(Boolean))];
+    const typeList = types.length > 0 ? `Found: ${types.map(t => `<code>${t}</code>`).join(', ')}.` : '';
+    showBanner(bannerEl, 'error',
+      'No polygons found in this file',
+      `This tool joins points to polygons, so the boundary file needs to contain <code>Polygon</code> or <code>MultiPolygon</code> features. ${typeList}`);
+    return;
+  }
+
+  state.geo = { type: 'FeatureCollection', features: polyFeatures };
+  state.geoName = name;
+
+  // Collect all property keys across features
+  const propKeys = new Set();
+  polyFeatures.forEach(f => {
+    if (f.properties) Object.keys(f.properties).forEach(k => propKeys.add(k));
+  });
+
+  const propsSel = document.getElementById('props-select');
+  propsSel.innerHTML = '';
+  [...propKeys].sort().forEach(k => propsSel.add(new Option(k, k)));
+  document.getElementById('geo-props').style.display = 'block';
+
+  const skipped = fc.features.length - polyFeatures.length;
+  const skipNote = skipped > 0 ? ` (${skipped} non-polygon features skipped)` : '';
+  setStatus(statusEl, `✓ ${polyFeatures.length.toLocaleString()} polygons loaded${skipNote}`, 'ok');
+
+  // Surface a warning if a bunch of features got skipped — the user may have
+  // loaded the wrong file
+  if (skipped > 0 && skipped >= polyFeatures.length) {
+    showBanner(bannerEl, 'info',
+      `${skipped.toLocaleString()} non-polygon features were skipped`,
+      'This file contains a mix of geometry types. Only polygons are used for the join; points, lines, and others are ignored.');
+  } else {
+    hideBanner(bannerEl);
+  }
+  updateRunState();
+}
+  updateRunState();
+}
+
+function renderMap(fc, name) {
+  const wrapperEl = document.getElementById('map-wrapper');
+  const captionEl = document.getElementById('map-caption');
+  wrapperEl.style.display = 'block';
+  captionEl.classList.add('show');
+
+  // Initialize the map on first use
+  if (!state.map) {
+    state.map = L.map('map-preview', {
+      scrollWheelZoom: false,
+      attributionControl: true,
+    });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© OpenStreetMap contributors, © CARTO',
+      maxZoom: 19,
+      subdomains: 'abcd',
+    }).addTo(state.map);
+  }
+
+  // Remove any previous polygon layer
+  if (state.mapLayer) {
+    state.map.removeLayer(state.mapLayer);
+  }
+  // Clear any previous point layer too
+  if (state.pointsLayer) {
+    state.map.removeLayer(state.pointsLayer);
+    state.pointsLayer = null;
+  }
+  document.getElementById('map-legend').classList.remove('show');
+
+  // Large datasets: render in a simplified way. Leaflet can choke on thousands
+  // of detailed polygons — the preview doesn't need full fidelity, just shape.
+  let renderFc = fc;
+  if (fc.features.length > 500) {
+    try {
+      renderFc = turf.simplify(fc, { tolerance: 0.005, highQuality: false, mutate: false });
+    } catch (e) {
+      // If simplification fails for any reason, fall back to the original
+      renderFc = fc;
+    }
+  }
+
+  state.mapLayer = L.geoJSON(renderFc, {
+    style: {
+      color: '#b8391f',
+      weight: 1.2,
+      opacity: 0.85,
+      fillColor: '#b8391f',
+      fillOpacity: 0.08,
+    },
+  }).addTo(state.map);
+
+  // Fit the map to the polygons, then invalidate size in case the container
+  // just appeared (Leaflet needs this to calculate tiles correctly)
+  try {
+    const bounds = state.mapLayer.getBounds();
+    if (bounds.isValid()) {
+      state.polyBoundsLatLng = bounds;
+      state.map.fitBounds(bounds, { padding: [16, 16] });
+    }
+  } catch (e) { /* ignore */ }
+  setTimeout(() => state.map.invalidateSize(), 50);
+
+  captionEl.textContent = `${name} · ${fc.features.length.toLocaleString()} polygon${fc.features.length === 1 ? '' : 's'}${renderFc !== fc ? ' · simplified for preview' : ''}`;
+}
+
+// ---------- Run the join ----------
+document.getElementById('run-btn').addEventListener('click', runJoin);
+
+function runJoin() {
+  const latCol = document.getElementById('lat-col').value;
+  const lngCol = document.getElementById('lng-col').value;
+  const selectedProps = [...document.getElementById('props-select').selectedOptions].map(o => o.value);
+
+  // Determine property set
+  const allPropKeys = new Set();
+  state.geo.features.forEach(f => {
+    if (f.properties) Object.keys(f.properties).forEach(k => allPropKeys.add(k));
+  });
+  const propKeys = selectedProps.length > 0 ? selectedProps : [...allPropKeys].sort();
+
+  document.getElementById('run-btn').disabled = true;
+  setStatus('run-status', 'Processing…');
+  document.getElementById('result').classList.remove('show');
+  hideBanner('run-banner');
+
+  // Run async so the status message paints before the work starts
+  setTimeout(() => {
+    try {
+      const result = performJoin(state.csvRows, state.geo, latCol, lngCol, propKeys);
+      state.output = result.rows;
+
+      // Check for silent-but-wrong: very low match rates. If unusually low,
+      // try a swapped lat/lng trial run on a sample to see if that fixes it.
+      const validCount = result.matched + result.unmatched;
+      const matchRate = validCount > 0 ? result.matched / validCount : 0;
+      let swapSuggestion = null;
+
+      if (validCount > 0 && matchRate < 0.05) {
+        swapSuggestion = testSwappedCoords(state.csvRows, state.geo, latCol, lngCol);
+      }
+
+      renderResult(result, propKeys, latCol, lngCol, swapSuggestion);
+
+      setStatus('run-status', '✓ Complete', 'ok');
+
+      // Render the map: polygons first, then matched/unmatched points on top
+      state.latestJoin = result;
+      renderMap(state.geo, state.geoName);
+      renderPoints(result);
+    } catch (err) {
+      setStatus('run-status', '');
+      showBanner('run-banner', 'error',
+        'Something went wrong during the join',
+        `Technical detail: <code>${escapeHtml(err.message || String(err))}</code>. If this keeps happening with different files, there may be a bug — please file an issue.`);
+      console.error(err);
+    } finally {
+      document.getElementById('run-btn').disabled = false;
+    }
+  }, 50);
+}
+
+// Draws the result box and appropriate warning banner based on what happened.
+// Splits out so the swap-and-retry button can reuse this with a new result.
+function renderResult(result, propKeys, latCol, lngCol, swapSuggestion) {
+  state.output = result.rows;
+
+  const statsEl = document.getElementById('result-stats');
+  statsEl.innerHTML = `
+    <span><strong>${result.total.toLocaleString()}</strong> total rows</span>
+    <span><strong>${result.matched.toLocaleString()}</strong> matched</span>
+    <span><strong>${result.unmatched.toLocaleString()}</strong> unmatched</span>
+    <span><strong>${result.invalid.toLocaleString()}</strong> invalid coords</span>
+  `;
+
+  const resultEl = document.getElementById('result');
+  resultEl.classList.remove('error', 'warn');
+
+  const validCount = result.matched + result.unmatched;
+  const matchRate = validCount > 0 ? result.matched / validCount : 0;
+  const sourceLabel = state.geoSourceType || 'GeoJSON';
+
+  // Case 1: zero matches — heavy-handed error treatment
+  if (result.matched === 0) {
+    resultEl.classList.add('warn');
+    document.getElementById('result-title').textContent = 'Finished — but no matches';
+    document.getElementById('result-msg').textContent =
+      'None of your points fell inside any polygon. See diagnostics below.';
+
+    const diagnostics = buildZeroMatchDiagnostics(result, latCol, lngCol, swapSuggestion);
+    showBanner('run-banner', 'error', diagnostics.title, diagnostics.msg, diagnostics.actions);
+  }
+  // Case 2: very low match rate (<5%)
+  else if (matchRate < 0.05) {
+    document.getElementById('result-title').textContent = 'Done — with concerns';
+    document.getElementById('result-msg').textContent =
+      `Added ${propKeys.length} column${propKeys.length === 1 ? '' : 's'} from the ${sourceLabel} to your CSV.`;
+
+    const pct = (matchRate * 100).toFixed(1);
+    let msg = `Only <strong>${pct}%</strong> of your points matched a polygon (${result.matched.toLocaleString()} of ${validCount.toLocaleString()} valid coordinates). This could be intentional — for example, if your CSV covers a broader area than your polygons — but it often indicates a data issue.`;
+    let actions = null;
+    if (swapSuggestion && swapSuggestion.likelySwapped) {
+      msg += `<br><br>A quick test shows <strong>${swapSuggestion.sampleMatchPct}%</strong> of a sample would match if you swapped the latitude and longitude columns — they may be reversed in your CSV.`;
+      actions = [{
+        label: 'Swap lat/lng and re-run',
+        onClick: () => swapAndRerun(latCol, lngCol),
+      }];
+    }
+    showBanner('run-banner', 'warn', 'Low match rate', msg, actions);
+  }
+  // Case 3: large number of invalid coordinates
+  else if (result.invalid > 0 && result.invalid / result.total > 0.1) {
+    document.getElementById('result-title').textContent = 'Done';
+    document.getElementById('result-msg').textContent =
+      `Added ${propKeys.length} column${propKeys.length === 1 ? '' : 's'} from the ${sourceLabel} to your CSV.`;
+
+    const pct = ((result.invalid / result.total) * 100).toFixed(1);
+    showBanner('run-banner', 'warn',
+      `${result.invalid.toLocaleString()} rows had invalid coordinates (${pct}%)`,
+      `These rows had latitude/longitude values that couldn\'t be parsed as decimal numbers, or that fell outside valid ranges (-90 to 90 for latitude, -180 to 180 for longitude). They\'re in your output CSV with blank join columns.`);
+  }
+  // Case 4: everything looks good
+  else {
+    document.getElementById('result-title').textContent = 'Done';
+    document.getElementById('result-msg').textContent =
+      `Added ${propKeys.length} column${propKeys.length === 1 ? '' : 's'} from the ${sourceLabel} to your CSV.`;
+    hideBanner('run-banner');
+  }
+
+  resultEl.classList.add('show');
+}
+
+// Builds a detailed diagnostic message for the zero-match case.
+function buildZeroMatchDiagnostics(result, latCol, lngCol, swapSuggestion) {
+  const lines = [];
+
+  // Diagnostic 1: lat/lng swap is the most common cause
+  if (swapSuggestion && swapSuggestion.likelySwapped) {
+    return {
+      title: 'Your latitude and longitude columns appear to be swapped',
+      msg: `A test run with the columns swapped would match <strong>${swapSuggestion.sampleMatchPct}%</strong> of a sample. The current <code>${escapeHtml(latCol)}</code> column values look like longitudes, and <code>${escapeHtml(lngCol)}</code> values look like latitudes.`,
+      actions: [{
+        label: 'Swap lat/lng and re-run',
+        onClick: () => swapAndRerun(latCol, lngCol),
+      }],
+    };
+  }
+
+  // Diagnostic 2: invalid coordinates dominate
+  if (result.invalid > result.unmatched) {
+    lines.push(`<strong>${result.invalid.toLocaleString()}</strong> of ${result.total.toLocaleString()} rows had unparseable coordinates. Check that <code>${escapeHtml(latCol)}</code> and <code>${escapeHtml(lngCol)}</code> contain decimal numbers (not addresses, not degree/minute/second strings).`);
+  }
+
+  // Diagnostic 3: sample some actual coordinates to surface what we're seeing
+  if (result.unmatchedPts && result.unmatchedPts.length > 0) {
+    const samplePt = result.unmatchedPts[0];
+    lines.push(`Sample unmatched point: <code>${samplePt.lat.toFixed(4)}, ${samplePt.lng.toFixed(4)}</code>. If this looks nothing like where your polygons are, check the coordinate system — this tool expects WGS84 decimal degrees.`);
+  }
+
+  // Always include the generic advice
+  lines.push(`Other common causes: the CSV uses a projected coordinate system (e.g., state plane — convert to WGS84 first), or the polygons and points cover entirely different regions.`);
+
+  return {
+    title: 'No points matched',
+    msg: lines.join('<br><br>'),
+    actions: null,
+  };
+}
+
+// Runs a sample join with swapped lat/lng columns. Only tests up to 500 rows
+// to stay fast, since we're just trying to detect the swap pattern, not do
+// the full work.
+function testSwappedCoords(rows, fc, latCol, lngCol) {
+  const sampleSize = Math.min(rows.length, 500);
+  const step = Math.max(1, Math.floor(rows.length / sampleSize));
+  const sample = [];
+  for (let i = 0; i < rows.length && sample.length < sampleSize; i += step) {
+    sample.push(rows[i]);
+  }
+
+  // Swapped: use lngCol as lat, latCol as lng
+  const swapped = performJoin(sample, fc, lngCol, latCol, []);
+  const validSwapped = swapped.matched + swapped.unmatched;
+  const swappedRate = validSwapped > 0 ? swapped.matched / validSwapped : 0;
+
+  // We call it "likely swapped" if a meaningful fraction of the sample matches
+  // after swapping. 30% is generous enough to catch the case even with some
+  // junk rows in the data.
+  return {
+    sampleSize: sample.length,
+    sampleMatched: swapped.matched,
+    sampleMatchPct: (swappedRate * 100).toFixed(1),
+    likelySwapped: swappedRate > 0.3,
+  };
+}
+
+// Re-run with the lat/lng columns swapped. Wired up from the banner button.
+function swapAndRerun(latCol, lngCol) {
+  document.getElementById('lat-col').value = lngCol;
+  document.getElementById('lng-col').value = latCol;
+  // Manually trigger update; the change handler's clearResult would wipe the
+  // banner before we can re-run, so we skip it here.
+  hideBanner('run-banner');
+  runJoin();
+}
+
+function performJoin(rows, fc, latCol, lngCol, propKeys) {
+  // Pre-compute bounding boxes for each polygon for a fast first-pass filter.
+  // This makes the join roughly O(points × matching polygons) instead of
+  // O(points × all polygons), which matters a lot for things like "US states".
+  const polys = fc.features.map(f => ({
+    feature: f,
+    bbox: turf.bbox(f),
+  }));
+
+  let matched = 0, unmatched = 0, invalid = 0;
+  const matchedPts = [];
+  const unmatchedPts = [];
+
+  const output = rows.map((row, idx) => {
+    const out = { ...row };
+    // Initialize new columns as blank
+    propKeys.forEach(k => { out[k] = ''; });
+
+    const lat = parseFloat(row[latCol]);
+    const lng = parseFloat(row[lngCol]);
+
+    if (!isFinite(lat) || !isFinite(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+      invalid++;
+      return out;
+    }
+
+    const pt = turf.point([lng, lat]);
+    let hit = null;
+    for (const p of polys) {
+      const [minX, minY, maxX, maxY] = p.bbox;
+      if (lng < minX || lng > maxX || lat < minY || lat > maxY) continue;
+      if (turf.booleanPointInPolygon(pt, p.feature)) {
+        hit = p.feature;
+        break;
+      }
+    }
+
+    if (hit) {
+      matched++;
+      propKeys.forEach(k => {
+        const v = hit.properties ? hit.properties[k] : undefined;
+        out[k] = v === undefined || v === null ? '' : v;
+      });
+      // Store the full properties object — the map tooltip will pick from
+      // whatever columns the user selected (propKeys).
+      matchedPts.push({ lat, lng, props: hit.properties || {}, rowIdx: idx });
+    } else {
+      unmatched++;
+      unmatchedPts.push({ lat, lng, rowIdx: idx });
+    }
+
+    return out;
+  });
+
+  return {
+    rows: output,
+    total: rows.length,
+    matched,
+    unmatched,
+    invalid,
+    matchedPts,
+    unmatchedPts,
+    propKeys,
+  };
+}
+
+function renderPoints(joinResult) {
+  if (!state.map || !state.polyBoundsLatLng) return;
+
+  // Remove any existing point layer
+  if (state.pointsLayer) {
+    state.map.removeLayer(state.pointsLayer);
+    state.pointsLayer = null;
+  }
+
+  const propKeys = joinResult.propKeys || [];
+  const group = L.layerGroup();
+
+  // All points get plotted regardless of location. The map's default view
+  // stays framed on the polygons (see fitBounds below) so stray points like
+  // a typo'd coordinate in France don't force a global zoom-out — but the
+  // user can still pan/zoom to find them.
+
+  // Matched points — green
+  for (const p of joinResult.matchedPts) {
+    const marker = L.circleMarker([p.lat, p.lng], {
+      radius: 4,
+      color: '#ffffff',
+      weight: 1.2,
+      fillColor: '#2d6a4f',
+      fillOpacity: 0.85,
+    });
+    let tooltipHtml = `<div><span style="color:#8a867c;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;">matched</span></div>`;
+    if (propKeys.length > 0) {
+      for (const k of propKeys) {
+        const v = p.props[k];
+        const displayVal = (v === undefined || v === null || v === '') ? '—' : String(v);
+        tooltipHtml += `<div style="margin-top:2px;"><span style="color:#8a867c;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;">${k}</span> ${displayVal}</div>`;
+      }
+    }
+    marker.bindTooltip(tooltipHtml, { direction: 'top' });
+    group.addLayer(marker);
+  }
+
+  // Unmatched points — orange
+  for (const p of joinResult.unmatchedPts) {
+    const marker = L.circleMarker([p.lat, p.lng], {
+      radius: 4,
+      color: '#ffffff',
+      weight: 1.2,
+      fillColor: '#c2410c',
+      fillOpacity: 0.85,
+    });
+    marker.bindTooltip(
+      `<div><span style="color:#8a867c;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.04em;text-transform:uppercase;">unmatched</span></div>` +
+      `<div style="color:#5a5750;font-size:12px;">Point did not fall in any polygon</div>`,
+      { direction: 'top' }
+    );
+    group.addLayer(marker);
+  }
+
+  state.pointsLayer = group.addTo(state.map);
+
+  // Update the legend
+  const legend = document.getElementById('map-legend');
+  let legendHtml = '';
+  if (joinResult.matched > 0) {
+    legendHtml += `<div class="legend-row"><span class="legend-swatch" style="background:#2d6a4f"></span>Matched (${joinResult.matched.toLocaleString()})</div>`;
+  }
+  if (joinResult.unmatched > 0) {
+    legendHtml += `<div class="legend-row"><span class="legend-swatch" style="background:#c2410c"></span>Unmatched (${joinResult.unmatched.toLocaleString()})</div>`;
+  }
+  legendHtml += `<div class="legend-row"><span class="legend-swatch poly"></span>Polygons</div>`;
+  legend.innerHTML = legendHtml;
+  legend.classList.add('show');
+
+  // Note about unmatched points (shown whenever any points didn't match)
+  const noteEl = document.getElementById('unmatched-note');
+  if (joinResult.unmatched > 0) {
+    noteEl.classList.add('show');
+  } else {
+    noteEl.classList.remove('show');
+  }
+
+  // Default view: framed on the polygons, not on all points.
+  state.map.fitBounds(state.polyBoundsLatLng, { padding: [16, 16] });
+}
+
+// ---------- Download ----------
+document.getElementById('download-btn').addEventListener('click', () => {
+  if (!state.output) return;
+  const csv = Papa.unparse(state.output);
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const base = (state.csvName || 'output').replace(/\.csv$/i, '');
+  a.download = `${base}_joined.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>

@@ -13,18 +13,10 @@ links:
   - label: Email
     url: "mailto:tylerjtran@gmail.com"
 output:
-  postcards::jolla
+  postcards::jolla:
+    includes:
+      in_header: gtm_head.html
+      before_body: gtm_body.html
 ---
  
 I like using data to effect positive change. I specialize in creating data products that make information more open and accessible, helping people and businesses make clearer decisions. Click any of the links below to learn more about me. 
-
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-0R71Q3SVVR"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-0R71Q3SVVR');
-</script>

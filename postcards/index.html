@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Postcards by Tyler</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf9f7;
+      --text: #1a1a18;
+      --muted: #6b6b60;
+      --accent: #2a5c8f;
+      --rule: #d8d4cc;
+      --nav-bg: #ffffff;
+      --nav-border: #e2ddd6;
+      --max-w: 820px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+    }
+
+    .nav-brand {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--text);
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.6;
+    }
+
+    /* ── MAIN CONTENT ── */
+    main {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+    }
+
+    /* ── INTRO ── */
+    .intro {
+      margin-bottom: 3.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .intro h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .intro p {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 600px;
+    }
+
+    /* ── PHOTO ENTRIES ── */
+    .entry {
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .entry:first-of-type {
+      padding-top: 0;
+    }
+
+    .entry-inner {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .entry-img-wrap {
+      flex-shrink: 0;
+    }
+
+    .entry-img-wrap img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      background: #e5e0d8;
+    }
+
+    /* Placeholder color blocks when no real image */
+    .entry-img-wrap .placeholder {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #a09a90;
+      font-family: 'Source Serif 4', Georgia, serif;
+    }
+
+    .ph1 { background: #d9d0c4; }
+    .ph2 { background: #c4ccd4; }
+    .ph3 { background: #cdd4c4; }
+    .ph4 { background: #d4c4cc; }
+
+    .entry-body {}
+
+    .entry-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 300;
+      margin-bottom: 0.5rem;
+    }
+
+    .entry-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .entry-desc {
+      font-size: 0.97rem;
+      line-height: 1.8;
+      color: #3a3a35;
+      font-weight: 300;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .entry-inner {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+      }
+      .site-nav { padding: 0 1rem; }
+      main { padding: 2rem 1rem 4rem; }
+    }
+
+    /* ── BACK TO TOP ── */
+    .back-to-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      background: var(--nav-bg);
+      border: 1px solid var(--nav-border);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.55rem 0.75rem 0.45rem;
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .back-to-top:hover {
+      color: var(--text);
+      border-color: var(--muted);
+    }
+
+    .back-to-top svg {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="site-nav">
+    <a class="nav-brand" href="#">Home</a>
+    <ul class="nav-links">
+      <!--<li><a href="#">Home</a></li>-->
+      <li><a href="mailto:tylerjtran@gmail.com">Email Me</a></li>
+      <li><a href="https://www.postcrossing.com/user/tylert">My Postcrossing Profile</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- INTRO -->
+    <section class="intro">
+      <h1>Custom Postcards by Tyler</h1>
+      <p>
+        Welcome! If you've landed on this page, you likely received a postcard from me through Postcrossing. You 
+        received a custom-made postcard from me -- either a photo I took or a linocut I made. I hope you enjoy learning
+        more about the place (or object) on your postcard. Have fun on your Postcrossing journey!
+      </p>
+    </section>
+
+    <!-- ENTRY 1 -->
+    <article class="entry" id="1">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <!-- Replace src with your image path -->
+          <img src="C:/Users/Tyler/Pictures/postcards/images/bear1.jpg" alt="A Kodiak brown bear in a river" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 01</div>
+          <h2 class="entry-title">Kodiak brown bear in river</h2>
+          <p class="entry-desc">
+            I took this photo on Kodiak Island in Alaska, where I spent the summer of 2012 working with the U.S.
+            Fish and Wildlife Service. This brown bear was fishing along a stream at this approximate location: 
+            <a href="https://maps.app.goo.gl/Aggj8KkvyZEH4oJs9">57.2575, -154.2798</a>.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 2 -->
+    <article class="entry" id="2">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/ak.jpg" alt="boats in an Arctic lake with mountains in the background" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 02</div>
+          <h2 class="entry-title">Karluk Lake, Alaska</h2>
+          <p class="entry-desc">
+            I took this photo on Kodiak Island in Alaska, where I spent the summer of 2012 working with the U.S.
+            Fish and Wildlife Service. These boats are on Karluk Lake, and I took the photo from a small island
+            named Camp Island (approximate location: <a href="https://maps.app.goo.gl/CFV6gUGQa2mdKhz79">57.367144, -154.028622</a>).
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 3 -->
+    <article class="entry" id="3">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/eagle.jpg" alt="A bald eagle flying in Alaska" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 03</div>
+          <h2 class="entry-title">Bald eagle on Kodiak Island</h2>
+          <p class="entry-desc">
+            I took this photo on Kodiak Island in Alaska, where I spent the summer of 2012 working with the U.S.
+            Fish and Wildlife Service. This bald eagle was flying off from the banks of a stream. Eagles would often
+            perch in the trees beside streams after cleaning up the salmon carcasses that bears had left behind after
+            fishing (approximate location: <a href="https://maps.app.goo.gl/4oxnm9gLK6J4F7UG6">57.255915, -154.115458</a>).
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 4 -->
+    <article class="entry" id="4">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/salmon1.jpg" alt="Salmon swimming in a stream" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 04</div>
+          <h2 class="entry-title">Sockeye fins</h2>
+          <p class="entry-desc">
+            I took this photo on Kodiak Island in Alaska, where I spent the summer of 2012 working with the U.S.
+            Fish and Wildlife Service. These are sockeye salmon swimming up a stream to spawn. They spawn and die
+            in the same location where they hatched. At the peak of the salmon runs, the streams looked like
+            red carpets because there were so many salmon. Approximate location: <a href="https://maps.app.goo.gl/4oxnm9gLK6J4F7UG6">57.255915, -154.115458</a>.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 5 -->
+    <article class="entry" id="5">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/bear3.jpg" alt="Brown bear standing in a stream" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 05</div>
+          <h2 class="entry-title">Standing brown bear</h2>
+          <p class="entry-desc">
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus
+            id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor
+            repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
+            saepe eveniet ut et voluptates repudiandae sint.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 6 -->
+    <article class="entry" id="6">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/salmon2.jpg" alt="Underwater photo of sockeye salmon" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 06</div>
+          <h2 class="entry-title">Underwater: sockeye salmon</h2>
+          <p class="entry-desc">
+            I took this photo on Kodiak Island in Alaska, where I spent the summer of 2012 working with the U.S.
+            Fish and Wildlife Service. These are sockeye salmon swimming up a stream to spawn. They spawn and die
+            in the same location where they hatched. At the peak of the salmon runs, the streams looked like
+            red carpets because there were so many salmon. Approximate location: <a href="https://maps.app.goo.gl/4oxnm9gLK6J4F7UG6">57.255915, -154.115458</a>.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 7 -->
+    <article class="entry" id="7">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/bear4.jpg" alt="A brown bear running in a stream" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 07</div>
+          <h2 class="entry-title">Running bear</h2>
+          <p class="entry-desc">
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus
+            id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor
+            repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
+            saepe eveniet ut et voluptates repudiandae sint.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 8 -->
+    <article class="entry" id="8">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/bear2.jpg" alt="A brown bear with a salmon in its mouth" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 08</div>
+          <h2 class="entry-title">Fishing bear</h2>
+          <p class="entry-desc">
+            Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus
+            id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor
+            repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus
+            saepe eveniet ut et voluptates repudiandae sint.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 9 -->
+    <article class="entry" id="9">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/cow.jpg" alt="A cow standing with mountains in the background" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 09</div>
+          <h2 class="entry-title">Montana cow</h2>
+          <p class="entry-desc">
+            I took this photo near Arlee, Montana, where I spent the summer of 2011 working on a farm. The farms in this area
+            had the beautiful backdrop of the Rockies (approximate location: <a href="https://maps.app.goo.gl/D8AgKbjDpkQnuA8f6">47.200689, -114.074076</a>).
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 10 -->
+    <article class="entry" id="10">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/rattlesnake.jpg" alt="A rattlesnake" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 10</div>
+          <h2 class="entry-title">Rattlesnake</h2>
+          <p class="entry-desc">
+            I took this photo near Arlee, Montana, where I spent the summer of 2011 working on a farm. On a day off from work, I went mountain biking
+            and accidentally stumbled upon this rattlesnake near an irrigation ditch (approximate location: <a href="https://maps.app.goo.gl/D8AgKbjDpkQnuA8f6">47.200689, -114.074076</a>).
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 11 -->
+    <article class="entry" id="11">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/greenland1.jpg" alt="The sun shining on grasses" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 11</div>
+          <h2 class="entry-title">Greenland flora</h2>
+          <p class="entry-desc">
+            I took this photo near Kangerlussuaq, Greenland, where I spent the summer of 2013 doing climate change
+            research. Our research site (approximate location: <a href="https://maps.app.goo.gl/b4q9rphoRpx8obhi8">67.095629, -50.277724</a>) 
+            was a few kilometers from the edge of the Greenland ice sheet. We were researching the effects of a warming climate on plant growth.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 12 -->
+    <article class="entry" id="12">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/greenland2.jpg" alt="Glaciers with a blue sky behind" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 12</div>
+          <h2 class="entry-title">Greenland glaciers</h2>
+          <p class="entry-desc">
+            I took this photo near Kangerlussuaq, Greenland, where I spent the summer of 2013 doing climate change
+            research. This is at the edge of the Greenland ice sheet (approximate location: <a href="https://maps.app.goo.gl/8cd3ZuHasF1YKCuW8">67.088255, -50.231839</a>).
+            At night, I would often hear thunder-link sounds from huge chunks of ice falling from the glacier into the water.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 13 -->
+    <article class="entry" id="13">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/stomp stomp.png" alt="Linocut of a spotted lanternfly" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 13</div>
+          <h2 class="entry-title">Stomp stomp</h2>
+          <p class="entry-desc">
+            This is a linocut I made of a <a href="https://en.wikipedia.org/wiki/Spotted_lanternfly">spotted lanternfly</a>, an invasive
+            species that arrived in Philadelphia several years ago. There's a public campaign to encourage people to stomp on the bugs when
+            they see them. Native to Asia, the spotted lanternfly feeds on crops and can harm native plants.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 14 -->
+    <article class="entry" id="14">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/dukes2.png" alt="Linocut of a jar of mayonnaise" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 14</div>
+          <h2 class="entry-title">Duke's mayo</h2>
+          <p class="entry-desc">
+            This is a linocut I made of Duke's Mayonnaise, a mayo brand that's popular in the southern United States.
+            I don't live in the South anymore, but it's still my favorite brand of mayo and it makes me think of home.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 15 -->
+    <article class="entry" id="15">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/cyanotype2.png" alt="Cyanotype with a plant" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 15</div>
+          <h2 class="entry-title">Plant cyanotype</h2>
+          <p class="entry-desc">
+            This is a <a href="https://en.wikipedia.org/wiki/Cyanotype">cyanotype</a> of a plant I found in the park near my house in Philadelphia. 
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ENTRY 16 -->
+    <article class="entry" id="16">
+      <div class="entry-inner">
+        <div class="entry-img-wrap">
+          <img src="C:/Users/Tyler/Pictures/postcards/images/comfort and floyd2.png" alt="A linocut of a restaurant on a corner" />
+        </div>
+        <div class="entry-body">
+          <div class="entry-label">Postcard 16</div>
+          <h2 class="entry-title">Comfort & Floyd</h2>
+          <p class="entry-desc">
+            This is <a href="https://comfortandfloyd.com/">Comfort & Floyd</a>, one of my favorite breakfast restaurants in my
+            neighborhood in Philadelphia. It only has a couple tables, but it's so quaint and the owner is super nice. And the 
+            food tastes great! I made this linocut to give a print to the owner.
+          </p>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- BACK TO TOP -->
+  <a class="back-to-top" href="#" aria-label="Back to top">
+    <svg width="10" height="7" viewBox="0 0 10 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 6L5 2L9 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Top
+  </a>
+
+</body>
+</html>

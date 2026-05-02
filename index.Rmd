@@ -3,7 +3,7 @@ title: "Hi, I'm Tyler"
 image: "Tyler.jpg"
 links:
   - label: Data Blog
-    url: "https://tylerjtran.github.io/data_blog/"
+    url: "./data_blog"
   - label: Spatial Join Tool
     url: "./spatialjoin"
   - label: GitHub
@@ -19,4 +19,4 @@ output:
       before_body: gtm_body.html
 ---
  
-I like using data to effect positive change. I specialize in creating data products that make information more open and accessible, helping people and businesses make clearer decisions. Click any of the links below to learn more about me. 
+I like using data to bring positive change. I make information more open and accessible, helping people and businesses make clearer decisions. Click any of the links below to learn more about me. 

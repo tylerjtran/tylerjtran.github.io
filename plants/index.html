@@ -247,6 +247,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      gap: 12px;
+    }
+
+    .results-bar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
     }
 
     .results-count {
@@ -262,7 +269,36 @@
       color: var(--text-muted);
     }
 
-    /* ── GRID ── */
+    /* ── VIEW TOGGLE ── */
+    .view-toggle {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      overflow: hidden;
+    }
+
+    .view-btn {
+      background: none;
+      border: none;
+      padding: 6px 10px;
+      cursor: pointer;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      transition: background 0.15s, color 0.15s;
+      line-height: 1;
+    }
+
+    .view-btn:first-child { border-right: 1px solid var(--border); }
+
+    .view-btn.active {
+      background: var(--dark-green);
+      color: #fff;
+    }
+
+    .view-btn svg { display: block; }
+
+    /* ── GRID / LIST WRAPPER ── */
     .grid-wrapper {
       max-width: 1200px;
       margin: 16px auto 64px;
@@ -273,6 +309,71 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 24px;
+    }
+
+    /* ── LIST VIEW ── */
+    .plant-grid.list-view {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .plant-grid.list-view .plant-card {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      border-radius: 10px;
+    }
+
+    .plant-grid.list-view .card-photo {
+      width: 72px;
+      height: 72px;
+      aspect-ratio: unset;
+      flex-shrink: 0;
+      border-radius: 8px 0 0 8px;
+    }
+
+    .plant-grid.list-view .card-photo-placeholder {
+      width: 72px;
+      height: 72px;
+      aspect-ratio: unset;
+      flex-shrink: 0;
+      border-radius: 8px 0 0 8px;
+      font-size: 1.4rem;
+    }
+
+    .plant-grid.list-view .card-body {
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .plant-grid.list-view .card-common-name {
+      font-size: 1.3rem;
+      margin-bottom: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .plant-grid.list-view .card-sci-name {
+      margin-bottom: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .plant-grid.list-view .card-names {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .plant-grid.list-view .card-badges {
+      flex-shrink: 0;
+      margin-left: auto;
     }
 
     /* ── CARD ── */
@@ -797,7 +898,24 @@
 
   <!-- RESULTS BAR -->
   <div class="results-bar">
-    <span class="results-count" id="results-count"></span>
+    <div class="results-bar-left">
+      <span class="results-count" id="results-count"></span>
+      <div class="view-toggle">
+        <button class="view-btn active" id="btn-card" onclick="setView('card')" title="Card view" aria-label="Card view">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/>
+            <rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/>
+          </svg>
+        </button>
+        <button class="view-btn" id="btn-list" onclick="setView('list')" title="List view" aria-label="List view">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+            <rect x="1" y="2" width="3" height="3" rx="0.5"/><rect x="6" y="2" width="9" height="3" rx="0.5"/>
+            <rect x="1" y="7" width="3" height="3" rx="0.5"/><rect x="6" y="7" width="9" height="3" rx="0.5"/>
+            <rect x="1" y="12" width="3" height="3" rx="0.5"/><rect x="6" y="12" width="9" height="3" rx="0.5"/>
+          </svg>
+        </button>
+      </div>
+    </div>
     <span class="cache-info">
       <span id="cache-label"></span>
       <button class="clear-btn" id="refresh-btn" onclick="refreshData()">Refresh data</button>
@@ -859,6 +977,7 @@
 
         populateDynamicFilters();
         applyFilters();
+        if (window.innerWidth <= 768) setView('list');
         if (new URLSearchParams(window.location.search).get('admin') === 'true') {
           renderAdminPanel();
         }
@@ -1050,8 +1169,10 @@
         <div class="plant-card" onclick="openModal(${p.taxonId})">
           ${photo}
           <div class="card-body">
-            <div class="card-common-name">${p.commonName}</div>
-            <div class="card-sci-name">${p.sciName}</div>
+            <div class="card-names">
+              <div class="card-common-name">${p.commonName}</div>
+              <div class="card-sci-name">${p.sciName}</div>
+            </div>
             ${estBadge ? `<div class="card-badges">${estBadge}</div>` : ''}
           </div>
         </div>`;
@@ -1090,6 +1211,13 @@
       });
 
       renderGrid(filtered);
+    }
+
+    function setView(mode) {
+      const grid = document.getElementById('plant-grid');
+      grid.classList.toggle('list-view', mode === 'list');
+      document.getElementById('btn-card').classList.toggle('active', mode === 'card');
+      document.getElementById('btn-list').classList.toggle('active', mode === 'list');
     }
 
     function clearFilters() {

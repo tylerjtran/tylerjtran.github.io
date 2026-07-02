@@ -148,5 +148,45 @@
     "sunPreference": "Full Sun",
     "moisturePreference": "Wet",
     "wildlifeValue": ["Birds"]
-  }
+  },
+  {
+  "taxonId": 117326,
+  "plantType": "Tree",
+  "evergreen": false,
+  "bloomTime": [],
+  "bloomColor": null,
+  "sunPreference": "Full Sun",
+  "moisturePreference": "Wet",
+  "wildlifeValue": ["Birds"]
+},
+{
+  "taxonId": 54261,
+  "plantType": "Tree",
+  "evergreen": true,
+  "bloomTime": [],
+  "bloomColor": null,
+  "sunPreference": "Full Sun",
+  "moisturePreference": "Wet",
+  "wildlifeValue": []
+},
+{
+  "taxonId": 128798,
+  "plantType": "Shrub",
+  "evergreen": false,
+  "bloomTime": ["Spring"],
+  "bloomColor": "White",
+  "sunPreference": "Full Sun",
+  "moisturePreference": "Wet",
+  "wildlifeValue": ["Birds", "Pollinators"]
+},
+{
+  "taxonId": 131000,
+  "plantType": "Grass",
+  "evergreen": false,
+  "bloomTime": ["Spring", "Summer"],
+  "bloomColor": "Green",
+  "sunPreference": "Part Shade",
+  "moisturePreference": "Wet",
+  "wildlifeValue": ["Birds"]
+}
 ]

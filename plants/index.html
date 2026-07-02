@@ -146,9 +146,21 @@
     .filters-top {
       display: flex;
       align-items: center;
-      justify-content: space-between;
       gap: 12px;
       margin-bottom: 14px;
+    }
+
+    .filters-top-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .filters-top-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-left: auto;
     }
 
     .filters-label {
@@ -157,6 +169,33 @@
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: var(--text-muted);
+    }
+
+    .filter-toggle-btn {
+      display: none;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--dark-green);
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      cursor: pointer;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .filter-toggle-btn .active-badge {
+      background: var(--dark-green);
+      color: #fff;
+      border-radius: 10px;
+      padding: 1px 6px;
+      font-size: 0.7rem;
+    }
+
+    .filters-grid.collapsed {
+      display: none;
     }
 
     .species-toggle {
@@ -185,7 +224,7 @@
       cursor: pointer;
       text-decoration: underline;
       padding: 0;
-      margin-left: auto;
+      text-align: right;
     }
 
     .clear-btn:hover { color: var(--dark-green); }
@@ -253,7 +292,7 @@
     .results-bar-left {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 8px;
     }
 
     .results-count {
@@ -263,10 +302,12 @@
 
     .cache-info {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
       font-size: 0.78rem;
       color: var(--text-muted);
+      text-align: right;
     }
 
     /* ── VIEW TOGGLE ── */
@@ -786,6 +827,12 @@
       .results-bar, .grid-wrapper { padding: 0 20px; }
       .modal-details { grid-template-columns: 1fr; }
       .modal-body { padding: 20px 22px 28px; }
+      .cache-info { text-align: right; flex-shrink: 1; min-width: 0; }
+      .cache-info span, .cache-info button { word-break: break-word; }
+      /* Filter toggle */
+      .filter-toggle-btn { display: flex; }
+      .filters-top { margin-bottom: 0; }
+      .filters-grid { margin-top: 14px; }
     }
 
     @media (max-width: 480px) {
@@ -812,18 +859,26 @@
   <div class="filters-wrapper">
     <div class="filters-inner">
       <div class="filters-top">
-        <span class="filters-label">Filter Plants</span>
+        <div class="filters-top-left">
+          <span class="filters-label">Filter Plants</span>
+          <button class="filter-toggle-btn" id="filter-toggle-btn" onclick="toggleFilters()">
+            <span id="filter-toggle-label">Show filters</span>
+            <span class="active-badge" id="filter-active-badge" style="display:none"></span>
+          </button>
+        </div>
         <label class="species-toggle">
           <input type="checkbox" id="filter-species-only" checked onchange="applyFilters()">
           Species-level IDs only
         </label>
-        <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
+        <div class="filters-top-right">
+          <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
+        </div>
       </div>
       <div class="filters-grid">
         <div class="filter-group">
           <label for="filter-establishment">Origin</label>
           <select id="filter-establishment" onchange="applyFilters()">
-            <option value="">All origins</option>
+            <option value="">All</option>
             <option value="native" selected>Native</option>
             <option value="introduced">Introduced</option>
           </select>
@@ -831,7 +886,7 @@
         <div class="filter-group">
           <label for="filter-type">Plant Type</label>
           <select id="filter-type" onchange="applyFilters()">
-            <option value="">All types</option>
+            <option value="">All</option>
           </select>
         </div>
         <div class="filter-group">
@@ -845,7 +900,7 @@
         <div class="filter-group">
           <label for="filter-bloom">Bloom Time</label>
           <select id="filter-bloom" onchange="applyFilters()">
-            <option value="">Any season</option>
+            <option value="">All</option>
             <option>Spring</option>
             <option>Summer</option>
             <option>Fall</option>
@@ -854,13 +909,13 @@
         <div class="filter-group">
           <label for="filter-bloom-color">Bloom Color</label>
           <select id="filter-bloom-color" onchange="applyFilters()">
-            <option value="">Any color</option>
+            <option value="">All</option>
           </select>
         </div>
         <div class="filter-group">
           <label for="filter-sun">Sun</label>
           <select id="filter-sun" onchange="applyFilters()">
-            <option value="">Any exposure</option>
+            <option value="">All</option>
             <option>Full Sun</option>
             <option>Part Shade</option>
             <option>Full Shade</option>
@@ -869,7 +924,7 @@
         <div class="filter-group">
           <label for="filter-moisture">Moisture</label>
           <select id="filter-moisture" onchange="applyFilters()">
-            <option value="">Any moisture</option>
+            <option value="">All</option>
             <option>Dry</option>
             <option>Medium</option>
             <option>Wet</option>
@@ -878,7 +933,7 @@
         <div class="filter-group">
           <label for="filter-wildlife">Wildlife Value</label>
           <select id="filter-wildlife" onchange="applyFilters()">
-            <option value="">Any</option>
+            <option value="">All</option>
           </select>
         </div>
       </div>
@@ -977,7 +1032,11 @@
 
         populateDynamicFilters();
         applyFilters();
-        if (window.innerWidth <= 768) setView('list');
+        if (window.innerWidth <= 768) {
+        setView('list');
+        document.querySelector('.filters-grid').classList.add('collapsed');
+        document.getElementById('filter-toggle-label').textContent = 'Show filters';
+      }
         if (new URLSearchParams(window.location.search).get('admin') === 'true') {
           renderAdminPanel();
         }
@@ -1211,6 +1270,36 @@
       });
 
       renderGrid(filtered);
+      updateActiveFilterBadge();
+    }
+
+    function toggleFilters() {
+      const grid = document.getElementById('plant-grid') && document.querySelector('.filters-grid');
+      const filtersGrid = document.querySelector('.filters-grid');
+      const isCollapsed = filtersGrid.classList.toggle('collapsed');
+      document.getElementById('filter-toggle-label').textContent = isCollapsed ? 'Show filters' : 'Hide filters';
+    }
+
+    function updateActiveFilterBadge() {
+      const count = [
+        document.getElementById('filter-establishment').value !== 'native' ? 1 : 0,
+        document.getElementById('filter-type').value ? 1 : 0,
+        document.getElementById('filter-evergreen').value ? 1 : 0,
+        document.getElementById('filter-bloom').value ? 1 : 0,
+        document.getElementById('filter-bloom-color').value ? 1 : 0,
+        document.getElementById('filter-sun').value ? 1 : 0,
+        document.getElementById('filter-moisture').value ? 1 : 0,
+        document.getElementById('filter-wildlife').value ? 1 : 0,
+        document.getElementById('filter-species-only').checked ? 0 : 1,
+      ].reduce((a, b) => a + b, 0);
+
+      const badge = document.getElementById('filter-active-badge');
+      if (count > 0) {
+        badge.textContent = count;
+        badge.style.display = '';
+      } else {
+        badge.style.display = 'none';
+      }
     }
 
     function setView(mode) {

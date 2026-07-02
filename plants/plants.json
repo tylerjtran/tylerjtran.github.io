@@ -188,5 +188,45 @@
   "sunPreference": "Part Shade",
   "moisturePreference": "Wet",
   "wildlifeValue": ["Birds"]
+},
+{
+  "taxonId": 62376,
+  "plantType": "Shrub",
+  "evergreen": true,
+  "bloomTime": ["Summer"],
+  "bloomColor": "White",
+  "sunPreference": "Full Shade",
+  "moisturePreference": "Wet",
+  "wildlifeValue": []
+},
+{
+  "taxonId": 83799,
+  "plantType": "Shrub",
+  "evergreen": true,
+  "bloomTime": ["Spring", "Summer"],
+  "bloomColor": "White",
+  "sunPreference": "Part Shade",
+  "moisturePreference": "Wet",
+  "wildlifeValue": ["Birds", "Pollinators"]
+},
+{
+  "taxonId": 63115,
+  "plantType": "Fern",
+  "evergreen": false,
+  "bloomTime": [],
+  "bloomColor": null,
+  "sunPreference": "Part Shade",
+  "moisturePreference": "Wet",
+  "wildlifeValue": []
+},
+{
+  "taxonId": 53983,
+  "plantType": "Wildflower",
+  "evergreen": false,
+  "bloomTime": ["Spring", "Summer"],
+  "bloomColor": "Purple",
+  "sunPreference": "Full Sun",
+  "moisturePreference": "Wet",
+  "wildlifeValue": ["Pollinators", "Deer-resistant"]
 }
 ]

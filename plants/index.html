@@ -1035,21 +1035,11 @@
         ? `<img class="card-photo" src="${p.photoSquare}" alt="${p.commonName}" loading="lazy">`
         : `<div class="card-photo-placeholder">🌿</div>`;
 
-      const badges = [
-        est === 'native' ? `<span class="badge badge-native">Native</span>` : '',
-        est === 'introduced' ? `<span class="badge badge-introduced">Introduced</span>` : '',
-        p.evergreen ? `<span class="badge badge-evergreen">Evergreen</span>` : '',
-        p.plantType ? `<span class="badge badge-type">${p.plantType}</span>` : '',
-      ].filter(Boolean).join('');
-
-      const meta = [
-        p.bloomTime && p.bloomTime.length
-          ? `<div class="card-meta-row"><span>Blooms</span><span>${p.bloomTime.join(', ')}${p.bloomColor ? ' · ' + p.bloomColor : ''}</span></div>` : '',
-        p.sunPreference
-          ? `<div class="card-meta-row"><span>Sun</span><span>${p.sunPreference}</span></div>` : '',
-        p.moisturePreference
-          ? `<div class="card-meta-row"><span>Moisture</span><span>${p.moisturePreference}</span></div>` : '',
-      ].filter(Boolean).join('');
+      const estBadge = est === 'native'
+        ? `<span class="badge badge-native">Native</span>`
+        : est === 'introduced'
+          ? `<span class="badge badge-introduced">Introduced</span>`
+          : '';
 
       return `
         <div class="plant-card" onclick="openModal(${p.taxonId})">
@@ -1057,8 +1047,7 @@
           <div class="card-body">
             <div class="card-common-name">${p.commonName}</div>
             <div class="card-sci-name">${p.sciName}</div>
-            <div class="card-badges">${badges}</div>
-            ${meta ? `<div class="card-meta">${meta}</div>` : ''}
+            ${estBadge ? `<div class="card-badges">${estBadge}</div>` : ''}
           </div>
         </div>`;
     }

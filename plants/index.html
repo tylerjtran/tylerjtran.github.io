@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Native Plants of Boy Scout Road</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f0ede0;
+      --dark-green: #3a5c1f;
+      --medium-green: #5a7a3c;
+      --light-green: #a8c090;
+      --card-bg: #fdfcf8;
+      --text: #2a2a22;
+      --text-muted: #7a7a62;
+      --border: #ddd8c4;
+      --shadow: 0 2px 12px rgba(58,92,31,0.08);
+      --shadow-hover: 0 6px 24px rgba(58,92,31,0.15);
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--text);
+      font-family: 'Lato', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 32px 32px;
+      gap: 8px;
+    }
+
+    /* Desktop layout */
+    .header-fern {
+      width: 200px;
+      flex-shrink: 0;
+      opacity: 0.92;
+      pointer-events: none;
+      user-select: none;
+      display: block;
+    }
+
+    .header-title {
+      font-family: 'Amatic SC', cursive;
+      font-weight: 700;
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      color: var(--dark-green);
+      text-align: center;
+      line-height: 1.15;
+    }
+
+    /* Mobile layout */
+    .header-mobile {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-jim {
+      width: min(320px, 80vw);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .header-title-mobile {
+      font-family: 'Amatic SC', cursive;
+      font-weight: 700;
+      font-size: clamp(2.2rem, 8vw, 3rem);
+      color: var(--dark-green);
+      text-align: center;
+      line-height: 1.15;
+    }
+
+    .title-native-mobile {
+      position: relative;
+      display: inline-block;
+    }
+
+    .title-native-mobile::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 52%;
+      height: 3px;
+      width: 100%;
+      background: var(--dark-green);
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .title-native-mobile.struck::after { transform: scaleX(1); }
+
+    .title-native {
+      position: relative;
+      display: inline-block;
+    }
+
+    .title-native::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 52%;
+      height: 3px;
+      width: 100%;
+      background: var(--dark-green);
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .title-native.struck::after {
+      transform: scaleX(1);
+    }
+
+    /* ── FILTERS ── */
+    .filters-wrapper {
+      background: var(--card-bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 32px;
+    }
+
+    .filters-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .filters-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .filters-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+    }
+
+    .species-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .species-toggle input[type="checkbox"] {
+      accent-color: var(--medium-green);
+      width: 14px;
+      height: 14px;
+      cursor: pointer;
+    }
+
+    .clear-btn {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      color: var(--medium-green);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+      padding: 0;
+      margin-left: auto;
+    }
+
+    .clear-btn:hover { color: var(--dark-green); }
+
+    .filters-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .filters-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 420px) {
+      .filters-grid { grid-template-columns: 1fr; }
+    }
+
+    .filter-group label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .filter-group select {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      color: var(--text);
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 7px 10px;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235a7a3c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      padding-right: 28px;
+    }
+
+    .filter-group select:focus {
+      outline: 2px solid var(--light-green);
+      outline-offset: 1px;
+    }
+
+    /* ── RESULTS BAR ── */
+    .results-bar {
+      max-width: 1200px;
+      margin: 24px auto 0;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .results-count {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .cache-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* ── GRID ── */
+    .grid-wrapper {
+      max-width: 1200px;
+      margin: 16px auto 64px;
+      padding: 0 32px;
+    }
+
+    .plant-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── CARD ── */
+    .plant-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+      box-shadow: var(--shadow);
+    }
+
+    .plant-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      background: #e8e4d4;
+    }
+
+    .card-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #e0ddd0, #d0cdc0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 2rem;
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+    }
+
+    .card-common-name {
+      font-family: 'Amatic SC', cursive;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--dark-green);
+      line-height: 1.1;
+      margin-bottom: 2px;
+    }
+
+    .card-sci-name {
+      font-style: italic;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 3px 8px;
+      border-radius: 20px;
+      border: 1px solid;
+    }
+
+    .badge-native {
+      background: #e8f4e0;
+      color: #3a6020;
+      border-color: #b8d8a0;
+    }
+
+    .badge-introduced {
+      background: #f4ede0;
+      color: #7a4a20;
+      border-color: #d8c0a0;
+    }
+
+    .badge-evergreen {
+      background: #e0ede8;
+      color: #205a40;
+      border-color: #a0c8b8;
+    }
+
+    .badge-type {
+      background: #f0ede0;
+      color: var(--text-muted);
+      border-color: var(--border);
+    }
+
+    .card-meta {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .card-meta-row {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      gap: 4px;
+    }
+
+    .card-meta-row span:first-child {
+      font-weight: 700;
+      min-width: 70px;
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 64px 32px;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    .empty-state p { font-size: 1rem; }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30,30,20,0.55);
+      z-index: 100;
+      padding: 24px;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(2px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--card-bg);
+      border-radius: 16px;
+      max-width: 820px;
+      width: 100%;
+      max-height: 90vh;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      position: relative;
+    }
+
+    .modal-inner {
+      overflow-y: auto;
+      max-height: 90vh;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(240,237,224,0.9);
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      z-index: 10;
+      transition: background 0.15s;
+    }
+
+    .modal-close:hover { background: var(--border); }
+
+    .modal-photo {
+      width: 100%;
+      max-height: 360px;
+      object-fit: cover;
+      border-radius: 16px 16px 0 0;
+      display: block;
+    }
+
+    .modal-photo-placeholder {
+      width: 100%;
+      height: 260px;
+      background: linear-gradient(135deg, #e0ddd0, #d0cdc0);
+      border-radius: 16px 16px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .modal-body {
+      padding: 28px 32px 36px;
+    }
+
+    .modal-common-name {
+      font-family: 'Amatic SC', cursive;
+      font-weight: 700;
+      font-size: 2.4rem;
+      color: var(--dark-green);
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .modal-sci-name {
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 14px;
+    }
+
+    .modal-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .modal-description {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 22px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    .modal-description.loading {
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .modal-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      margin-bottom: 20px;
+    }
+
+    .modal-detail {
+      font-size: 0.85rem;
+    }
+
+    .modal-detail-label {
+      font-weight: 700;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 2px;
+    }
+
+    .modal-detail-value {
+      color: var(--text);
+    }
+
+    .modal-inat-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: var(--medium-green);
+      text-decoration: none;
+      border: 1px solid var(--light-green);
+      border-radius: 6px;
+      padding: 6px 12px;
+      transition: background 0.15s;
+    }
+
+    .modal-inat-link:hover {
+      background: #e8f4e0;
+    }
+
+    /* ── PHOTO ATTRIBUTION ── */
+    .photo-attribution {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-align: right;
+      padding: 4px 12px;
+      font-style: italic;
+    }
+
+    /* ── ADMIN PANEL ── */
+    #admin-panel {
+      background: #fffbea;
+      border-top: 3px solid #d4a800;
+      border-bottom: 1px solid #e8d880;
+      padding: 20px 32px 24px;
+    }
+
+    .admin-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .admin-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .admin-title {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #7a5800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .admin-subtitle {
+      font-size: 0.82rem;
+      color: #9a7820;
+    }
+
+    .admin-all-good {
+      font-size: 0.88rem;
+      color: #5a7a3c;
+      font-weight: 700;
+    }
+
+    .admin-item {
+      background: #fff;
+      border: 1px solid #e8d880;
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+    }
+
+    .admin-item-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .admin-item-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .admin-snippet {
+      background: #f5f5ee;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-family: monospace;
+      font-size: 0.78rem;
+      color: #333;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .admin-copy-btn {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.75rem;
+      margin-top: 6px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 4px 10px;
+      cursor: pointer;
+      color: var(--medium-green);
+      transition: background 0.15s;
+    }
+
+    .admin-copy-btn:hover { background: #e8f4e0; }
+    .admin-copy-btn.copied { color: #3a6020; font-weight: 700; }
+
+    /* ── LOADING ── */
+    .loading-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      gap: 16px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--medium-green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      /* Swap to mobile header */
+      .header-fern, .header-title { display: none; }
+      .header-mobile { display: flex; }
+      .site-header { padding: 32px 0 24px; }
+      .filters-wrapper { padding: 16px 20px; }
+      .results-bar, .grid-wrapper { padding: 0 20px; }
+      .modal-details { grid-template-columns: 1fr; }
+      .modal-body { padding: 20px 22px 28px; }
+    }
+
+    @media (max-width: 480px) {
+      .header-jim { width: min(260px, 85vw); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <!-- Desktop: flanking ferns -->
+    <img src="fern_left.png" alt="" class="header-fern left" aria-hidden="true">
+    <h1 class="header-title"><span class="title-native" id="title-native">Native</span> Plants of<br>Boy Scout Road</h1>
+    <img src="fern_right.png" alt="" class="header-fern right" aria-hidden="true">
+    <!-- Mobile: jim above title -->
+    <div class="header-mobile">
+      <img src="jim_ferns.png" alt="" class="header-jim" aria-hidden="true">
+      <h1 class="header-title-mobile"><span class="title-native-mobile">Native</span> Plants of<br>Boy Scout Road</h1>
+    </div>
+  </header>
+
+  <!-- FILTERS -->
+  <div class="filters-wrapper">
+    <div class="filters-inner">
+      <div class="filters-top">
+        <span class="filters-label">Filter Plants</span>
+        <label class="species-toggle">
+          <input type="checkbox" id="filter-species-only" checked onchange="applyFilters()">
+          Species-level IDs only
+        </label>
+        <button class="clear-btn" onclick="clearFilters()">Clear all filters</button>
+      </div>
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label for="filter-establishment">Origin</label>
+          <select id="filter-establishment" onchange="applyFilters()">
+            <option value="">All origins</option>
+            <option value="native" selected>Native</option>
+            <option value="introduced">Introduced</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-type">Plant Type</label>
+          <select id="filter-type" onchange="applyFilters()">
+            <option value="">All types</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-evergreen">Evergreen</label>
+          <select id="filter-evergreen" onchange="applyFilters()">
+            <option value="">All</option>
+            <option value="true">Evergreen</option>
+            <option value="false">Not evergreen</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-bloom">Bloom Time</label>
+          <select id="filter-bloom" onchange="applyFilters()">
+            <option value="">Any season</option>
+            <option>Spring</option>
+            <option>Summer</option>
+            <option>Fall</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-bloom-color">Bloom Color</label>
+          <select id="filter-bloom-color" onchange="applyFilters()">
+            <option value="">Any color</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-sun">Sun</label>
+          <select id="filter-sun" onchange="applyFilters()">
+            <option value="">Any exposure</option>
+            <option>Full Sun</option>
+            <option>Part Shade</option>
+            <option>Full Shade</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-moisture">Moisture</label>
+          <select id="filter-moisture" onchange="applyFilters()">
+            <option value="">Any moisture</option>
+            <option>Dry</option>
+            <option>Medium</option>
+            <option>Wet</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="filter-wildlife">Wildlife Value</label>
+          <select id="filter-wildlife" onchange="applyFilters()">
+            <option value="">Any</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PANEL -->
+  <div id="admin-panel" style="display:none">
+    <div class="admin-inner">
+      <div class="admin-header">
+        <span class="admin-title">⚙ Admin — plants.json gaps</span>
+        <span class="admin-subtitle">Taxa in your iNaturalist project that have no entry in plants.json</span>
+      </div>
+      <div id="admin-list"></div>
+    </div>
+  </div>
+
+  <!-- RESULTS BAR -->
+  <div class="results-bar">
+    <span class="results-count" id="results-count"></span>
+    <span class="cache-info">
+      <span id="cache-label"></span>
+      <button class="clear-btn" id="refresh-btn" onclick="refreshData()">Refresh data</button>
+    </span>
+  </div>
+
+  <!-- PLANT GRID -->
+  <div class="grid-wrapper">
+    <div class="plant-grid" id="plant-grid">
+      <div class="loading-screen">
+        <div class="spinner"></div>
+        <span>Loading plants…</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+    <div class="modal" id="modal">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+      <div class="modal-inner">
+        <div id="modal-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const INAT_PROJECT = 'boy-scout-road';
+    const INAT_PLACE_ID = 235670;
+    const INAT_API = 'https://api.inaturalist.org/v1';
+    const CACHE_KEY = 'bsr_inat_cache';
+    const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+    let allPlants = [];
+    let customData = {};
+    const descCache = {};
+
+    async function init() {
+      try {
+        const [observations, custom] = await Promise.all([
+          fetchAllObservations(),
+          fetch('plants.json').then(r => r.json()).catch(() => [])
+        ]);
+
+        // Index custom data by taxon ID
+        custom.forEach(c => { customData[c.taxonId] = c; });
+
+        // Deduplicate observations by taxon ID, filter to Plantae only
+        const seen = new Set();
+        allPlants = [];
+        observations.forEach(obs => {
+          const t = obs.taxon;
+          if (!t) return;
+          if (t.iconic_taxon_name && t.iconic_taxon_name !== 'Plantae') return;
+          if (seen.has(t.id)) return;
+          seen.add(t.id);
+          allPlants.push(buildPlant(t, customData[t.id] || {}));
+        });
+
+        populateDynamicFilters();
+        applyFilters();
+        if (new URLSearchParams(window.location.search).get('admin') === 'true') {
+          renderAdminPanel();
+        }
+      } catch (err) {
+        document.getElementById('plant-grid').innerHTML =
+          '<div class="empty-state"><p>Could not load plants. Please try again later.</p></div>';
+        console.error(err);
+      }
+    }
+
+    async function fetchAllObservations(forceRefresh = false) {
+      if (!forceRefresh) {
+        try {
+          const cached = JSON.parse(localStorage.getItem(CACHE_KEY));
+          if (cached && (Date.now() - cached.timestamp) < CACHE_TTL_MS) {
+            updateCacheLabel(cached.timestamp);
+            return cached.observations;
+          }
+        } catch {}
+      }
+
+      let page = 1, perPage = 50, results = [];
+      while (true) {
+        const url = `${INAT_API}/observations?project_id=${INAT_PROJECT}&place_id=${INAT_PLACE_ID}&per_page=${perPage}&page=${page}&order_by=observed_on`;
+        const res = await fetch(url);
+        const data = await res.json();
+        results = results.concat(data.results);
+        if (results.length >= data.total_results) break;
+        page++;
+      }
+
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ timestamp: Date.now(), observations: results }));
+      } catch {}
+
+      updateCacheLabel(Date.now());
+      return results;
+    }
+
+    function updateCacheLabel(timestamp) {
+      const el = document.getElementById('cache-label');
+      if (!el) return;
+      const date = new Date(timestamp);
+      el.textContent = `Data from ${date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`;
+    }
+
+    async function refreshData() {
+      const btn = document.getElementById('refresh-btn');
+      btn.textContent = 'Refreshing…';
+      btn.disabled = true;
+      const observations = await fetchAllObservations(true);
+      // re-merge with custom data and re-render
+      const seen = new Set();
+      allPlants = [];
+      observations.forEach(obs => {
+        const t = obs.taxon;
+        if (!t) return;
+        if (t.iconic_taxon_name && t.iconic_taxon_name !== 'Plantae') return;
+        if (seen.has(t.id)) return;
+        seen.add(t.id);
+        const custom = customData[t.id] || {};
+        allPlants.push(buildPlant(t, custom));
+      });
+      populateDynamicFilters(true);
+      applyFilters();
+      btn.textContent = 'Refresh data';
+      btn.disabled = false;
+    }
+
+    function renderAdminPanel() {
+      const panel = document.getElementById('admin-panel');
+      const list = document.getElementById('admin-list');
+      panel.style.display = 'block';
+
+      const missing = allPlants.filter(p => !customData[p.taxonId]);
+
+      if (missing.length === 0) {
+        list.innerHTML = '<div class="admin-all-good">✓ All taxa have entries in plants.json</div>';
+        return;
+      }
+
+      list.innerHTML = missing.map(p => {
+        const snippet = JSON.stringify({
+          taxonId: p.taxonId,
+          plantType: null,
+          evergreen: null,
+          bloomTime: [],
+          bloomColor: null,
+          sunPreference: null,
+          moisturePreference: null,
+          wildlifeValue: []
+        }, null, 2);
+
+        return `
+          <div class="admin-item">
+            <div class="admin-item-name">${p.commonName}</div>
+            <div class="admin-item-meta">${p.sciName} · taxonId: ${p.taxonId} ·
+              <a href="https://www.inaturalist.org/taxa/${p.taxonId}" target="_blank" rel="noopener">view on iNaturalist ↗</a>
+            </div>
+            <div class="admin-snippet" id="snippet-${p.taxonId}">${snippet}</div>
+            <button class="admin-copy-btn" onclick="copySnippet(${p.taxonId})">Copy JSON</button>
+          </div>`;
+      }).join('');
+    }
+
+    function copySnippet(taxonId) {
+      const text = document.getElementById(`snippet-${taxonId}`).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = event.target;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy JSON'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+
+    function buildPlant(t, custom) {
+      return {
+        taxonId: t.id,
+        commonName: t.preferred_common_name || t.name,
+        sciName: t.name,
+        rank: t.rank,
+        native: t.native,
+        introduced: t.introduced,
+        photo: t.default_photo ? t.default_photo.medium_url : null,
+        photoSquare: t.default_photo ? (t.default_photo.small_url || t.default_photo.medium_url) : null,
+        photoAttribution: t.default_photo ? t.default_photo.attribution : null,
+        wikipediaUrl: t.wikipedia_url || null,
+        plantType: custom.plantType || null,
+        evergreen: custom.evergreen != null ? custom.evergreen : null,
+        bloomTime: custom.bloomTime || [],
+        bloomColor: custom.bloomColor || null,
+        sunPreference: custom.sunPreference || null,
+        moisturePreference: custom.moisturePreference || null,
+        wildlifeValue: custom.wildlifeValue || [],
+      };
+    }
+
+    function populateDynamicFilters(reset = false) {
+      const addOptions = (id, values) => {
+        const sel = document.getElementById(id);
+        if (reset) {
+          while (sel.options.length > 1) sel.remove(1);
+        }
+        [...new Set(values)].sort().forEach(v => {
+          const opt = document.createElement('option');
+          opt.value = v;
+          opt.textContent = v;
+          sel.appendChild(opt);
+        });
+      };
+
+      addOptions('filter-type', allPlants.map(p => p.plantType).filter(Boolean));
+      addOptions('filter-bloom-color', allPlants.map(p => p.bloomColor).filter(Boolean));
+      addOptions('filter-wildlife', allPlants.flatMap(p => p.wildlifeValue).filter(Boolean));
+    }
+
+    function getEstablishment(plant) {
+      if (plant.native) return 'native';
+      if (plant.introduced) return 'introduced';
+      return null;
+    }
+
+    function renderGrid(plants) {
+      const grid = document.getElementById('plant-grid');
+      document.getElementById('results-count').textContent =
+        `${plants.length} plant${plants.length !== 1 ? 's' : ''}`;
+
+      if (plants.length === 0) {
+        grid.innerHTML = '<div class="empty-state"><p>No plants match the selected filters.</p></div>';
+        return;
+      }
+
+      grid.innerHTML = plants.map(p => renderCard(p)).join('');
+    }
+
+    function renderCard(p) {
+      const est = getEstablishment(p);
+      const photo = p.photoSquare
+        ? `<img class="card-photo" src="${p.photoSquare}" alt="${p.commonName}" loading="lazy">`
+        : `<div class="card-photo-placeholder">🌿</div>`;
+
+      const badges = [
+        est === 'native' ? `<span class="badge badge-native">Native</span>` : '',
+        est === 'introduced' ? `<span class="badge badge-introduced">Introduced</span>` : '',
+        p.evergreen ? `<span class="badge badge-evergreen">Evergreen</span>` : '',
+        p.plantType ? `<span class="badge badge-type">${p.plantType}</span>` : '',
+      ].filter(Boolean).join('');
+
+      const meta = [
+        p.bloomTime && p.bloomTime.length
+          ? `<div class="card-meta-row"><span>Blooms</span><span>${p.bloomTime.join(', ')}${p.bloomColor ? ' · ' + p.bloomColor : ''}</span></div>` : '',
+        p.sunPreference
+          ? `<div class="card-meta-row"><span>Sun</span><span>${p.sunPreference}</span></div>` : '',
+        p.moisturePreference
+          ? `<div class="card-meta-row"><span>Moisture</span><span>${p.moisturePreference}</span></div>` : '',
+      ].filter(Boolean).join('');
+
+      return `
+        <div class="plant-card" onclick="openModal(${p.taxonId})">
+          ${photo}
+          <div class="card-body">
+            <div class="card-common-name">${p.commonName}</div>
+            <div class="card-sci-name">${p.sciName}</div>
+            <div class="card-badges">${badges}</div>
+            ${meta ? `<div class="card-meta">${meta}</div>` : ''}
+          </div>
+        </div>`;
+    }
+
+    function applyFilters() {
+      const type = document.getElementById('filter-type').value;
+      const est = document.getElementById('filter-establishment').value;
+
+      // Strikethrough "Native" in title when not filtering to native only
+      const struck = est === '' || est === 'introduced';
+      document.getElementById('title-native').classList.toggle('struck', struck);
+      document.querySelector('.title-native-mobile').classList.toggle('struck', struck);
+      const evergreen = document.getElementById('filter-evergreen').value;
+      const bloom = document.getElementById('filter-bloom').value;
+      const bloomColor = document.getElementById('filter-bloom-color').value;
+      const sun = document.getElementById('filter-sun').value;
+      const moisture = document.getElementById('filter-moisture').value;
+      const wildlife = document.getElementById('filter-wildlife').value;
+
+      const speciesOnly = document.getElementById('filter-species-only').checked;
+
+      const filtered = allPlants.filter(p => {
+        if (speciesOnly && p.rank !== 'species') return false;
+        if (type && p.plantType !== type) return false;
+        if (est === 'native' && !p.native) return false;
+        if (est === 'introduced' && !p.introduced) return false;
+        if (evergreen === 'true' && !p.evergreen) return false;
+        if (evergreen === 'false' && p.evergreen !== false) return false;
+        if (bloom && !p.bloomTime.includes(bloom)) return false;
+        if (bloomColor && p.bloomColor !== bloomColor) return false;
+        if (sun && p.sunPreference !== sun) return false;
+        if (moisture && p.moisturePreference !== moisture) return false;
+        if (wildlife && !p.wildlifeValue.includes(wildlife)) return false;
+        return true;
+      });
+
+      renderGrid(filtered);
+    }
+
+    function clearFilters() {
+      ['filter-type','filter-evergreen','filter-bloom',
+       'filter-bloom-color','filter-sun','filter-moisture','filter-wildlife']
+        .forEach(id => document.getElementById(id).value = '');
+      document.getElementById('filter-establishment').value = 'native';
+      document.getElementById('filter-species-only').checked = true;
+      document.getElementById('title-native').classList.remove('struck');
+      document.querySelector('.title-native-mobile').classList.remove('struck');
+      applyFilters();
+    }
+
+    async function openModal(taxonId) {
+      const p = allPlants.find(x => x.taxonId === taxonId);
+      if (!p) return;
+
+      const est = getEstablishment(p);
+      const overlay = document.getElementById('modal-overlay');
+      const content = document.getElementById('modal-content');
+
+      const photo = p.photo
+        ? `<img class="modal-photo" src="${p.photo}" alt="${p.commonName}">`
+        : `<div class="modal-photo-placeholder">🌿</div>`;
+
+      const attribution = p.photoAttribution
+        ? `<div class="photo-attribution">${p.photoAttribution} · via iNaturalist</div>` : '';
+
+      const badges = [
+        est === 'native' ? `<span class="badge badge-native">Native</span>` : '',
+        est === 'introduced' ? `<span class="badge badge-introduced">Introduced</span>` : '',
+        p.evergreen === true ? `<span class="badge badge-evergreen">Evergreen</span>` : '',
+        p.evergreen === false ? `<span class="badge badge-type">Deciduous</span>` : '',
+        p.plantType ? `<span class="badge badge-type">${p.plantType}</span>` : '',
+      ].filter(Boolean).join('');
+
+      const details = buildDetails(p);
+
+      content.innerHTML = `
+        ${photo}
+        ${attribution}
+        <div class="modal-body">
+          <div class="modal-common-name">${p.commonName}</div>
+          <div class="modal-sci-name">${p.sciName}</div>
+          <div class="modal-badges">${badges}</div>
+          <div class="modal-description loading" id="modal-desc">Loading description…</div>
+          ${details}
+          <a class="modal-inat-link" href="https://www.inaturalist.org/taxa/${taxonId}" target="_blank" rel="noopener">
+            View on iNaturalist ↗
+          </a>
+        </div>`;
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+
+      // Fetch Wikipedia summary (cached in memory for the session)
+      try {
+        if (!(taxonId in descCache)) {
+          const res = await fetch(`${INAT_API}/taxa/${taxonId}`);
+          const data = await res.json();
+          const taxon = data.results[0];
+          descCache[taxonId] = taxon && taxon.wikipedia_summary
+            ? taxon.wikipedia_summary.replace(/<[^>]+>/g, '')
+            : 'No description available.';
+        }
+        const el = document.getElementById('modal-desc');
+        if (el) { el.textContent = descCache[taxonId]; el.classList.remove('loading'); }
+      } catch {
+        const el = document.getElementById('modal-desc');
+        if (el) { el.textContent = 'Description unavailable.'; el.classList.remove('loading'); }
+      }
+    }
+
+    function buildDetails(p) {
+      const rows = [
+        ['Plant Type', p.plantType],
+        ['Bloom Time', p.bloomTime && p.bloomTime.length ? p.bloomTime.join(', ') : null],
+        ['Bloom Color', p.bloomColor],
+        ['Sun Preference', p.sunPreference],
+        ['Moisture', p.moisturePreference],
+        ['Wildlife Value', p.wildlifeValue && p.wildlifeValue.length ? p.wildlifeValue.join(', ') : null],
+      ].filter(([, v]) => v);
+
+      if (!rows.length) return '';
+
+      return `<div class="modal-details">
+        ${rows.map(([label, val]) => `
+          <div class="modal-detail">
+            <div class="modal-detail-label">${label}</div>
+            <div class="modal-detail-value">${val}</div>
+          </div>`).join('')}
+      </div>`;
+    }
+
+    function closeModal(event) {
+      if (event && event.target !== document.getElementById('modal-overlay') &&
+          !event.target.classList.contains('modal-close')) return;
+      if (!event) {
+        document.getElementById('modal-overlay').classList.remove('open');
+        document.body.style.overflow = '';
+        return;
+      }
+      document.getElementById('modal-overlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    init();
+  </script>
+</body>
+</html>

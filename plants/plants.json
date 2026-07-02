@@ -1,0 +1,152 @@
+[
+  {
+    "taxonId": 167829,
+    "plantType": "Shrub",
+    "evergreen": false,
+    "bloomTime": ["Summer"],
+    "bloomColor": "Yellow",
+    "sunPreference": "Full Sun",
+    "moisturePreference": "Dry",
+    "wildlifeValue": ["Birds", "Pollinators"]
+  },
+  {
+    "taxonId": 48682,
+    "plantType": "Shrub",
+    "evergreen": false,
+    "bloomTime": ["Summer"],
+    "bloomColor": "Pink",
+    "sunPreference": "Full Sun",
+    "moisturePreference": "Wet",
+    "wildlifeValue": ["Pollinators"]
+  },
+  {
+    "taxonId": 54805,
+    "plantType": "Tree",
+    "evergreen": false,
+    "bloomTime": ["Spring"],
+    "bloomColor": "White",
+    "sunPreference": "Full Sun",
+    "moisturePreference": "Medium",
+    "wildlifeValue": ["Birds", "Pollinators"]
+  },
+  {
+    "taxonId": 128551,
+    "plantType": "Wildflower",
+    "evergreen": false,
+    "bloomTime": ["Fall"],
+    "bloomColor": "Yellow",
+    "sunPreference": "Part Shade",
+    "moisturePreference": "Medium",
+    "wildlifeValue": ["Pollinators"]
+  },
+  {
+    "taxonId": 82576,
+    "plantType": "Fern",
+    "evergreen": false,
+    "bloomTime": [],
+    "bloomColor": null,
+    "sunPreference": "Part Shade",
+    "moisturePreference": "Wet",
+    "wildlifeValue": []
+  },
+  {
+    "taxonId": 51970,
+    "plantType": "Shrub",
+    "evergreen": false,
+    "bloomTime": ["Fall"],
+    "bloomColor": "Yellow",
+    "sunPreference": "Part Shade",
+    "moisturePreference": "Medium",
+    "wildlifeValue": ["Birds", "Pollinators"]
+  },
+  {
+    "taxonId": 49157,
+    "plantType": "Tree",
+    "evergreen": false,
+    "bloomTime": ["Spring"],
+    "bloomColor": null,
+    "sunPreference": "Part Shade",
+    "moisturePreference": "Medium",
+    "wildlifeValue": ["Birds"]
+  },
+  {
+    "taxonId": 48734,
+    "plantType": "Tree",
+    "evergreen": true,
+    "bloomTime": [],
+    "bloomColor": null,
+    "sunPreference": "Part Shade",
+    "moisturePreference": "Medium",
+    "wildlifeValue": ["Birds"]
+  },
+  {
+    "taxonId": 83059,
+    "plantType": "Shrub",
+    "evergreen": true,
+    "bloomTime": ["Spring"],
+    "bloomColor": "Pink",
+    "sunPreference": "Part Shade",
+    "moisturePreference": "Wet",
+    "wildlifeValue": ["Pollinators", "Birds"]
+  },
+  {
+    "taxonId": 54779,
+    "plantType": "Tree",
+    "evergreen": false,
+    "bloomTime": ["Spring"],
+    "bloomColor": null,
+    "sunPreference": "Full Sun",
+    "moisturePreference": "Dry",
+    "wildlifeValue": ["Birds"]
+  },
+  {
+    "taxonId": 49005,
+    "plantType": "Tree",
+    "evergreen": false,
+    "bloomTime": ["Spring"],
+    "bloomColor": null,
+    "sunPreference": "Full Sun",
+    "moisturePreference": "Medium",
+    "wildlifeValue": ["Birds"]
+  },
+  {
+    "taxonId": 52681,
+    "plantType": "Fern",
+    "evergreen": false,
+    "bloomTime": [],
+    "bloomColor": null,
+    "sunPreference": "Full Sun",
+    "moisturePreference": "Dry",
+    "wildlifeValue": []
+  },
+  {
+    "taxonId": 52391,
+    "plantType": "Tree",
+    "evergreen": true,
+    "bloomTime": [],
+    "bloomColor": null,
+    "sunPreference": "Full Sun",
+    "moisturePreference": "Dry",
+    "wildlifeValue": ["Birds"]
+  },
+  {
+    "taxonId": 82580,
+    "plantType": "Wildflower",
+    "evergreen": false,
+    "bloomTime": ["Summer"],
+    "bloomColor": "Yellow",
+    "sunPreference": "Part Shade",
+    "moisturePreference": "Medium",
+    "wildlifeValue": ["Pollinators"]
+  },
+  {
+    "taxonId": 58721,
+    "plantType": "Tree",
+    "evergreen": false,
+    "bloomTime": [],
+    "bloomColor": null,
+    "sunPreference": "Full Sun",
+    "moisturePreference": "Wet",
+    "wildlifeValue": ["Birds"]
+  }
+]

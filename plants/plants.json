@@ -7,7 +7,7 @@
     "bloomColor": "Yellow",
     "sunPreference": "Full Sun",
     "moisturePreference": "Dry",
-    "wildlifeValue": ["Birds", "Pollinators"]
+    "wildlifeValue": ["Birds", "Pollinators", "Butterflies", "Host plant"]
   },
   {
     "taxonId": 48682,
@@ -17,7 +17,7 @@
     "bloomColor": "Pink",
     "sunPreference": "Full Sun",
     "moisturePreference": "Wet",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies", "Shelter/nesting"]
   },
   {
     "taxonId": 54805,
@@ -37,7 +37,7 @@
     "bloomColor": "Yellow",
     "sunPreference": "Part Shade",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 82576,
@@ -57,7 +57,7 @@
     "bloomColor": "Yellow",
     "sunPreference": "Part Shade",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds", "Pollinators"]
+    "wildlifeValue": ["Birds", "Pollinators", "Butterflies", "Host plant"]
   },
   {
     "taxonId": 49157,
@@ -67,7 +67,7 @@
     "bloomColor": null,
     "sunPreference": "Part Shade",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Host plant"]
   },
   {
     "taxonId": 48734,
@@ -77,7 +77,7 @@
     "bloomColor": null,
     "sunPreference": "Part Shade",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Host plant", "Shelter/nesting"]
   },
   {
     "taxonId": 83059,
@@ -87,7 +87,7 @@
     "bloomColor": "Pink",
     "sunPreference": "Part Shade",
     "moisturePreference": "Wet",
-    "wildlifeValue": ["Pollinators", "Birds"]
+    "wildlifeValue": ["Pollinators", "Birds", "Shelter/nesting"]
   },
   {
     "taxonId": 54779,
@@ -97,7 +97,7 @@
     "bloomColor": null,
     "sunPreference": "Full Sun",
     "moisturePreference": "Dry",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Host plant"]
   },
   {
     "taxonId": 49005,
@@ -107,7 +107,7 @@
     "bloomColor": null,
     "sunPreference": "Full Sun",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Host plant"]
   },
   {
     "taxonId": 52681,
@@ -127,7 +127,7 @@
     "bloomColor": null,
     "sunPreference": "Full Sun",
     "moisturePreference": "Dry",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Host plant", "Shelter/nesting"]
   },
   {
     "taxonId": 82580,
@@ -137,7 +137,7 @@
     "bloomColor": "Yellow",
     "sunPreference": "Part Shade",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 58721,
@@ -157,7 +157,7 @@
     "bloomColor": null,
     "sunPreference": "Full Sun",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Shelter/nesting"]
   },
   {
     "taxonId": 54261,
@@ -167,7 +167,7 @@
     "bloomColor": null,
     "sunPreference": "Full Sun",
     "moisturePreference": "Wet",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Shelter/nesting"]
   },
   {
     "taxonId": 128798,
@@ -177,7 +177,7 @@
     "bloomColor": "White",
     "sunPreference": "Full Sun",
     "moisturePreference": "Wet",
-    "wildlifeValue": ["Birds", "Pollinators"]
+    "wildlifeValue": ["Birds", "Pollinators", "Butterflies"]
   },
   {
     "taxonId": 131000,
@@ -197,7 +197,7 @@
     "bloomColor": "White",
     "sunPreference": "Full Shade",
     "moisturePreference": "Wet",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Shelter/nesting"]
   },
   {
     "taxonId": 83799,
@@ -227,7 +227,7 @@
     "bloomColor": "Purple",
     "sunPreference": "Full Sun",
     "moisturePreference": "Wet",
-    "wildlifeValue": ["Pollinators", "Deer-resistant"]
+    "wildlifeValue": ["Pollinators"]
   },
   {
     "taxonId": 49202,
@@ -237,7 +237,7 @@
     "bloomColor": null,
     "sunPreference": "Part Shade",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Host plant"]
   },
   {
     "taxonId": 126655,
@@ -247,7 +247,7 @@
     "bloomColor": "Purple",
     "sunPreference": "Part Shade",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 63371,
@@ -267,7 +267,7 @@
     "bloomColor": "White",
     "sunPreference": "Full Sun",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 79409,
@@ -277,7 +277,7 @@
     "bloomColor": "Yellow",
     "sunPreference": "Full Sun",
     "moisturePreference": "Dry",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 67748,
@@ -297,7 +297,7 @@
     "bloomColor": "White",
     "sunPreference": "Part Shade",
     "moisturePreference": "Dry",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 77155,
@@ -307,7 +307,7 @@
     "bloomColor": "White",
     "sunPreference": "Full Sun",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds", "Pollinators"]
+    "wildlifeValue": ["Birds", "Pollinators", "Butterflies"]
   },
   {
     "taxonId": 63512,
@@ -337,7 +337,7 @@
     "bloomColor": "White",
     "sunPreference": "Full Sun",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Shelter/nesting"]
   },
   {
     "taxonId": 84281,
@@ -347,7 +347,7 @@
     "bloomColor": "Pink",
     "sunPreference": "Part Shade",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 127700,
@@ -357,7 +357,7 @@
     "bloomColor": "Yellow",
     "sunPreference": "Full Sun",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 59773,
@@ -367,7 +367,7 @@
     "bloomColor": "White",
     "sunPreference": "Full Sun",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Shelter/nesting"]
   },
   {
     "taxonId": 48095,
@@ -377,7 +377,7 @@
     "bloomColor": null,
     "sunPreference": "Part Shade",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Birds"]
+    "wildlifeValue": ["Birds", "Host plant"]
   },
   {
     "taxonId": 128808,
@@ -387,7 +387,7 @@
     "bloomColor": null,
     "sunPreference": "Full Sun",
     "moisturePreference": "Wet",
-    "wildlifeValue": ["Pollinators", "Birds"]
+    "wildlifeValue": ["Pollinators", "Birds", "Butterflies", "Host plant", "Shelter/nesting"]
   },
   {
     "taxonId": 47911,
@@ -397,7 +397,7 @@
     "bloomColor": "Pink",
     "sunPreference": "Full Sun",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Pollinators", "Birds"]
+    "wildlifeValue": ["Pollinators", "Birds", "Butterflies", "Host plant"]
   },
   {
     "taxonId": 121031,
@@ -407,7 +407,7 @@
     "bloomColor": null,
     "sunPreference": "Full Sun",
     "moisturePreference": "Dry",
-    "wildlifeValue": ["Birds", "Pollinators"]
+    "wildlifeValue": ["Birds", "Pollinators", "Host plant"]
   },
   {
     "taxonId": 48726,
@@ -417,7 +417,7 @@
     "bloomColor": "Purple",
     "sunPreference": "Full Sun",
     "moisturePreference": "Wet",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 56057,
@@ -427,7 +427,7 @@
     "bloomColor": "White",
     "sunPreference": "Full Sun",
     "moisturePreference": "Medium",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   },
   {
     "taxonId": 135261,
@@ -437,6 +437,6 @@
     "bloomColor": "Yellow",
     "sunPreference": "Full Sun",
     "moisturePreference": "Dry",
-    "wildlifeValue": ["Pollinators"]
+    "wildlifeValue": ["Pollinators", "Butterflies"]
   }
 ]

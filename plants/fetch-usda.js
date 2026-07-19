@@ -19,8 +19,10 @@ const fs = require('fs');
 const path = require('path');
 
 const INAT_API = 'https://api.inaturalist.org/v1';
-const INAT_PROJECT = 'boy-scout-road';
-const INAT_PLACE_ID = 235670;
+const INAT_PROJECTS = [
+  { project: 'boy-scout-road', placeId: 235670 },
+  { project: 'bechtelsville',  placeId: 236174 },
+];
 const USDA_API = 'https://plantsservices.sc.egov.usda.gov/api';
 const CACHE_FILE = path.join(__dirname, 'usda_cache.json');
 
@@ -41,28 +43,33 @@ function get(url) {
 function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
 async function getInatSpecies() {
-  let page = 1, results = [];
-  while (true) {
-    const url = `${INAT_API}/observations?project_id=${INAT_PROJECT}&place_id=${INAT_PLACE_ID}&per_page=50&page=${page}&order_by=observed_on`;
-    console.log(`  Fetching iNat page ${page}…`);
-    const data = await get(url);
-    results = results.concat(data.results);
-    if (results.length >= data.total_results) break;
-    page++;
-    await sleep(1000);
-  }
-
   const seen = new Set();
   const species = [];
-  for (const obs of results) {
-    const t = obs.taxon;
-    if (!t) continue;
-    if (t.iconic_taxon_name && t.iconic_taxon_name !== 'Plantae') continue;
-    if (t.rank !== 'species') continue;
-    if (seen.has(t.id)) continue;
-    seen.add(t.id);
-    species.push({ taxonId: t.id, scientificName: t.name, commonName: t.preferred_common_name || t.name });
+
+  for (const { project, placeId } of INAT_PROJECTS) {
+    console.log(`\nFetching observations from iNaturalist project: ${project}`);
+    let page = 1, results = [];
+    while (true) {
+      const url = `${INAT_API}/observations?project_id=${project}&place_id=${placeId}&per_page=50&page=${page}&order_by=observed_on`;
+      console.log(`  Fetching page ${page}…`);
+      const data = await get(url);
+      results = results.concat(data.results);
+      if (results.length >= data.total_results) break;
+      page++;
+      await sleep(1000);
+    }
+
+    for (const obs of results) {
+      const t = obs.taxon;
+      if (!t) continue;
+      if (t.iconic_taxon_name && t.iconic_taxon_name !== 'Plantae') continue;
+      if (t.rank !== 'species') continue;
+      if (seen.has(t.id)) continue;
+      seen.add(t.id);
+      species.push({ taxonId: t.id, scientificName: t.name, commonName: t.preferred_common_name || t.name });
+    }
   }
+
   return species;
 }
 
@@ -133,9 +140,8 @@ async function main() {
     console.log(`Loaded cache: ${Object.keys(cache).length} valid entries (${retryKeys.length} error entries will be retried).`);
   }
 
-  console.log('\nFetching species from iNaturalist…');
   const species = await getInatSpecies();
-  console.log(`Found ${species.length} species in project.\n`);
+  console.log(`\nFound ${species.length} unique species across all projects.\n`);
 
   const newSpecies = species.filter(s => !cache[String(s.taxonId)]);
   if (newSpecies.length === 0) {

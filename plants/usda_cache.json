@@ -153,6 +153,21 @@
     "matureHeightFt": 80,
     "matureHeightBin": "Over 30 ft"
   },
+  "50790": {
+    "taxonId": 50790,
+    "scientificName": "Linaria vulgaris",
+    "symbol": "LIVU2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "51970": {
     "taxonId": 51970,
     "scientificName": "Hamamelis virginiana",

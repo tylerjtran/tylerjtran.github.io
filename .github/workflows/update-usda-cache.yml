@@ -1,0 +1,32 @@
+name: Update USDA Cache
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6am UTC
+  workflow_dispatch:      # Allow manual trigger from GitHub Actions UI
+
+jobs:
+  update-cache:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Fetch USDA data for new species
+        run: node plants/fetch-usda.js
+
+      - name: Commit updated cache if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet plants/usda_cache.json || (
+            git add plants/usda_cache.json &&
+            git commit -m "Update USDA cache with new species data"
+          )
+          git push

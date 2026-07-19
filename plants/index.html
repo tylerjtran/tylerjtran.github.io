@@ -255,6 +255,58 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .info-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      border: 1.5px solid var(--text-muted);
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: default;
+      flex-shrink: 0;
+      position: relative;
+      text-transform: none;
+      letter-spacing: 0;
+      line-height: 1;
+      font-style: italic;
+    }
+
+    .info-icon::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #2a2a22;
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 400;
+      font-style: normal;
+      text-transform: none;
+      letter-spacing: 0;
+      line-height: 1.4;
+      white-space: normal;
+      width: 180px;
+      padding: 6px 9px;
+      border-radius: 6px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      z-index: 50;
+    }
+
+    .info-icon:hover::after,
+    .info-icon.open::after {
+      opacity: 1;
     }
 
     .filter-group select {
@@ -876,7 +928,7 @@
       </div>
       <div class="filters-grid">
         <div class="filter-group">
-          <label for="filter-establishment">Origin</label>
+          <label for="filter-establishment">Origin <span class="info-icon" data-tip="Whether the plant is native to Delaware County, NY or was introduced from elsewhere" onclick="toggleTip(this)">i</span></label>
           <select id="filter-establishment" onchange="applyFilters()">
             <option value="">All</option>
             <option value="native" selected>Native</option>
@@ -884,13 +936,13 @@
           </select>
         </div>
         <div class="filter-group">
-          <label for="filter-type">Plant Type</label>
+          <label for="filter-type">Plant Type <span class="info-icon" data-tip="The plant's general growth form" onclick="toggleTip(this)">i</span></label>
           <select id="filter-type" onchange="applyFilters()">
             <option value="">All</option>
           </select>
         </div>
         <div class="filter-group">
-          <label for="filter-evergreen">Evergreen</label>
+          <label for="filter-evergreen">Evergreen <span class="info-icon" data-tip="Whether the tree, shrub, or sub-shrub retains its foliage year-round. Other plant types do not have evergreen status listed." onclick="toggleTip(this)">i</span></label>
           <select id="filter-evergreen" onchange="applyFilters()">
             <option value="">All</option>
             <option value="true">Evergreen</option>
@@ -898,7 +950,7 @@
           </select>
         </div>
         <div class="filter-group">
-          <label for="filter-bloom">Bloom Time</label>
+          <label for="filter-bloom">Bloom Time <span class="info-icon" data-tip="For plants with conspicuous blooms, the season when the plants most often flower" onclick="toggleTip(this)">i</span></label>
           <select id="filter-bloom" onchange="applyFilters()">
             <option value="">All</option>
             <option>Spring</option>
@@ -907,33 +959,35 @@
           </select>
         </div>
         <div class="filter-group">
-          <label for="filter-bloom-color">Bloom Color</label>
+          <label for="filter-bloom-color">Bloom Color <span class="info-icon" data-tip="The color of the plant's flowers (for plants with conspicuous blooms)" onclick="toggleTip(this)">i</span></label>
           <select id="filter-bloom-color" onchange="applyFilters()">
             <option value="">All</option>
           </select>
         </div>
         <div class="filter-group">
-          <label for="filter-sun">Sun</label>
-          <select id="filter-sun" onchange="applyFilters()">
+          <label for="filter-shade">Shade Tolerance <span class="info-icon" data-tip="Relative tolerance to shade conditions" onclick="toggleTip(this)">i</span></label>
+          <select id="filter-shade" onchange="applyFilters()">
             <option value="">All</option>
-            <option>Full Sun</option>
-            <option>Part Shade</option>
-            <option>Full Shade</option>
           </select>
         </div>
         <div class="filter-group">
-          <label for="filter-moisture">Moisture</label>
+          <label for="filter-moisture">Moisture <span class="info-icon" data-tip="Ability to use (i.e., remove) available soil moisture relative to other species" onclick="toggleTip(this)">i</span></label>
           <select id="filter-moisture" onchange="applyFilters()">
             <option value="">All</option>
-            <option>Dry</option>
+            <option>Low</option>
             <option>Medium</option>
-            <option>Wet</option>
+            <option>High</option>
           </select>
         </div>
         <div class="filter-group">
-          <label for="filter-wildlife">Wildlife Value</label>
-          <select id="filter-wildlife" onchange="applyFilters()">
+          <label for="filter-height">Mature Height <span class="info-icon" data-tip="The plant's maximum mature height, grouped into size ranges" onclick="toggleTip(this)">i</span></label>
+          <select id="filter-height" onchange="applyFilters()">
             <option value="">All</option>
+            <option>Under 1 ft</option>
+            <option>1–3 ft</option>
+            <option>3–10 ft</option>
+            <option>10–30 ft</option>
+            <option>Over 30 ft</option>
           </select>
         </div>
       </div>
@@ -945,7 +999,7 @@
     <div class="admin-inner">
       <div class="admin-header">
         <span class="admin-title">⚙ Admin — plants.json gaps</span>
-        <span class="admin-subtitle">Taxa in your iNaturalist project that have no entry in plants.json</span>
+        <span class="admin-subtitle">Taxa in your iNaturalist project that are missing from usda_cache.json</span>
       </div>
       <div id="admin-list"></div>
     </div>
@@ -1005,18 +1059,18 @@
     const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
     let allPlants = [];
-    let customData = {};
+    let usdaData = {};
     const descCache = {};
 
     async function init() {
       try {
-        const [observations, custom] = await Promise.all([
+        const [observations, usda] = await Promise.all([
           fetchAllObservations(),
-          fetch('plants.json').then(r => r.json()).catch(() => [])
+          fetch('usda_cache.json').then(r => r.json()).catch(() => ({}))
         ]);
 
-        // Index custom data by taxon ID
-        custom.forEach(c => { customData[c.taxonId] = c; });
+        // Index USDA data by taxon ID
+        usdaData = usda;
 
         // Deduplicate observations by taxon ID, filter to Plantae only
         const seen = new Set();
@@ -1027,7 +1081,7 @@
           if (t.iconic_taxon_name && t.iconic_taxon_name !== 'Plantae') return;
           if (seen.has(t.id)) return;
           seen.add(t.id);
-          allPlants.push(buildPlant(t, customData[t.id] || {}));
+          allPlants.push(buildPlant(t, usdaData[String(t.id)] || {}));
         });
 
         populateDynamicFilters();
@@ -1098,7 +1152,7 @@
         if (seen.has(t.id)) return;
         seen.add(t.id);
         const custom = customData[t.id] || {};
-        allPlants.push(buildPlant(t, custom));
+        allPlants.push(buildPlant(t, usdaData[String(t.id)] || {}));
       });
       populateDynamicFilters(true);
       applyFilters();
@@ -1111,48 +1165,46 @@
       const list = document.getElementById('admin-list');
       panel.style.display = 'block';
 
-      const missing = allPlants.filter(p => !customData[p.taxonId]);
+      const missing = allPlants.filter(p => !usdaData[String(p.taxonId)]);
+      const errors = allPlants.filter(p => {
+        const u = usdaData[String(p.taxonId)];
+        return u && (u.notFound || u.fetchError);
+      });
 
-      if (missing.length === 0) {
-        list.innerHTML = '<div class="admin-all-good">✓ All taxa have entries in plants.json</div>';
+      if (missing.length === 0 && errors.length === 0) {
+        list.innerHTML = '<div class="admin-all-good">✓ All taxa have USDA data in usda_cache.json</div>';
         return;
       }
 
-      list.innerHTML = missing.map(p => {
-        const snippet = JSON.stringify({
-          taxonId: p.taxonId,
-          plantType: null,
-          evergreen: null,
-          bloomTime: [],
-          bloomColor: null,
-          sunPreference: null,
-          moisturePreference: null,
-          wildlifeValue: []
-        }, null, 2);
+      const sections = [];
 
-        return `
+      if (missing.length) {
+        sections.push(`<div class="admin-subtitle" style="margin:12px 0 8px">Not yet in usda_cache.json — run <code>node fetch-usda.js</code></div>`);
+        sections.push(missing.map(p => `
           <div class="admin-item">
             <div class="admin-item-name">${p.commonName}</div>
             <div class="admin-item-meta">${p.sciName} · taxonId: ${p.taxonId} ·
               <a href="https://www.inaturalist.org/taxa/${p.taxonId}" target="_blank" rel="noopener">view on iNaturalist ↗</a>
             </div>
-            <div class="admin-snippet" id="snippet-${p.taxonId}">${snippet}</div>
-            <button class="admin-copy-btn" onclick="copySnippet(${p.taxonId})">Copy JSON</button>
-          </div>`;
-      }).join('');
+          </div>`).join(''));
+      }
+
+      if (errors.length) {
+        sections.push(`<div class="admin-subtitle" style="margin:12px 0 8px">USDA lookup issues</div>`);
+        sections.push(errors.map(p => {
+          const u = usdaData[String(p.taxonId)];
+          return `
+            <div class="admin-item">
+              <div class="admin-item-name">${p.commonName}</div>
+              <div class="admin-item-meta">${p.sciName} · ${u.notFound ? 'Not found in USDA Plants' : 'Fetch error: ' + u.fetchError}</div>
+            </div>`;
+        }).join(''));
+      }
+
+      list.innerHTML = sections.join('');
     }
 
-    function copySnippet(taxonId) {
-      const text = document.getElementById(`snippet-${taxonId}`).textContent;
-      navigator.clipboard.writeText(text).then(() => {
-        const btn = event.target;
-        btn.textContent = 'Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => { btn.textContent = 'Copy JSON'; btn.classList.remove('copied'); }, 2000);
-      });
-    }
-
-    function buildPlant(t, custom) {
+    function buildPlant(t, usda) {
       return {
         taxonId: t.id,
         commonName: t.preferred_common_name || t.name,
@@ -1164,13 +1216,14 @@
         photoSquare: t.default_photo ? (t.default_photo.small_url || t.default_photo.medium_url) : null,
         photoAttribution: t.default_photo ? t.default_photo.attribution : null,
         wikipediaUrl: t.wikipedia_url || null,
-        plantType: custom.plantType || null,
-        evergreen: custom.evergreen != null ? custom.evergreen : null,
-        bloomTime: custom.bloomTime || [],
-        bloomColor: custom.bloomColor || null,
-        sunPreference: custom.sunPreference || null,
-        moisturePreference: custom.moisturePreference || null,
-        wildlifeValue: custom.wildlifeValue || [],
+        growthHabits: usda.growthHabits || [],
+        evergreen: usda.evergreen != null ? usda.evergreen : null,
+        bloomTime: usda.bloomPeriod || [],
+        bloomColor: usda.flowerColor || null,
+        shadeTolerance: usda.shadeTolerance || null,
+        moistureUse: usda.moistureUse || null,
+        matureHeightFt: usda.matureHeightFt != null ? usda.matureHeightFt : null,
+        matureHeightBin: usda.matureHeightBin || null,
       };
     }
 
@@ -1188,9 +1241,9 @@
         });
       };
 
-      addOptions('filter-type', allPlants.map(p => p.plantType).filter(Boolean));
+      addOptions('filter-type', allPlants.flatMap(p => p.growthHabits).filter(Boolean));
       addOptions('filter-bloom-color', allPlants.map(p => p.bloomColor).filter(Boolean));
-      addOptions('filter-wildlife', allPlants.flatMap(p => p.wildlifeValue).filter(Boolean));
+      addOptions('filter-shade', allPlants.map(p => p.shadeTolerance).filter(Boolean));
     }
 
     function getEstablishment(plant) {
@@ -1248,24 +1301,24 @@
       const evergreen = document.getElementById('filter-evergreen').value;
       const bloom = document.getElementById('filter-bloom').value;
       const bloomColor = document.getElementById('filter-bloom-color').value;
-      const sun = document.getElementById('filter-sun').value;
+      const shade = document.getElementById('filter-shade').value;
       const moisture = document.getElementById('filter-moisture').value;
-      const wildlife = document.getElementById('filter-wildlife').value;
+      const height = document.getElementById('filter-height').value;
 
       const speciesOnly = document.getElementById('filter-species-only').checked;
 
       const filtered = allPlants.filter(p => {
         if (speciesOnly && p.rank !== 'species') return false;
-        if (type && p.plantType !== type) return false;
+        if (type && !p.growthHabits.includes(type)) return false;
         if (est === 'native' && !p.native) return false;
         if (est === 'introduced' && !p.introduced) return false;
         if (evergreen === 'true' && !p.evergreen) return false;
         if (evergreen === 'false' && p.evergreen !== false) return false;
         if (bloom && !p.bloomTime.includes(bloom)) return false;
         if (bloomColor && p.bloomColor !== bloomColor) return false;
-        if (sun && p.sunPreference !== sun) return false;
-        if (moisture && p.moisturePreference !== moisture) return false;
-        if (wildlife && !p.wildlifeValue.includes(wildlife)) return false;
+        if (shade && p.shadeTolerance !== shade) return false;
+        if (moisture && p.moistureUse !== moisture) return false;
+        if (height && p.matureHeightBin !== height) return false;
         return true;
       });
 
@@ -1287,9 +1340,9 @@
         document.getElementById('filter-evergreen').value ? 1 : 0,
         document.getElementById('filter-bloom').value ? 1 : 0,
         document.getElementById('filter-bloom-color').value ? 1 : 0,
-        document.getElementById('filter-sun').value ? 1 : 0,
+        document.getElementById('filter-shade').value ? 1 : 0,
         document.getElementById('filter-moisture').value ? 1 : 0,
-        document.getElementById('filter-wildlife').value ? 1 : 0,
+        document.getElementById('filter-height').value ? 1 : 0,
         document.getElementById('filter-species-only').checked ? 0 : 1,
       ].reduce((a, b) => a + b, 0);
 
@@ -1302,6 +1355,18 @@
       }
     }
 
+    function toggleTip(el) {
+      const isOpen = el.classList.contains('open');
+      document.querySelectorAll('.info-icon.open').forEach(e => e.classList.remove('open'));
+      if (!isOpen) el.classList.add('open');
+    }
+
+    document.addEventListener('click', e => {
+      if (!e.target.classList.contains('info-icon')) {
+        document.querySelectorAll('.info-icon.open').forEach(el => el.classList.remove('open'));
+      }
+    });
+
     function setView(mode) {
       const grid = document.getElementById('plant-grid');
       grid.classList.toggle('list-view', mode === 'list');
@@ -1311,7 +1376,7 @@
 
     function clearFilters() {
       ['filter-type','filter-evergreen','filter-bloom',
-       'filter-bloom-color','filter-sun','filter-moisture','filter-wildlife']
+       'filter-bloom-color','filter-shade','filter-moisture','filter-height']
         .forEach(id => document.getElementById(id).value = '');
       document.getElementById('filter-establishment').value = 'native';
       document.getElementById('filter-species-only').checked = true;
@@ -1340,7 +1405,7 @@
         est === 'introduced' ? `<span class="badge badge-introduced">Introduced</span>` : '',
         p.evergreen === true ? `<span class="badge badge-evergreen">Evergreen</span>` : '',
         p.evergreen === false ? `<span class="badge badge-type">Deciduous</span>` : '',
-        p.plantType ? `<span class="badge badge-type">${p.plantType}</span>` : '',
+        ...p.growthHabits.map(h => `<span class="badge badge-type">${h}</span>`),
       ].filter(Boolean).join('');
 
       const details = buildDetails(p);
@@ -1382,12 +1447,12 @@
 
     function buildDetails(p) {
       const rows = [
-        ['Plant Type', p.plantType],
+        ['Plant Type', p.growthHabits && p.growthHabits.length ? p.growthHabits.join(', ') : null],
         ['Bloom Time', p.bloomTime && p.bloomTime.length ? p.bloomTime.join(', ') : null],
         ['Bloom Color', p.bloomColor],
-        ['Sun Preference', p.sunPreference],
-        ['Moisture', p.moisturePreference],
-        ['Wildlife Value', p.wildlifeValue && p.wildlifeValue.length ? p.wildlifeValue.join(', ') : null],
+        ['Shade Tolerance', p.shadeTolerance],
+        ['Moisture Use', p.moistureUse],
+        ['Mature Height', p.matureHeightFt != null ? `${p.matureHeightFt} ft` : null],
       ].filter(([, v]) => v);
 
       if (!rows.length) return '';

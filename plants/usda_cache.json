@@ -1,0 +1,780 @@
+{
+  "47544": {
+    "taxonId": 47544,
+    "scientificName": "Rubus",
+    "symbol": "RUBUS",
+    "growthHabits": [
+      "Forb/herb",
+      "Shrub",
+      "Subshrub",
+      "Vine"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "47853": {
+    "taxonId": 47853,
+    "scientificName": "Fagales",
+    "notFound": true,
+    "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "47911": {
+    "taxonId": 47911,
+    "scientificName": "Asclepias syriaca",
+    "symbol": "ASSY",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "48095": {
+    "taxonId": 48095,
+    "scientificName": "Acer pensylvanicum",
+    "symbol": "ACPE",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "Low",
+    "matureHeightFt": 35,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "48682": {
+    "taxonId": 48682,
+    "scientificName": "Spiraea tomentosa",
+    "symbol": "SPTO2",
+    "growthHabits": [
+      "Shrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Purple",
+    "shadeTolerance": "High",
+    "moistureUse": "Low",
+    "matureHeightFt": 4,
+    "matureHeightBin": "3–10 ft"
+  },
+  "48726": {
+    "taxonId": 48726,
+    "scientificName": "Iris versicolor",
+    "symbol": "IRVE2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "48734": {
+    "taxonId": 48734,
+    "scientificName": "Tsuga canadensis",
+    "symbol": "TSCA",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": true,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 105,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "49005": {
+    "taxonId": 49005,
+    "scientificName": "Quercus rubra",
+    "symbol": "QURU",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 81,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "49157": {
+    "taxonId": 49157,
+    "scientificName": "Betula lenta",
+    "symbol": "BELE",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 60,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "49202": {
+    "taxonId": 49202,
+    "scientificName": "Fagus grandifolia",
+    "symbol": "FAGR",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 80,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "51970": {
+    "taxonId": 51970,
+    "scientificName": "Hamamelis virginiana",
+    "symbol": "HAVI4",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Fall"
+    ],
+    "flowerColor": "Yellow",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 20,
+    "matureHeightBin": "10–30 ft"
+  },
+  "52391": {
+    "taxonId": 52391,
+    "scientificName": "Pinus strobus",
+    "symbol": "PIST",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": true,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 150,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "52681": {
+    "taxonId": 52681,
+    "scientificName": "Pteridium aquilinum",
+    "symbol": "PTAQ",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 6.6,
+    "matureHeightBin": "3–10 ft"
+  },
+  "52818": {
+    "taxonId": 52818,
+    "scientificName": "Achillea",
+    "symbol": "ACHIL",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "52856": {
+    "taxonId": 52856,
+    "scientificName": "Artemisia vulgaris",
+    "symbol": "ARVU",
+    "growthHabits": [
+      "Forb/herb",
+      "Subshrub"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "53983": {
+    "taxonId": 53983,
+    "scientificName": "Digitalis purpurea",
+    "symbol": "DIPU",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Purple",
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 5,
+    "matureHeightBin": "3–10 ft"
+  },
+  "54261": {
+    "taxonId": 54261,
+    "scientificName": "Abies balsamea",
+    "symbol": "ABBA",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": true,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 60,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "54779": {
+    "taxonId": 54779,
+    "scientificName": "Quercus alba",
+    "symbol": "QUAL",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 100,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "54805": {
+    "taxonId": 54805,
+    "scientificName": "Fraxinus americana",
+    "symbol": "FRAM2",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "High",
+    "moistureUse": "High",
+    "matureHeightFt": 90,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "56057": {
+    "taxonId": 56057,
+    "scientificName": "Leucanthemum vulgare",
+    "symbol": "LEVU",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Low",
+    "matureHeightFt": 1.3,
+    "matureHeightBin": "1–3 ft"
+  },
+  "56058": {
+    "taxonId": 56058,
+    "scientificName": "Leucanthemum",
+    "symbol": "LEUCA4",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "58721": {
+    "taxonId": 58721,
+    "scientificName": "Larix laricina",
+    "symbol": "LALA",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 80,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "59773": {
+    "taxonId": 59773,
+    "scientificName": "Lonicera morrowii",
+    "symbol": "LOMO2",
+    "growthHabits": [
+      "Shrub"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "62376": {
+    "taxonId": 62376,
+    "scientificName": "Gaultheria procumbens",
+    "symbol": "GAPR2",
+    "growthHabits": [
+      "Shrub",
+      "Subshrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "White",
+    "shadeTolerance": "Low",
+    "moistureUse": "Low",
+    "matureHeightFt": 0.5,
+    "matureHeightBin": "Under 1 ft"
+  },
+  "63115": {
+    "taxonId": 63115,
+    "scientificName": "Dennstaedtia punctilobula",
+    "symbol": "DEPU2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "63371": {
+    "taxonId": 63371,
+    "scientificName": "Rumex obtusifolius",
+    "symbol": "RUOB",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "63512": {
+    "taxonId": 63512,
+    "scientificName": "Acer palmatum",
+    "symbol": "ACPA2",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "67748": {
+    "taxonId": 67748,
+    "scientificName": "Maianthemum canadense",
+    "symbol": "MACA4",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "76897": {
+    "taxonId": 76897,
+    "scientificName": "Erigeron annuus",
+    "symbol": "ERAN",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "77155": {
+    "taxonId": 77155,
+    "scientificName": "Fragaria virginiana",
+    "symbol": "FRVI",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "78882": {
+    "taxonId": 78882,
+    "scientificName": "Rosa multiflora",
+    "symbol": "ROMU",
+    "growthHabits": [
+      "Subshrub",
+      "Vine"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "79409": {
+    "taxonId": 79409,
+    "scientificName": "Trifolium aureum",
+    "symbol": "TRAU2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "81754": {
+    "taxonId": 81754,
+    "scientificName": "Thymus",
+    "symbol": "THYMU",
+    "growthHabits": [
+      "Forb/herb",
+      "Shrub",
+      "Subshrub"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "82576": {
+    "taxonId": 82576,
+    "scientificName": "Onoclea sensibilis",
+    "symbol": "ONSE",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "82580": {
+    "taxonId": 82580,
+    "scientificName": "Lysimachia quadrifolia",
+    "symbol": "LYQU2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "83059": {
+    "taxonId": 83059,
+    "scientificName": "Rhododendron maximum",
+    "symbol": "RHMA4",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": true,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "Pink",
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 25,
+    "matureHeightBin": "10–30 ft"
+  },
+  "83799": {
+    "taxonId": 83799,
+    "scientificName": "Mitchella repens",
+    "symbol": "MIRE",
+    "growthHabits": [
+      "Forb/herb",
+      "Subshrub"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "84281": {
+    "taxonId": 84281,
+    "scientificName": "Clinopodium vulgare",
+    "symbol": "CLVU",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "117326": {
+    "taxonId": 117326,
+    "scientificName": "Picea glauca",
+    "symbol": "PIGL",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": true,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 100,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "121031": {
+    "taxonId": 121031,
+    "scientificName": "Comptonia peregrina",
+    "symbol": "COPE80",
+    "growthHabits": [
+      "Shrub",
+      "Subshrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Low",
+    "matureHeightFt": 2,
+    "matureHeightBin": "1–3 ft"
+  },
+  "126655": {
+    "taxonId": 126655,
+    "scientificName": "Eurybia macrophylla",
+    "symbol": "EUMA27",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Purple",
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 4.6,
+    "matureHeightBin": "3–10 ft"
+  },
+  "127700": {
+    "taxonId": 127700,
+    "scientificName": "Oenothera pilosella",
+    "symbol": "OEPI2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "Purple",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 2,
+    "matureHeightBin": "1–3 ft"
+  },
+  "128551": {
+    "taxonId": 128551,
+    "scientificName": "Solidago rugosa",
+    "symbol": "SORU2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Yellow",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 3.3,
+    "matureHeightBin": "3–10 ft"
+  },
+  "128798": {
+    "taxonId": 128798,
+    "scientificName": "Aronia melanocarpa",
+    "symbol": "SOFA4",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "128808": {
+    "taxonId": 128808,
+    "scientificName": "Salix eriocephala",
+    "symbol": "SAER",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "High",
+    "matureHeightFt": 52,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "131000": {
+    "taxonId": 131000,
+    "scientificName": "Dichanthelium clandestinum",
+    "symbol": "DICL",
+    "growthHabits": [
+      "Grass"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Low",
+    "matureHeightFt": 2,
+    "matureHeightBin": "1–3 ft"
+  },
+  "135261": {
+    "taxonId": 135261,
+    "scientificName": "Solidago juncea",
+    "symbol": "SOJU",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "146717": {
+    "taxonId": 146717,
+    "scientificName": "Solidago bicolor",
+    "symbol": "SOBI",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "167829": {
+    "taxonId": 167829,
+    "scientificName": "Rhus typhina",
+    "symbol": "RHTY",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Low",
+    "matureHeightFt": 30,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "764796": {
+    "taxonId": 764796,
+    "scientificName": "Polypodiidae",
+    "notFound": true,
+    "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  }
+}

@@ -965,13 +965,16 @@
           </select>
         </div>
         <div class="filter-group">
-          <label for="filter-shade">Shade Tolerance <span class="info-icon" data-tip="Relative tolerance to shade conditions" onclick="toggleTip(this)">i</span></label>
+          <label for="filter-shade">Shade Tolerance <span class="info-icon" data-tip="Relative tolerance to shade conditions (Low = least tolerant, High = most tolerant)" onclick="toggleTip(this)">i</span></label>
           <select id="filter-shade" onchange="applyFilters()">
             <option value="">All</option>
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
           </select>
         </div>
         <div class="filter-group">
-          <label for="filter-moisture">Moisture <span class="info-icon" data-tip="Ability to use (i.e., remove) available soil moisture relative to other species" onclick="toggleTip(this)">i</span></label>
+          <label for="filter-moisture">Moisture Use <span class="info-icon" data-tip="Ability to use (i.e., remove) available soil moisture relative to other species" onclick="toggleTip(this)">i</span></label>
           <select id="filter-moisture" onchange="applyFilters()">
             <option value="">All</option>
             <option>Low</option>
@@ -1243,7 +1246,6 @@
 
       addOptions('filter-type', allPlants.flatMap(p => p.growthHabits).filter(Boolean));
       addOptions('filter-bloom-color', allPlants.map(p => p.bloomColor).filter(Boolean));
-      addOptions('filter-shade', allPlants.map(p => p.shadeTolerance).filter(Boolean));
     }
 
     function getEstablishment(plant) {

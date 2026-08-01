@@ -30,6 +30,21 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "47888": {
+    "taxonId": 47888,
+    "scientificName": "Impatiens capensis",
+    "symbol": "IMCA",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 4.9,
+    "matureHeightBin": "3–10 ft"
+  },
   "47911": {
     "taxonId": 47911,
     "scientificName": "Asclepias syriaca",
@@ -59,6 +74,23 @@
     "shadeTolerance": "Low",
     "moistureUse": "Low",
     "matureHeightFt": 35,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "48098": {
+    "taxonId": 48098,
+    "scientificName": "Acer rubrum",
+    "symbol": "ACRU",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "Red",
+    "shadeTolerance": "Medium",
+    "moistureUse": "High",
+    "matureHeightFt": 68,
     "matureHeightBin": "Over 30 ft"
   },
   "48682": {
@@ -152,6 +184,36 @@
     "moistureUse": "Medium",
     "matureHeightFt": 80,
     "matureHeightBin": "Over 30 ft"
+  },
+  "49882": {
+    "taxonId": 49882,
+    "scientificName": "Betula alleghaniensis",
+    "symbol": "BEAL2",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 75,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "50717": {
+    "taxonId": 50717,
+    "scientificName": "Epipactis helleborine",
+    "symbol": "EPHE",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
   },
   "50790": {
     "taxonId": 50790,
@@ -247,6 +309,21 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "53183": {
+    "taxonId": 53183,
+    "scientificName": "Oxalis stricta",
+    "symbol": "OXST",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "53983": {
     "taxonId": 53983,
     "scientificName": "Digitalis purpurea",
@@ -279,6 +356,37 @@
     "matureHeightFt": 60,
     "matureHeightBin": "Over 30 ft"
   },
+  "54412": {
+    "taxonId": 54412,
+    "scientificName": "Polystichum acrostichoides",
+    "symbol": "POAC4",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "54771": {
+    "taxonId": 54771,
+    "scientificName": "Ostrya virginiana",
+    "symbol": "OSVI",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "Low",
+    "matureHeightFt": 45,
+    "matureHeightBin": "Over 30 ft"
+  },
   "54779": {
     "taxonId": 54779,
     "scientificName": "Quercus alba",
@@ -307,6 +415,21 @@
     "shadeTolerance": "High",
     "moistureUse": "High",
     "matureHeightFt": 90,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "54840": {
+    "taxonId": 54840,
+    "scientificName": "Populus tremuloides",
+    "symbol": "POTR5",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "High",
+    "moistureUse": "High",
+    "matureHeightFt": 65,
     "matureHeightBin": "Over 30 ft"
   },
   "56057": {
@@ -526,6 +649,23 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "82110": {
+    "taxonId": 82110,
+    "scientificName": "Rubus allegheniensis",
+    "symbol": "RUAL",
+    "growthHabits": [
+      "Subshrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "White",
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 6,
+    "matureHeightBin": "3–10 ft"
+  },
   "82576": {
     "taxonId": 82576,
     "scientificName": "Onoclea sensibilis",
@@ -636,6 +776,21 @@
     "matureHeightFt": 2,
     "matureHeightBin": "1–3 ft"
   },
+  "126251": {
+    "taxonId": 126251,
+    "scientificName": "Coptis trifolia",
+    "symbol": "COTR2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "126655": {
     "taxonId": 126655,
     "scientificName": "Eurybia macrophylla",
@@ -653,6 +808,21 @@
     "matureHeightFt": 4.6,
     "matureHeightBin": "3–10 ft"
   },
+  "127685": {
+    "taxonId": 127685,
+    "scientificName": "Eurybia divaricata",
+    "symbol": "EUDI16",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "127700": {
     "taxonId": 127700,
     "scientificName": "Oenothera pilosella",
@@ -669,6 +839,21 @@
     "moistureUse": "Medium",
     "matureHeightFt": 2,
     "matureHeightBin": "1–3 ft"
+  },
+  "128040": {
+    "taxonId": 128040,
+    "scientificName": "Viola cucullata",
+    "symbol": "VICU",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
   },
   "128551": {
     "taxonId": 128551,
@@ -778,6 +963,50 @@
     "moistureUse": "Low",
     "matureHeightFt": 30,
     "matureHeightBin": "Over 30 ft"
+  },
+  "169753": {
+    "taxonId": 169753,
+    "scientificName": "Thymus pulegioides",
+    "symbol": "THPU5",
+    "growthHabits": [
+      "Shrub",
+      "Subshrub"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "181927": {
+    "taxonId": 181927,
+    "scientificName": "Parthenocissus inserta",
+    "symbol": "PAIN10",
+    "growthHabits": [
+      "Vine"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "204174": {
+    "taxonId": 204174,
+    "scientificName": "Lysimachia borealis",
+    "notFound": true,
+    "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
   },
   "764796": {
     "taxonId": 764796,

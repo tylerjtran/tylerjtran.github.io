@@ -1055,9 +1055,10 @@
   </div>
 
   <script>
-    const INAT_PROJECT = 'boy-scout-road';
     const INAT_PLACE_ID = 235670;
     const INAT_API = 'https://api.inaturalist.org/v1';
+    // Add iNaturalist usernames here to include their observations:
+    const INAT_USERS = ['tylerjtran', 'royersofbb'];
     const CACHE_KEY = 'bsr_inat_cache';
     const CACHE_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
 
@@ -1117,7 +1118,7 @@
 
       let page = 1, perPage = 50, results = [];
       while (true) {
-        const url = `${INAT_API}/observations?project_id=${INAT_PROJECT}&place_id=${INAT_PLACE_ID}&per_page=${perPage}&page=${page}&order_by=observed_on`;
+        const url = `${INAT_API}/observations?user_id=${INAT_USERS.join(',')}&place_id=${INAT_PLACE_ID}&per_page=${perPage}&page=${page}&order_by=observed_on`;
         const res = await fetch(url);
         const data = await res.json();
         results = results.concat(data.results);

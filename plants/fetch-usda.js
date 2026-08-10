@@ -19,9 +19,11 @@ const fs = require('fs');
 const path = require('path');
 
 const INAT_API = 'https://api.inaturalist.org/v1';
-const INAT_PROJECTS = [
-  { project: 'boy-scout-road', placeId: 235670 },
-  { project: 'bechtelsville',  placeId: 236174 },
+// Add iNaturalist usernames here to include their observations:
+const INAT_USERS = ['tylerjtran', 'royersofbb'];
+const INAT_PLACES = [
+  { name: 'boy-scout-road', placeId: 235670 },
+  { name: 'bechtelsville',  placeId: 236174 },
 ];
 const USDA_API = 'https://plantsservices.sc.egov.usda.gov/api';
 const CACHE_FILE = path.join(__dirname, 'usda_cache.json');
@@ -46,11 +48,11 @@ async function getInatSpecies() {
   const seen = new Set();
   const species = [];
 
-  for (const { project, placeId } of INAT_PROJECTS) {
-    console.log(`\nFetching observations from iNaturalist project: ${project}`);
+  for (const { name, placeId } of INAT_PLACES) {
+    console.log(`\nFetching observations for place: ${name}`);
     let page = 1, results = [];
     while (true) {
-      const url = `${INAT_API}/observations?project_id=${project}&place_id=${placeId}&per_page=50&page=${page}&order_by=observed_on`;
+      const url = `${INAT_API}/observations?user_id=${INAT_USERS.join(',')}&place_id=${placeId}&per_page=50&page=${page}&order_by=observed_on`;
       console.log(`  Fetching page ${page}…`);
       const data = await get(url);
       results = results.concat(data.results);

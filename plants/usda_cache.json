@@ -588,6 +588,21 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "64540": {
+    "taxonId": 64540,
+    "scientificName": "Celastrus orbiculatus",
+    "symbol": "CEOR7",
+    "growthHabits": [
+      "Vine"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "High",
+    "matureHeightFt": 30,
+    "matureHeightBin": "Over 30 ft"
+  },
   "67748": {
     "taxonId": 67748,
     "scientificName": "Maianthemum canadense",
@@ -657,6 +672,21 @@
     "growthHabits": [
       "Subshrub",
       "Vine"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "79017": {
+    "taxonId": 79017,
+    "scientificName": "Scutellaria lateriflora",
+    "symbol": "SCLA2",
+    "growthHabits": [
+      "Forb/herb"
     ],
     "evergreen": null,
     "bloomPeriod": [],
@@ -855,6 +885,23 @@
     "matureHeightFt": 2,
     "matureHeightBin": "1–3 ft"
   },
+  "125489": {
+    "taxonId": 125489,
+    "scientificName": "Rubus occidentalis",
+    "symbol": "RUOC",
+    "growthHabits": [
+      "Subshrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "White",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 6,
+    "matureHeightBin": "3–10 ft"
+  },
   "126251": {
     "taxonId": 126251,
     "scientificName": "Coptis trifolia",
@@ -885,6 +932,23 @@
     "shadeTolerance": "Low",
     "moistureUse": "Medium",
     "matureHeightFt": 4.6,
+    "matureHeightBin": "3–10 ft"
+  },
+  "126823": {
+    "taxonId": 126823,
+    "scientificName": "Spiraea alba",
+    "symbol": "SPAL2",
+    "growthHabits": [
+      "Shrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "White",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 3,
     "matureHeightBin": "3–10 ft"
   },
   "127685": {
@@ -981,6 +1045,21 @@
     "moistureUse": "High",
     "matureHeightFt": 52,
     "matureHeightBin": "Over 30 ft"
+  },
+  "130989": {
+    "taxonId": 130989,
+    "scientificName": "Euthamia graminifolia",
+    "symbol": "EUGR5",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
   },
   "131000": {
     "taxonId": 131000,

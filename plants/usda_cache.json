@@ -17,6 +17,23 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "47602": {
+    "taxonId": 47602,
+    "scientificName": "Taraxacum officinale",
+    "symbol": "TAOF",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "Yellow",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 0.5,
+    "matureHeightBin": "Under 1 ft"
+  },
   "47853": {
     "taxonId": 47853,
     "scientificName": "Fagales",
@@ -247,6 +264,21 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "51610": {
+    "taxonId": 51610,
+    "scientificName": "Veronica chamaedrys",
+    "symbol": "VECH",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "51970": {
     "taxonId": 51970,
     "scientificName": "Hamamelis virginiana",
@@ -295,6 +327,23 @@
     "matureHeightFt": 6.6,
     "matureHeightBin": "3–10 ft"
   },
+  "52764": {
+    "taxonId": 52764,
+    "scientificName": "Prunella vulgaris",
+    "symbol": "PRVU",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Purple",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 1.5,
+    "matureHeightBin": "1–3 ft"
+  },
   "52818": {
     "taxonId": 52818,
     "scientificName": "Achillea",
@@ -309,6 +358,23 @@
     "moistureUse": null,
     "matureHeightFt": null,
     "matureHeightBin": null
+  },
+  "52833": {
+    "taxonId": 52833,
+    "scientificName": "Anaphalis margaritacea",
+    "symbol": "ANMA",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Yellow",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 3,
+    "matureHeightBin": "3–10 ft"
   },
   "52856": {
     "taxonId": 52856,
@@ -325,6 +391,21 @@
     "moistureUse": null,
     "matureHeightFt": null,
     "matureHeightBin": null
+  },
+  "52867": {
+    "taxonId": 52867,
+    "scientificName": "Clethra alnifolia",
+    "symbol": "CLAL3",
+    "growthHabits": [
+      "Shrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "High",
+    "matureHeightFt": 16,
+    "matureHeightBin": "10–30 ft"
   },
   "53183": {
     "taxonId": 53183,
@@ -434,6 +515,21 @@
     "matureHeightFt": 90,
     "matureHeightBin": "Over 30 ft"
   },
+  "54839": {
+    "taxonId": 54839,
+    "scientificName": "Populus grandidentata",
+    "symbol": "POGR4",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "High",
+    "moistureUse": "High",
+    "matureHeightFt": 65,
+    "matureHeightBin": "Over 30 ft"
+  },
   "54840": {
     "taxonId": 54840,
     "scientificName": "Populus tremuloides",
@@ -448,6 +544,36 @@
     "moistureUse": "High",
     "matureHeightFt": 65,
     "matureHeightBin": "Over 30 ft"
+  },
+  "55748": {
+    "taxonId": 55748,
+    "scientificName": "Veronica arvensis",
+    "symbol": "VEAR",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "55749": {
+    "taxonId": 55749,
+    "scientificName": "Veronica serpyllifolia",
+    "symbol": "VESE",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
   },
   "56057": {
     "taxonId": 56057,
@@ -494,6 +620,38 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "56088": {
+    "taxonId": 56088,
+    "scientificName": "Robinia pseudoacacia",
+    "symbol": "ROPS",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "White",
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 60,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "57635": {
+    "taxonId": 57635,
+    "scientificName": "Hyacinthoides hispanica",
+    "symbol": "HYHI5",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "58721": {
     "taxonId": 58721,
     "scientificName": "Larix laricina",
@@ -509,12 +667,72 @@
     "matureHeightFt": 80,
     "matureHeightBin": "Over 30 ft"
   },
+  "58961": {
+    "taxonId": 58961,
+    "scientificName": "Plantago major",
+    "symbol": "PLMA2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 0.3,
+    "matureHeightBin": "Under 1 ft"
+  },
+  "59570": {
+    "taxonId": 59570,
+    "scientificName": "Arctium minus",
+    "symbol": "ARMI2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "59753": {
+    "taxonId": 59753,
+    "scientificName": "Erigeron pulchellus",
+    "symbol": "ERPU",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "59773": {
     "taxonId": 59773,
     "scientificName": "Lonicera morrowii",
     "symbol": "LOMO2",
     "growthHabits": [
       "Shrub"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "62351": {
+    "taxonId": 62351,
+    "scientificName": "Lobelia inflata",
+    "symbol": "LOIN",
+    "growthHabits": [
+      "Forb/herb"
     ],
     "evergreen": null,
     "bloomPeriod": [],
@@ -588,6 +806,23 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "63951": {
+    "taxonId": 63951,
+    "scientificName": "Pyrus communis",
+    "symbol": "PYCO",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "White",
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 50,
+    "matureHeightBin": "Over 30 ft"
+  },
   "64540": {
     "taxonId": 64540,
     "scientificName": "Celastrus orbiculatus",
@@ -618,6 +853,21 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "68087": {
+    "taxonId": 68087,
+    "scientificName": "Abies concolor",
+    "symbol": "ABCO",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": true,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 120,
+    "matureHeightBin": "Over 30 ft"
+  },
   "69713": {
     "taxonId": 69713,
     "scientificName": "Rubus hispidus",
@@ -634,6 +884,36 @@
     "moistureUse": "High",
     "matureHeightFt": 2,
     "matureHeightBin": "1–3 ft"
+  },
+  "75463": {
+    "taxonId": 75463,
+    "scientificName": "Antennaria howellii",
+    "symbol": "ANHO",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "75475": {
+    "taxonId": 75475,
+    "scientificName": "Anthoxanthum odoratum",
+    "symbol": "ANOD",
+    "growthHabits": [
+      "Grass"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
   },
   "76897": {
     "taxonId": 76897,
@@ -745,6 +1025,21 @@
     "matureHeightFt": 6,
     "matureHeightBin": "3–10 ft"
   },
+  "82310": {
+    "taxonId": 82310,
+    "scientificName": "Carex lurida",
+    "symbol": "CALU5",
+    "growthHabits": [
+      "Grass"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 3.2,
+    "matureHeightBin": "3–10 ft"
+  },
   "82576": {
     "taxonId": 82576,
     "scientificName": "Onoclea sensibilis",
@@ -793,6 +1088,40 @@
     "matureHeightFt": 25,
     "matureHeightBin": "10–30 ft"
   },
+  "83072": {
+    "taxonId": 83072,
+    "scientificName": "Syringa vulgaris",
+    "symbol": "SYVU",
+    "growthHabits": [
+      "Shrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "Purple",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 20,
+    "matureHeightBin": "10–30 ft"
+  },
+  "83156": {
+    "taxonId": 83156,
+    "scientificName": "Hydrangea quercifolia",
+    "symbol": "HYQU3",
+    "growthHabits": [
+      "Shrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "White",
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 6,
+    "matureHeightBin": "3–10 ft"
+  },
   "83799": {
     "taxonId": 83799,
     "scientificName": "Mitchella repens",
@@ -815,6 +1144,39 @@
     "symbol": "CLVU",
     "growthHabits": [
       "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "85320": {
+    "taxonId": 85320,
+    "scientificName": "Monarda fistulosa",
+    "symbol": "MOFI",
+    "growthHabits": [
+      "Forb/herb",
+      "Subshrub"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Red",
+    "shadeTolerance": "Medium",
+    "moistureUse": "High",
+    "matureHeightFt": 4.9,
+    "matureHeightBin": "3–10 ft"
+  },
+  "116710": {
+    "taxonId": 116710,
+    "scientificName": "Microstegium vimineum",
+    "symbol": "MIVI",
+    "growthHabits": [
+      "Grass"
     ],
     "evergreen": null,
     "bloomPeriod": [],
@@ -854,6 +1216,38 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "119092": {
+    "taxonId": 119092,
+    "scientificName": "Picea pungens",
+    "symbol": "PIPU",
+    "growthHabits": [
+      "Tree"
+    ],
+    "evergreen": true,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 75,
+    "matureHeightBin": "Over 30 ft"
+  },
+  "119809": {
+    "taxonId": 119809,
+    "scientificName": "Lonicera sempervirens",
+    "symbol": "LOSE",
+    "growthHabits": [
+      "Vine"
+    ],
+    "evergreen": true,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Red",
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 16,
+    "matureHeightBin": "10–30 ft"
+  },
   "120181": {
     "taxonId": 120181,
     "scientificName": "Oclemena acuminata",
@@ -884,6 +1278,19 @@
     "moistureUse": "Low",
     "matureHeightFt": 2,
     "matureHeightBin": "1–3 ft"
+  },
+  "122034": {
+    "taxonId": 122034,
+    "scientificName": "Hydrangea macrophylla",
+    "symbol": "HYMA7",
+    "growthHabits": [],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": "Blue",
+    "shadeTolerance": "Low",
+    "moistureUse": "Low",
+    "matureHeightFt": 4,
+    "matureHeightBin": "3–10 ft"
   },
   "125489": {
     "taxonId": 125489,
@@ -949,6 +1356,24 @@
     "shadeTolerance": "Medium",
     "moistureUse": "Medium",
     "matureHeightFt": 3,
+    "matureHeightBin": "3–10 ft"
+  },
+  "127186": {
+    "taxonId": 127186,
+    "scientificName": "Securigera varia",
+    "symbol": "SEVA4",
+    "growthHabits": [
+      "Forb/herb",
+      "Vine"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "Purple",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 3.3,
     "matureHeightBin": "3–10 ft"
   },
   "127685": {
@@ -1091,12 +1516,57 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "141535": {
+    "taxonId": 141535,
+    "scientificName": "Plagiomnium cuspidatum",
+    "symbol": "PLCU4",
+    "growthHabits": [
+      "Nonvascular"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "143803": {
+    "taxonId": 143803,
+    "scientificName": "Persicaria longiseta",
+    "symbol": "PELO10",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "146717": {
     "taxonId": 146717,
     "scientificName": "Solidago bicolor",
     "symbol": "SOBI",
     "growthHabits": [
       "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "160369": {
+    "taxonId": 160369,
+    "scientificName": "Chaenomeles speciosa",
+    "symbol": "CHSP12",
+    "growthHabits": [
+      "Shrub"
     ],
     "evergreen": null,
     "bloomPeriod": [],
@@ -1121,6 +1591,21 @@
     "moistureUse": "Low",
     "matureHeightFt": 30,
     "matureHeightBin": "Over 30 ft"
+  },
+  "169738": {
+    "taxonId": 169738,
+    "scientificName": "Thuidium delicatulum",
+    "symbol": "THDE10",
+    "growthHabits": [
+      "Nonvascular"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
   },
   "169753": {
     "taxonId": 169753,
@@ -1157,6 +1642,32 @@
     "taxonId": 204174,
     "scientificName": "Lysimachia borealis",
     "notFound": true,
+    "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "320888": {
+    "taxonId": 320888,
+    "scientificName": "Pilosella piloselloides",
+    "notFound": true,
+    "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "429454": {
+    "taxonId": 429454,
+    "scientificName": "Syringa meyeri",
+    "symbol": "SYME3",
     "growthHabits": [],
     "evergreen": null,
     "bloomPeriod": [],

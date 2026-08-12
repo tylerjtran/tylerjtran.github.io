@@ -327,6 +327,24 @@
     "matureHeightFt": 6.6,
     "matureHeightBin": "3–10 ft"
   },
+  "52763": {
+    "taxonId": 52763,
+    "scientificName": "Cephalanthus occidentalis",
+    "symbol": "CEOC2",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "White",
+    "shadeTolerance": "Low",
+    "moistureUse": "High",
+    "matureHeightFt": 15,
+    "matureHeightBin": "10–30 ft"
+  },
   "52764": {
     "taxonId": 52764,
     "scientificName": "Prunella vulgaris",
@@ -413,6 +431,22 @@
     "symbol": "OXST",
     "growthHabits": [
       "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "53387": {
+    "taxonId": 53387,
+    "scientificName": "Cornus sericea",
+    "symbol": "COSE16",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
     ],
     "evergreen": null,
     "bloomPeriod": [],
@@ -934,6 +968,21 @@
     "taxonId": 77155,
     "scientificName": "Fragaria virginiana",
     "symbol": "FRVI",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "77915": {
+    "taxonId": 77915,
+    "scientificName": "Lycopus uniflorus",
+    "symbol": "LYUN",
     "growthHabits": [
       "Forb/herb"
     ],
@@ -1522,6 +1571,21 @@
     "symbol": "PLCU4",
     "growthHabits": [
       "Nonvascular"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "143656": {
+    "taxonId": 143656,
+    "scientificName": "Carex gynandra",
+    "symbol": "CAGY4",
+    "growthHabits": [
+      "Grass"
     ],
     "evergreen": null,
     "bloomPeriod": [],

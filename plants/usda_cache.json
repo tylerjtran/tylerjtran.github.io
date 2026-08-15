@@ -312,6 +312,22 @@
     "matureHeightFt": 150,
     "matureHeightBin": "Over 30 ft"
   },
+  "52543": {
+    "taxonId": 52543,
+    "scientificName": "Acer saccharum",
+    "symbol": "ACSA3",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "Medium",
+    "matureHeightFt": 100,
+    "matureHeightBin": "Over 30 ft"
+  },
   "52681": {
     "taxonId": 52681,
     "scientificName": "Pteridium aquilinum",
@@ -376,6 +392,23 @@
     "moistureUse": null,
     "matureHeightFt": null,
     "matureHeightBin": null
+  },
+  "52821": {
+    "taxonId": 52821,
+    "scientificName": "Achillea millefolium",
+    "symbol": "ACMI2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "White",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 3,
+    "matureHeightBin": "3–10 ft"
   },
   "52833": {
     "taxonId": 52833,
@@ -811,6 +844,21 @@
     "matureHeightFt": 0.5,
     "matureHeightBin": "Under 1 ft"
   },
+  "63058": {
+    "taxonId": 63058,
+    "scientificName": "Osmunda claytoniana",
+    "symbol": "OSCL2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Low",
+    "moistureUse": "High",
+    "matureHeightFt": 4,
+    "matureHeightBin": "3–10 ft"
+  },
   "63115": {
     "taxonId": 63115,
     "scientificName": "Dennstaedtia punctilobula",
@@ -893,6 +941,21 @@
     "taxonId": 67748,
     "scientificName": "Maianthemum canadense",
     "symbol": "MACA4",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "67772": {
+    "taxonId": 67772,
+    "scientificName": "Uvularia sessilifolia",
+    "symbol": "UVSE",
     "growthHabits": [
       "Forb/herb"
     ],
@@ -1552,6 +1615,37 @@
     "matureHeightFt": 52,
     "matureHeightBin": "Over 30 ft"
   },
+  "130126": {
+    "taxonId": 130126,
+    "scientificName": "Salix sericea",
+    "symbol": "SASE",
+    "growthHabits": [
+      "Shrub",
+      "Tree"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "Medium",
+    "moistureUse": "High",
+    "matureHeightFt": 12,
+    "matureHeightBin": "10–30 ft"
+  },
+  "130951": {
+    "taxonId": 130951,
+    "scientificName": "Nabalus altissimus",
+    "symbol": "NAAL3",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "130989": {
     "taxonId": 130989,
     "scientificName": "Euthamia graminifolia",
@@ -1780,6 +1874,36 @@
     "scientificName": "Syringa meyeri",
     "symbol": "SYME3",
     "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "430124": {
+    "taxonId": 430124,
+    "scientificName": "Stellaria aquatica",
+    "symbol": "STAQ4",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "497911": {
+    "taxonId": 497911,
+    "scientificName": "Polygaloides paucifolia",
+    "symbol": "POPA4",
+    "growthHabits": [
+      "Forb/herb"
+    ],
     "evergreen": null,
     "bloomPeriod": [],
     "flowerColor": null,

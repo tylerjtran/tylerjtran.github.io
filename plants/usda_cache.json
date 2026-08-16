@@ -811,6 +811,22 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "60746": {
+    "taxonId": 60746,
+    "scientificName": "Smilax rotundifolia",
+    "symbol": "SMRO",
+    "growthHabits": [
+      "Shrub",
+      "Vine"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 1,
+    "matureHeightBin": "1–3 ft"
+  },
   "62351": {
     "taxonId": 62351,
     "scientificName": "Lobelia inflata",
@@ -1848,6 +1864,21 @@
     "scientificName": "Lysimachia borealis",
     "notFound": true,
     "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "204377": {
+    "taxonId": 204377,
+    "scientificName": "Persicaria nepalensis",
+    "symbol": "PENE",
+    "growthHabits": [
+      "Forb/herb"
+    ],
     "evergreen": null,
     "bloomPeriod": [],
     "flowerColor": null,

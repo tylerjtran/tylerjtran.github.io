@@ -1075,6 +1075,23 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "77349": {
+    "taxonId": 77349,
+    "scientificName": "Helenium autumnale",
+    "symbol": "HEAU",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Fall"
+    ],
+    "flowerColor": "Yellow",
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 4.9,
+    "matureHeightBin": "3–10 ft"
+  },
   "77915": {
     "taxonId": 77915,
     "scientificName": "Lycopus uniflorus",
@@ -1646,6 +1663,23 @@
     "moistureUse": "High",
     "matureHeightFt": 12,
     "matureHeightBin": "10–30 ft"
+  },
+  "130377": {
+    "taxonId": 130377,
+    "scientificName": "Solidago nemoralis",
+    "symbol": "SONE",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Yellow",
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 2,
+    "matureHeightBin": "1–3 ft"
   },
   "130951": {
     "taxonId": 130951,

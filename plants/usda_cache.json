@@ -1267,6 +1267,21 @@
     "matureHeightFt": 20,
     "matureHeightBin": "10–30 ft"
   },
+  "83073": {
+    "taxonId": 83073,
+    "scientificName": "Solidago gigantea",
+    "symbol": "SOGI",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [],
+    "flowerColor": "Yellow",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 8.2,
+    "matureHeightBin": "3–10 ft"
+  },
   "83156": {
     "taxonId": 83156,
     "scientificName": "Hydrangea quercifolia",
@@ -1980,6 +1995,19 @@
   "764796": {
     "taxonId": 764796,
     "scientificName": "Polypodiidae",
+    "notFound": true,
+    "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "773386": {
+    "taxonId": 773386,
+    "scientificName": "Spiranthes arcisepala",
     "notFound": true,
     "growthHabits": [],
     "evergreen": null,

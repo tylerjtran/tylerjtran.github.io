@@ -279,6 +279,23 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "51875": {
+    "taxonId": 51875,
+    "scientificName": "Trifolium pratense",
+    "symbol": "TRPR2",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Spring"
+    ],
+    "flowerColor": "Red",
+    "shadeTolerance": "Medium",
+    "moistureUse": "Medium",
+    "matureHeightFt": 2,
+    "matureHeightBin": "1–3 ft"
+  },
   "51970": {
     "taxonId": 51970,
     "scientificName": "Hamamelis virginiana",
@@ -1468,6 +1485,21 @@
     "moistureUse": "Low",
     "matureHeightFt": 4,
     "matureHeightBin": "3–10 ft"
+  },
+  "122249": {
+    "taxonId": 122249,
+    "scientificName": "Symphyotrichum lateriflorum",
+    "symbol": "SYLA4",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
   },
   "125482": {
     "taxonId": 125482,

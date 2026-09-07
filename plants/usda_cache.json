@@ -2009,6 +2009,19 @@
     "matureHeightFt": null,
     "matureHeightBin": null
   },
+  "451914": {
+    "taxonId": 451914,
+    "scientificName": "Carlina biebersteinii",
+    "notFound": true,
+    "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "497911": {
     "taxonId": 497911,
     "scientificName": "Polygaloides paucifolia",

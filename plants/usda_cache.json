@@ -1219,6 +1219,19 @@
     "matureHeightFt": 3.2,
     "matureHeightBin": "3–10 ft"
   },
+  "82568": {
+    "taxonId": 82568,
+    "scientificName": "Dryopteris intermedia",
+    "fetchError": "getaddrinfo EAI_AGAIN plantsservices.sc.egov.usda.gov",
+    "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "82576": {
     "taxonId": 82576,
     "scientificName": "Onoclea sensibilis",
@@ -1825,6 +1838,19 @@
     "growthHabits": [
       "Forb/herb"
     ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "146705": {
+    "taxonId": 146705,
+    "scientificName": "Symphyotrichum prenanthoides",
+    "fetchError": "getaddrinfo EAI_AGAIN plantsservices.sc.egov.usda.gov",
+    "growthHabits": [],
     "evergreen": null,
     "bloomPeriod": [],
     "flowerColor": null,

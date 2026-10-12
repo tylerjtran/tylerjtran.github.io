@@ -1849,15 +1849,19 @@
   "146705": {
     "taxonId": 146705,
     "scientificName": "Symphyotrichum prenanthoides",
-    "fetchError": "getaddrinfo EAI_AGAIN plantsservices.sc.egov.usda.gov",
-    "growthHabits": [],
-    "evergreen": null,
-    "bloomPeriod": [],
-    "flowerColor": null,
-    "shadeTolerance": null,
-    "moistureUse": null,
-    "matureHeightFt": null,
-    "matureHeightBin": null
+    "symbol": "SYPR6",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": false,
+    "bloomPeriod": [
+      "Summer"
+    ],
+    "flowerColor": "Blue",
+    "shadeTolerance": "High",
+    "moistureUse": "Medium",
+    "matureHeightFt": 4,
+    "matureHeightBin": "3–10 ft"
   },
   "146717": {
     "taxonId": 146717,

@@ -1222,8 +1222,10 @@
   "82568": {
     "taxonId": 82568,
     "scientificName": "Dryopteris intermedia",
-    "fetchError": "getaddrinfo EAI_AGAIN plantsservices.sc.egov.usda.gov",
-    "growthHabits": [],
+    "symbol": "DRIN5",
+    "growthHabits": [
+      "Forb/herb"
+    ],
     "evergreen": null,
     "bloomPeriod": [],
     "flowerColor": null,

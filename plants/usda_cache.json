@@ -738,6 +738,21 @@
     "matureHeightFt": 60,
     "matureHeightBin": "Over 30 ft"
   },
+  "56222": {
+    "taxonId": 56222,
+    "scientificName": "Tussilago farfara",
+    "symbol": "TUFA",
+    "growthHabits": [
+      "Forb/herb"
+    ],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
   "57635": {
     "taxonId": 57635,
     "scientificName": "Hyacinthoides hispanica",
@@ -2085,6 +2100,19 @@
   "773386": {
     "taxonId": 773386,
     "scientificName": "Spiranthes arcisepala",
+    "notFound": true,
+    "growthHabits": [],
+    "evergreen": null,
+    "bloomPeriod": [],
+    "flowerColor": null,
+    "shadeTolerance": null,
+    "moistureUse": null,
+    "matureHeightFt": null,
+    "matureHeightBin": null
+  },
+  "1278022": {
+    "taxonId": 1278022,
+    "scientificName": "Callicladium imponens",
     "notFound": true,
     "growthHabits": [],
     "evergreen": null,
